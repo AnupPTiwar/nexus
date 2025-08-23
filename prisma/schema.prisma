@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client"
   output          = "./generated"
@@ -25,6 +22,7 @@ enum ResourceAction {
   MANAGE
   READ
   UPDATE
+  TRIGGER
 }
 
 enum ResourceType {
@@ -39,6 +37,7 @@ enum ResourceType {
   WORKFLOW_TEMPLATE
   NOTIFICATION
   USER_PREFERENCES
+  BRANCH
 }
 
 enum WorkflowRunStatus {
@@ -46,6 +45,7 @@ enum WorkflowRunStatus {
   IN_PROGRESS
   COMPLETED
   DISPATCHED
+  PENDING // For imported runs
 }
 
 enum WorkflowRunConclusion {
@@ -54,6 +54,14 @@ enum WorkflowRunConclusion {
   CANCELLED
   SKIPPED
   TIMED_OUT
+}
+
+enum WorkflowRunSource {
+  PLATFORM // Triggered from our platform
+  GITHUB_UI // Triggered from GitHub UI
+  GITHUB_API // Triggered via API
+  GITHUB_EVENT // Triggered by GitHub events (push, PR, etc.)
+  IMPORTED // Imported from webhook
 }
 
 enum WorkflowJobStatus {
@@ -94,6 +102,7 @@ enum AuditAction {
   SYNC_REPOSITORY
   LOCK_USER
   UNLOCK_USER
+  IMPORT_WORKFLOW_RUN
 }
 
 enum Visibility {
@@ -114,6 +123,8 @@ enum WorkflowState {
 enum AuthProvider {
   GITHUB
   MICROSOFT
+  GITLAB
+  BITBUCKET
 }
 
 enum UserStatus {
@@ -121,6 +132,13 @@ enum UserStatus {
   INACTIVE
   LOCKED
   PENDING_VERIFICATION
+}
+
+enum UserRole {
+  OWNER
+  CONTRIBUTOR
+  MEMBER
+  VIEWER
 }
 
 enum NotificationType {
@@ -136,6 +154,13 @@ enum SchedulerStatus {
   DISABLED
 }
 
+enum SyncStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
 // =============================================================================
 // CORE MODELS - User management and authentication
 // =============================================================================
@@ -149,11 +174,18 @@ model User {
 
   lastLoginAt DateTime?
 
+  // Platform preferences
+  importExternalRuns   Boolean @default(false) // Import runs triggered outside platform
+  showOnlyPlatformRuns Boolean @default(false) // Filter to show only platform-triggered runs
+
   // Core relationships
-  repositories     Repository[]
-  workflowRuns     WorkflowRun[]
-  notifications    Notification[]
-  repositoryTokens RepositoryToken[] @relation("TokenOwner")
+  repositories      Repository[]
+  workflowRuns      WorkflowRun[]
+  notifications     Notification[]
+  repositoryTokens  RepositoryToken[]  @relation("TokenOwner")
+  branchPermissions BranchPermission[]
+  providerAccounts  ProviderAccount[]
+  auditLogs         AuditLog[]
 
   // Simple permissions array (format: "resource:action")
   permissions String[]
@@ -170,6 +202,57 @@ model User {
 }
 
 // =============================================================================
+// PROVIDER MODELS - External service integration
+// =============================================================================
+
+model Provider {
+  id          String  @id @default(cuid())
+  name        String  @unique // 'github', 'gitlab', etc.
+  displayName String
+  baseUrl     String?
+  apiUrl      String?
+  isActive    Boolean @default(true)
+
+  providerAccounts ProviderAccount[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("providers")
+}
+
+model ProviderAccount {
+  id                String    @id @default(cuid())
+  providerAccountId String // GitHub user ID, GitLab user ID, etc.
+  username          String // GitHub username, GitLab username, etc.
+  email             String?
+  name              String?
+  avatarUrl         String?
+  accessToken       String? // Encrypted OAuth token
+  refreshToken      String? // Encrypted refresh token
+  tokenExpiresAt    DateTime?
+
+  // Relationships
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  providerId String
+  provider   Provider @relation(fields: [providerId], references: [id])
+
+  // Track workflow runs from this account
+  workflowRuns WorkflowRun[] @relation("ActorAccount")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([providerId, providerAccountId])
+  @@unique([userId, providerId]) // One account per provider per user
+  @@index([userId])
+  @@index([providerId])
+  @@map("provider_accounts")
+}
+
+// =============================================================================
 // REPOSITORY MODELS - GitHub integration and token management
 // =============================================================================
 
@@ -177,6 +260,7 @@ model Repository {
   id            String     @id @default(cuid())
   name          String
   githubOwner   String
+  githubRepoId  BigInt? // GitHub repository ID
   githubUrl     String     @unique
   description   String?
   visibility    Visibility
@@ -184,20 +268,31 @@ model Repository {
   isSyncing     Boolean    @default(false)
   lastSyncAt    DateTime?
   webhookSecret String? // Encrypted webhook secret
+  webhookId     String? // GitHub webhook ID
+
+  // Sync preferences
+  importAllRuns Boolean @default(false) // Import all workflow runs
+  autoSync      Boolean @default(true) // Auto-sync on webhook events
+  syncInterval  Int? // Sync interval in minutes (null = manual only)
 
   // Relationships
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  repositoryTokens RepositoryToken[]
-  workflows        Workflow[]
+  repositoryTokens  RepositoryToken[]
+  workflows         Workflow[]
+  branchPermissions BranchPermission[]
+  syncJobs          SyncJob[]
+  webhookEvents     WebhookEvent[]
 
   // Metadata
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  AnalyticsSnapshot AnalyticsSnapshot[]
 
   @@index([userId])
+  @@index([githubOwner, name])
   @@map("repositories")
 }
 
@@ -208,6 +303,7 @@ model RepositoryToken {
   type       TokenType @default(PRIVATE)
   isActive   Boolean   @default(true)
   lastUsedAt DateTime?
+  expiresAt  DateTime? // Token expiration date
 
   // GitHub user details (from token validation)
   githubUserId BigInt?
@@ -215,6 +311,7 @@ model RepositoryToken {
   githubEmail  String?
   githubName   String?
   avatarUrl    String?
+  scopes       String[] // GitHub token scopes
 
   // Relationships
   repositoryId String
@@ -230,6 +327,7 @@ model RepositoryToken {
 
   @@index([repositoryId])
   @@index([userId])
+  @@index([type, isActive])
   @@map("repository_tokens")
 }
 
@@ -240,18 +338,24 @@ model RepositoryToken {
 model Workflow {
   id       String        @id @default(cuid())
   githubId BigInt
+  nodeId   String? // GitHub node ID
   name     String
   path     String
   state    WorkflowState
   isActive Boolean       @default(true)
+  badgeUrl String?
+  htmlUrl  String?
+
+  // Default inputs (from main branch usually)
   /// [WorkflowInput[]]
-  inputs   Json          @db.JsonB // WorkflowInput[] - storing as JSONB
+  defaultInputs Json? @db.JsonB
 
   // Relationships
   repositoryId String
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 
-  workflowRuns WorkflowRun[]
+  workflowRuns     WorkflowRun[]
+  workflowBranches WorkflowBranch[]
 
   // Metadata
   createdAt DateTime  @default(now())
@@ -266,28 +370,87 @@ model Workflow {
   @@map("workflows")
 }
 
+model WorkflowBranch {
+  id         String    @id @default(cuid())
+  branchName String
+  /// [WorkflowInput[]]
+  inputs     Json      @db.JsonB // Store parsed inputs for this branch
+  isActive   Boolean   @default(true)
+  lastSyncAt DateTime?
+
+  // Relationships
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workflowId, branchName])
+  @@index([workflowId])
+  @@index([branchName])
+  @@map("workflow_branches")
+}
+
 model WorkflowRun {
-  id             String                 @id @default(cuid())
-  githubId       BigInt
-  runNumber      Int
-  runAttempt     Int                    @default(1) // Track GitHub run attempts
-  status         WorkflowRunStatus
-  conclusion     WorkflowRunConclusion?
-  triggerBranch  String
-  headSha        String
-  runnerId       Int?
-  runnerName     String?
+  id            String                 @id @default(cuid())
+  githubId      BigInt
+  nodeId        String? // GitHub node ID
+  runNumber     Int
+  runAttempt    Int                    @default(1)
+  displayTitle  String?
+  status        WorkflowRunStatus
+  conclusion    WorkflowRunConclusion?
+  source        WorkflowRunSource      @default(PLATFORM)
+  triggerBranch String
+  headBranch    String?
+  headSha       String
+  baseSha       String?
+  event         String? // push, pull_request, workflow_dispatch, etc.
+
+  // Approval system fields
+  environment      String? // Environment name for approvals
+  approvalRequired Boolean @default(false)
+
+  // Runner information
+  runnerId        Int?
+  runnerName      String?
+  runnerGroupId   Int?
+  runnerGroupName String?
+
+  // Inputs and outputs
   /// [WorkflowRunInputs]
-  inputs         Json?                  @db.JsonB // Record<string, any>
+  inputs  Json? @db.JsonB
+  /// [WorkflowRunOutputs]
+  outputs Json? @db.JsonB
+
+  // Timing
   runStartedAt   DateTime?
   runCompletedAt DateTime?
 
-  // GitHub Actor information (from API response)
+  // URLs
+  htmlUrl       String?
+  jobsUrl       String?
+  logsUrl       String?
+  checkSuiteUrl String?
+  artifactsUrl  String?
+  cancelUrl     String?
+  rerunUrl      String?
+
+  // GitHub Actor information
   actorId    BigInt? // GitHub user ID
   actorLogin String? // GitHub username
+  actorType  String? // User, Bot, etc.
+
+  // Triggering user (from our platform)
+  triggeredById String?
+  triggeredBy   User?   @relation(fields: [triggeredById], references: [id], onDelete: SetNull)
+
+  // Actor provider account (if matched)
+  actorAccountId String?
+  actorAccount   ProviderAccount? @relation("ActorAccount", fields: [actorAccountId], references: [id], onDelete: SetNull)
 
   // Parent run tracking for re-runs
-  parentRunId String? // For UI-triggered re-runs
+  parentRunId String?
   parentRun   WorkflowRun?  @relation("RunReRuns", fields: [parentRunId], references: [id])
   reRuns      WorkflowRun[] @relation("RunReRuns")
 
@@ -295,10 +458,11 @@ model WorkflowRun {
   workflowId String
   workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
-
   jobs WorkflowJob[]
+
+  // New relationships for approval and re-run system
+  approvals    WorkflowApproval[]
+  reRunHistory ReRunHistory[]     @relation("ParentRun")
 
   // Metadata
   createdAt DateTime  @default(now())
@@ -307,30 +471,45 @@ model WorkflowRun {
 
   @@unique([workflowId, githubId, runAttempt])
   @@index([workflowId])
-  @@index([userId])
+  @@index([triggeredById])
+  @@index([actorAccountId])
   @@index([status])
   @@index([conclusion])
+  @@index([source])
   @@index([runStartedAt])
   @@index([runCompletedAt])
   @@index([parentRunId])
   // Composite indexes for dashboard queries
   @@index([workflowId, status, runStartedAt])
-  @@index([userId, status, runStartedAt])
+  @@index([triggeredById, status, runStartedAt])
   @@index([status, conclusion, runStartedAt])
   @@map("workflow_runs")
 }
 
 model WorkflowJob {
-  id              String                 @id @default(cuid())
-  githubId        BigInt? // GitHub job ID
-  name            String
-  status          WorkflowJobStatus
-  conclusion      WorkflowJobConclusion?
-  startedAt       DateTime?
-  completedAt     DateTime?
+  id          String                 @id @default(cuid())
+  githubId    BigInt?
+  nodeId      String?
+  runId       BigInt // GitHub run ID
+  name        String
+  headSha     String?
+  status      WorkflowJobStatus
+  conclusion  WorkflowJobConclusion?
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  // Runner information
   runnerName      String?
   runnerGroupName String?
-  githubUrl       String? // Direct link to GitHub job
+  runnerId        Int?
+  runnerGroupId   Int?
+
+  // URLs
+  htmlUrl     String?
+  checkRunUrl String?
+
+  // Labels
+  labels String[]
 
   // Relationships
   workflowRunId String
@@ -343,6 +522,7 @@ model WorkflowJob {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
+  @@unique([workflowRunId, githubId])
   @@index([workflowRunId])
   @@index([status])
   @@index([startedAt])
@@ -354,7 +534,7 @@ model WorkflowStep {
   name        String
   status      WorkflowStepStatus
   conclusion  WorkflowStepConclusion?
-  number      Int // Step number in the job
+  number      Int
   startedAt   DateTime?
   completedAt DateTime?
 
@@ -371,6 +551,100 @@ model WorkflowStep {
   @@index([status])
   @@map("workflow_steps")
 }
+
+// =============================================================================
+// PERMISSION MODELS
+// =============================================================================
+
+model BranchPermission {
+  id         String  @id @default(cuid())
+  branchName String
+  canView    Boolean @default(false)
+  canTrigger Boolean @default(false)
+
+  // Relationships
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, repositoryId, branchName])
+  @@index([userId])
+  @@index([repositoryId])
+  @@map("branch_permissions")
+}
+
+// =============================================================================
+// SYNC AND PROCESSING MODELS
+// =============================================================================
+
+model SyncJob {
+  id             String     @id @default(cuid())
+  type           String // 'full', 'workflows', 'runs', 'incremental'
+  status         SyncStatus
+  totalItems     Int        @default(0)
+  processedItems Int        @default(0)
+  failedItems    Int        @default(0)
+
+  // Progress details
+  /// [SyncProgress]
+  progress Json? @db.JsonB
+  /// [SyncError[]]
+  errors   Json? @db.JsonB
+
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  // Relationships
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([repositoryId])
+  @@index([status])
+  @@index([type])
+  @@map("sync_jobs")
+}
+
+model WebhookEvent {
+  id               String    @id @default(cuid())
+  githubEventId    String?   @unique
+  githubDeliveryId String?   @unique
+  eventType        String // workflow_run, workflow_job, etc.
+  action           String? // completed, in_progress, etc.
+  payload          Json      @db.JsonB
+  signature        String?
+  processed        Boolean   @default(false)
+  processedAt      DateTime?
+  retryCount       Int       @default(0)
+  maxRetries       Int       @default(3)
+  error            String?   @db.Text
+
+  // Relationships
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Auto-delete old events after 30 days
+  @@index([githubEventId])
+  @@index([githubDeliveryId])
+  @@index([processed, createdAt])
+  @@index([repositoryId])
+  @@index([eventType, action])
+  @@map("webhook_events")
+}
+
+// =============================================================================
+// NOTIFICATION MODELS
+// =============================================================================
 
 model Notification {
   id           String           @id @default(cuid())
@@ -398,4 +672,155 @@ model Notification {
   @@index([resourceType, resourceId])
   @@index([type])
   @@map("notifications")
+}
+
+// =============================================================================
+// AUDIT MODELS
+// =============================================================================
+
+model AuditLog {
+  id           String       @id @default(cuid())
+  action       AuditAction
+  resourceType ResourceType
+  resourceId   String
+  details      Json?        @db.JsonB
+  ipAddress    String?
+  userAgent    String?
+
+  // Relationships
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([resourceType, resourceId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// Approval system models
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  TIMED_OUT
+}
+
+model WorkflowApproval {
+  id            String  @id @default(cuid())
+  workflowRunId String
+  githubRunId   BigInt
+  environment   String?
+
+  // Approval state
+  status      ApprovalStatus
+  requestedAt DateTime
+  respondedAt DateTime?
+
+  // Approvers from GitHub
+  approvers       Json? // Array of approver objects from webhook
+  approverDetails String? // Parsed approver names/emails
+
+  // Response tracking
+  approvedBy String?
+  rejectedBy String?
+  comment    String?
+
+  // GitHub URLs
+  htmlUrl        String
+  environmentUrl String?
+
+  // Notifications sent
+  notificationsSent Json? // Track which notifications were sent
+
+  workflowRun WorkflowRun @relation(fields: [workflowRunId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([workflowRunId])
+  @@index([status])
+  @@index([requestedAt])
+  @@map("workflow_approvals")
+}
+
+model NotificationLog {
+  id        String @id @default(cuid())
+  type      String // APPROVAL_REQUEST, STATUS_UPDATE, etc.
+  channel   String // EMAIL, SSE
+  recipient String // Email or userId
+
+  // Content
+  subject String?
+  content Json // Full notification content
+
+  // Delivery status
+  status        String // PENDING, SENT, DELIVERED, FAILED
+  sentAt        DateTime?
+  deliveredAt   DateTime?
+  failureReason String?
+
+  // Related entities
+  workflowRunId String?
+  approvalId    String?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([recipient])
+  @@index([status])
+  @@index([createdAt])
+  @@map("notification_logs")
+}
+
+model ReRunHistory {
+  id          String  @id @default(cuid())
+  parentRunId String
+  newRunId    String?
+
+  reRunType   String // COMPLETE, FAILED_JOBS, SPECIFIC_JOB
+  triggeredBy String
+  reason      String?
+
+  // GitHub API response
+  githubResponse Json?
+
+  status String // INITIATED, SUCCESS, FAILED
+  error  String?
+
+  createdAt DateTime @default(now())
+
+  parentRun WorkflowRun @relation("ParentRun", fields: [parentRunId], references: [id])
+
+  @@index([parentRunId])
+  @@index([triggeredBy])
+  @@index([createdAt])
+  @@map("rerun_history")
+}
+
+model AnalyticsSnapshot {
+  id           String   @id @default(cuid())
+  date         DateTime
+  repositoryId String?
+
+  // Aggregated metrics
+  metrics Json // Contains all calculated metrics
+
+  // Time-based aggregations
+  hourlyData Json?
+  dailyData  Json?
+
+  createdAt DateTime @default(now())
+
+  repository Repository? @relation(fields: [repositoryId], references: [id])
+
+  @@unique([date, repositoryId])
+  @@index([date])
+  @@index([repositoryId])
+  @@map("analytics_snapshots")
 }
