@@ -1,95 +1,233 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import {
+    Badge,
+    Button,
+    Card,
+    Center,
+    Container,
+    Group,
+    Paper,
+    SimpleGrid,
+    Stack,
+    Text,
+    ThemeIcon,
+    Title,
+} from "@mantine/core";
+import {
+    IconBrandGithub,
+    IconDatabase,
+    IconGitBranch,
+    IconPlayerPlay,
+    IconRefresh,
+    IconServer,
+    IconShieldCheck,
+    IconUserCheck,
+} from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+const capabilities = [
+    {
+        icon: IconBrandGithub,
+        title: "Repository Integration",
+        description:
+            "Seamlessly connect and manage multiple GitHub repositories with secure token management",
+        color: "dark",
+    },
+    {
+        icon: IconPlayerPlay,
+        title: "Workflow Execution",
+        description:
+            "Trigger, monitor, and manage GitHub Actions workflows with real-time status tracking",
+        color: "blue",
+    },
+    {
+        icon: IconDatabase,
+        title: "Run History",
+        description:
+            "Comprehensive tracking of workflow runs, jobs, and steps with detailed execution logs",
+        color: "grape",
+    },
+    {
+        icon: IconShieldCheck,
+        title: "Access Control",
+        description:
+            "Enterprise-grade permission system with resource-based access control",
+        color: "green",
+    },
+    {
+        icon: IconRefresh,
+        title: "Automated Sync",
+        description:
+            "Keep workflows synchronized with automatic repository updates and webhook integration",
+        color: "cyan",
+    },
+    {
+        icon: IconUserCheck,
+        title: "Audit Trail",
+        description:
+            "Complete audit logging for compliance and security tracking",
+        color: "orange",
+    },
+];
+
+export default function HomePage() {
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    const handleAccess = () => {
+        if (session) {
+            router.push("/dashboard");
+        } else {
+            router.push("/api/auth/signin");
+        }
+    };
+
+    return (
+        <Center mih="100vh" p="md">
+            <Container size="xl" w="100%">
+                <Stack gap="xl">
+                    {/* Header Section */}
+                    <Paper p={{ base: "xl", md: 60 }} radius="md" withBorder>
+                        <Stack align="center" gap="lg">
+                            <Group gap="xs">
+                                <ThemeIcon
+                                    size={48}
+                                    radius="md"
+                                    variant="light"
+                                    color="blue"
+                                >
+                                    <IconGitBranch size={28} stroke={1.5} />
+                                </ThemeIcon>
+                                <Title order={1} size={42} fw={600}>
+                                    Nexus Platform
+                                </Title>
+                            </Group>
+
+                            <Text size="lg" c="dimmed" maw={600} ta="center">
+                                Centralized GitHub workflow management platform
+                                for enterprise teams. Execute, monitor, and
+                                manage your CI/CD pipelines with confidence.
+                            </Text>
+
+                            <Group gap="md" mt="md">
+                                <Badge size="lg" variant="light" color="blue">
+                                    Internal Platform
+                                </Badge>
+                                <Badge size="lg" variant="light" color="green">
+                                    {status === "authenticated"
+                                        ? "Authenticated"
+                                        : "Secure Access"}
+                                </Badge>
+                                <Badge size="lg" variant="light" color="grape">
+                                    Enterprise Ready
+                                </Badge>
+                            </Group>
+
+                            <Button
+                                size="lg"
+                                radius="md"
+                                variant="filled"
+                                color="blue"
+                                leftSection={
+                                    status === "authenticated" ? (
+                                        <IconServer size={20} />
+                                    ) : (
+                                        <IconUserCheck size={20} />
+                                    )
+                                }
+                                onClick={handleAccess}
+                                loading={status === "loading"}
+                                mt="md"
+                            >
+                                {status === "authenticated"
+                                    ? "Access Dashboard"
+                                    : "Sign In to Continue"}
+                            </Button>
+                        </Stack>
+                    </Paper>
+
+                    {/* Capabilities Grid */}
+                    <Stack gap="md">
+                        <Title order={2} size="h3" ta="center" c="dimmed">
+                            Platform Capabilities
+                        </Title>
+
+                        <SimpleGrid
+                            cols={{ base: 1, sm: 2, lg: 3 }}
+                            spacing="lg"
+                        >
+                            {capabilities.map((capability) => (
+                                <Card
+                                    key={capability.title}
+                                    padding="lg"
+                                    radius="md"
+                                    withBorder
+                                >
+                                    <Stack gap="md">
+                                        <ThemeIcon
+                                            size={44}
+                                            radius="md"
+                                            variant="light"
+                                            color={capability.color}
+                                        >
+                                            <capability.icon
+                                                size={24}
+                                                stroke={1.5}
+                                            />
+                                        </ThemeIcon>
+                                        <Stack gap={4}>
+                                            <Text fw={600} size="lg">
+                                                {capability.title}
+                                            </Text>
+                                            <Text size="sm" c="dimmed" lh={1.5}>
+                                                {capability.description}
+                                            </Text>
+                                        </Stack>
+                                    </Stack>
+                                </Card>
+                            ))}
+                        </SimpleGrid>
+                    </Stack>
+
+                    {/* Footer Info */}
+                    <Paper p="xl" radius="md" withBorder>
+                        <Stack gap="xs" align="center">
+                            <Group gap="xl">
+                                <Stack gap={4} align="center">
+                                    <Text size="xl" fw={700}>
+                                        Secure
+                                    </Text>
+                                    <Text size="xs" c="dimmed">
+                                        Token Encryption
+                                    </Text>
+                                </Stack>
+                                <Stack gap={4} align="center">
+                                    <Text size="xl" fw={700}>
+                                        Reliable
+                                    </Text>
+                                    <Text size="xs" c="dimmed">
+                                        Real-time Sync
+                                    </Text>
+                                </Stack>
+                                <Stack gap={4} align="center">
+                                    <Text size="xl" fw={700}>
+                                        Scalable
+                                    </Text>
+                                    <Text size="xs" c="dimmed">
+                                        Enterprise Grade
+                                    </Text>
+                                </Stack>
+                            </Group>
+                            <Text size="xs" c="dimmed" mt="md">
+                                Built for internal teams to streamline GitHub
+                                Actions workflow management
+                            </Text>
+                        </Stack>
+                    </Paper>
+                </Stack>
+            </Container>
+        </Center>
+    );
 }
