@@ -27,23 +27,35 @@ export type AggregateWorkflowJob = {
 
 export type WorkflowJobAvgAggregateOutputType = {
   githubId: number | null
+  runId: number | null
+  runnerId: number | null
+  runnerGroupId: number | null
 }
 
 export type WorkflowJobSumAggregateOutputType = {
   githubId: bigint | null
+  runId: bigint | null
+  runnerId: number | null
+  runnerGroupId: number | null
 }
 
 export type WorkflowJobMinAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
+  runId: bigint | null
   name: string | null
+  headSha: string | null
   status: $Enums.WorkflowJobStatus | null
   conclusion: $Enums.WorkflowJobConclusion | null
   startedAt: Date | null
   completedAt: Date | null
   runnerName: string | null
   runnerGroupName: string | null
-  githubUrl: string | null
+  runnerId: number | null
+  runnerGroupId: number | null
+  htmlUrl: string | null
+  checkRunUrl: string | null
   workflowRunId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,14 +65,20 @@ export type WorkflowJobMinAggregateOutputType = {
 export type WorkflowJobMaxAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
+  runId: bigint | null
   name: string | null
+  headSha: string | null
   status: $Enums.WorkflowJobStatus | null
   conclusion: $Enums.WorkflowJobConclusion | null
   startedAt: Date | null
   completedAt: Date | null
   runnerName: string | null
   runnerGroupName: string | null
-  githubUrl: string | null
+  runnerId: number | null
+  runnerGroupId: number | null
+  htmlUrl: string | null
+  checkRunUrl: string | null
   workflowRunId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -70,14 +88,21 @@ export type WorkflowJobMaxAggregateOutputType = {
 export type WorkflowJobCountAggregateOutputType = {
   id: number
   githubId: number
+  nodeId: number
+  runId: number
   name: number
+  headSha: number
   status: number
   conclusion: number
   startedAt: number
   completedAt: number
   runnerName: number
   runnerGroupName: number
-  githubUrl: number
+  runnerId: number
+  runnerGroupId: number
+  htmlUrl: number
+  checkRunUrl: number
+  labels: number
   workflowRunId: number
   createdAt: number
   updatedAt: number
@@ -88,23 +113,35 @@ export type WorkflowJobCountAggregateOutputType = {
 
 export type WorkflowJobAvgAggregateInputType = {
   githubId?: true
+  runId?: true
+  runnerId?: true
+  runnerGroupId?: true
 }
 
 export type WorkflowJobSumAggregateInputType = {
   githubId?: true
+  runId?: true
+  runnerId?: true
+  runnerGroupId?: true
 }
 
 export type WorkflowJobMinAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
+  runId?: true
   name?: true
+  headSha?: true
   status?: true
   conclusion?: true
   startedAt?: true
   completedAt?: true
   runnerName?: true
   runnerGroupName?: true
-  githubUrl?: true
+  runnerId?: true
+  runnerGroupId?: true
+  htmlUrl?: true
+  checkRunUrl?: true
   workflowRunId?: true
   createdAt?: true
   updatedAt?: true
@@ -114,14 +151,20 @@ export type WorkflowJobMinAggregateInputType = {
 export type WorkflowJobMaxAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
+  runId?: true
   name?: true
+  headSha?: true
   status?: true
   conclusion?: true
   startedAt?: true
   completedAt?: true
   runnerName?: true
   runnerGroupName?: true
-  githubUrl?: true
+  runnerId?: true
+  runnerGroupId?: true
+  htmlUrl?: true
+  checkRunUrl?: true
   workflowRunId?: true
   createdAt?: true
   updatedAt?: true
@@ -131,14 +174,21 @@ export type WorkflowJobMaxAggregateInputType = {
 export type WorkflowJobCountAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
+  runId?: true
   name?: true
+  headSha?: true
   status?: true
   conclusion?: true
   startedAt?: true
   completedAt?: true
   runnerName?: true
   runnerGroupName?: true
-  githubUrl?: true
+  runnerId?: true
+  runnerGroupId?: true
+  htmlUrl?: true
+  checkRunUrl?: true
+  labels?: true
   workflowRunId?: true
   createdAt?: true
   updatedAt?: true
@@ -235,14 +285,21 @@ export type WorkflowJobGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type WorkflowJobGroupByOutputType = {
   id: string
   githubId: bigint | null
+  nodeId: string | null
+  runId: bigint
   name: string
+  headSha: string | null
   status: $Enums.WorkflowJobStatus
   conclusion: $Enums.WorkflowJobConclusion | null
   startedAt: Date | null
   completedAt: Date | null
   runnerName: string | null
   runnerGroupName: string | null
-  githubUrl: string | null
+  runnerId: number | null
+  runnerGroupId: number | null
+  htmlUrl: string | null
+  checkRunUrl: string | null
+  labels: string[]
   workflowRunId: string
   createdAt: Date
   updatedAt: Date
@@ -275,14 +332,21 @@ export type WorkflowJobWhereInput = {
   NOT?: Prisma.WorkflowJobWhereInput | Prisma.WorkflowJobWhereInput[]
   id?: Prisma.StringFilter<"WorkflowJob"> | string
   githubId?: Prisma.BigIntNullableFilter<"WorkflowJob"> | bigint | number | null
+  nodeId?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runId?: Prisma.BigIntFilter<"WorkflowJob"> | bigint | number
   name?: Prisma.StringFilter<"WorkflowJob"> | string
+  headSha?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   status?: Prisma.EnumWorkflowJobStatusFilter<"WorkflowJob"> | $Enums.WorkflowJobStatus
   conclusion?: Prisma.EnumWorkflowJobConclusionNullableFilter<"WorkflowJob"> | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   runnerGroupName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
-  githubUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runnerId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  checkRunUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  labels?: Prisma.StringNullableListFilter<"WorkflowJob">
   workflowRunId?: Prisma.StringFilter<"WorkflowJob"> | string
   createdAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
@@ -294,14 +358,21 @@ export type WorkflowJobWhereInput = {
 export type WorkflowJobOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  headSha?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerName?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerGroupName?: Prisma.SortOrderInput | Prisma.SortOrder
-  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkRunUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  labels?: Prisma.SortOrder
   workflowRunId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -313,37 +384,52 @@ export type WorkflowJobOrderByWithRelationInput = {
 
 export type WorkflowJobWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  workflowRunId_githubId?: Prisma.WorkflowJobWorkflowRunIdGithubIdCompoundUniqueInput
   AND?: Prisma.WorkflowJobWhereInput | Prisma.WorkflowJobWhereInput[]
   OR?: Prisma.WorkflowJobWhereInput[]
   NOT?: Prisma.WorkflowJobWhereInput | Prisma.WorkflowJobWhereInput[]
   githubId?: Prisma.BigIntNullableFilter<"WorkflowJob"> | bigint | number | null
+  nodeId?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runId?: Prisma.BigIntFilter<"WorkflowJob"> | bigint | number
   name?: Prisma.StringFilter<"WorkflowJob"> | string
+  headSha?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   status?: Prisma.EnumWorkflowJobStatusFilter<"WorkflowJob"> | $Enums.WorkflowJobStatus
   conclusion?: Prisma.EnumWorkflowJobConclusionNullableFilter<"WorkflowJob"> | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   runnerGroupName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
-  githubUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runnerId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  checkRunUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  labels?: Prisma.StringNullableListFilter<"WorkflowJob">
   workflowRunId?: Prisma.StringFilter<"WorkflowJob"> | string
   createdAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   workflowRun?: Prisma.XOR<Prisma.WorkflowRunScalarRelationFilter, Prisma.WorkflowRunWhereInput>
   steps?: Prisma.WorkflowStepListRelationFilter
-}, "id">
+}, "id" | "workflowRunId_githubId">
 
 export type WorkflowJobOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  headSha?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerName?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerGroupName?: Prisma.SortOrderInput | Prisma.SortOrder
-  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkRunUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  labels?: Prisma.SortOrder
   workflowRunId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -361,14 +447,21 @@ export type WorkflowJobScalarWhereWithAggregatesInput = {
   NOT?: Prisma.WorkflowJobScalarWhereWithAggregatesInput | Prisma.WorkflowJobScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"WorkflowJob"> | string
   githubId?: Prisma.BigIntNullableWithAggregatesFilter<"WorkflowJob"> | bigint | number | null
+  nodeId?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
+  runId?: Prisma.BigIntWithAggregatesFilter<"WorkflowJob"> | bigint | number
   name?: Prisma.StringWithAggregatesFilter<"WorkflowJob"> | string
+  headSha?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
   status?: Prisma.EnumWorkflowJobStatusWithAggregatesFilter<"WorkflowJob"> | $Enums.WorkflowJobStatus
   conclusion?: Prisma.EnumWorkflowJobConclusionNullableWithAggregatesFilter<"WorkflowJob"> | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkflowJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkflowJob"> | Date | string | null
   runnerName?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
   runnerGroupName?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
-  githubUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
+  runnerId?: Prisma.IntNullableWithAggregatesFilter<"WorkflowJob"> | number | null
+  runnerGroupId?: Prisma.IntNullableWithAggregatesFilter<"WorkflowJob"> | number | null
+  htmlUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
+  checkRunUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowJob"> | string | null
+  labels?: Prisma.StringNullableListFilter<"WorkflowJob">
   workflowRunId?: Prisma.StringWithAggregatesFilter<"WorkflowJob"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WorkflowJob"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WorkflowJob"> | Date | string
@@ -378,14 +471,21 @@ export type WorkflowJobScalarWhereWithAggregatesInput = {
 export type WorkflowJobCreateInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -396,14 +496,21 @@ export type WorkflowJobCreateInput = {
 export type WorkflowJobUncheckedCreateInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   workflowRunId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -414,14 +521,21 @@ export type WorkflowJobUncheckedCreateInput = {
 export type WorkflowJobUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -432,14 +546,21 @@ export type WorkflowJobUpdateInput = {
 export type WorkflowJobUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   workflowRunId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -450,14 +571,21 @@ export type WorkflowJobUncheckedUpdateInput = {
 export type WorkflowJobCreateManyInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   workflowRunId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -467,14 +595,21 @@ export type WorkflowJobCreateManyInput = {
 export type WorkflowJobUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -483,14 +618,21 @@ export type WorkflowJobUpdateManyMutationInput = {
 export type WorkflowJobUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   workflowRunId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -513,17 +655,29 @@ export type WorkflowJobOrderByRelevanceInput = {
   search: string
 }
 
+export type WorkflowJobWorkflowRunIdGithubIdCompoundUniqueInput = {
+  workflowRunId: string
+  githubId: bigint | number
+}
+
 export type WorkflowJobCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
+  runId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  headSha?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
   runnerGroupName?: Prisma.SortOrder
-  githubUrl?: Prisma.SortOrder
+  runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  checkRunUrl?: Prisma.SortOrder
+  labels?: Prisma.SortOrder
   workflowRunId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -532,19 +686,28 @@ export type WorkflowJobCountOrderByAggregateInput = {
 
 export type WorkflowJobAvgOrderByAggregateInput = {
   githubId?: Prisma.SortOrder
+  runId?: Prisma.SortOrder
+  runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
 }
 
 export type WorkflowJobMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
+  runId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  headSha?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
   runnerGroupName?: Prisma.SortOrder
-  githubUrl?: Prisma.SortOrder
+  runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  checkRunUrl?: Prisma.SortOrder
   workflowRunId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -554,14 +717,20 @@ export type WorkflowJobMaxOrderByAggregateInput = {
 export type WorkflowJobMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
+  runId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  headSha?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
   runnerGroupName?: Prisma.SortOrder
-  githubUrl?: Prisma.SortOrder
+  runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  checkRunUrl?: Prisma.SortOrder
   workflowRunId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -570,6 +739,9 @@ export type WorkflowJobMinOrderByAggregateInput = {
 
 export type WorkflowJobSumOrderByAggregateInput = {
   githubId?: Prisma.SortOrder
+  runId?: Prisma.SortOrder
+  runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
 }
 
 export type WorkflowJobScalarRelationFilter = {
@@ -619,12 +791,21 @@ export type WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput = {
   deleteMany?: Prisma.WorkflowJobScalarWhereInput | Prisma.WorkflowJobScalarWhereInput[]
 }
 
+export type WorkflowJobCreatelabelsInput = {
+  set: string[]
+}
+
 export type EnumWorkflowJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.WorkflowJobStatus
 }
 
 export type NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput = {
   set?: $Enums.WorkflowJobConclusion | null
+}
+
+export type WorkflowJobUpdatelabelsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type WorkflowJobCreateNestedOneWithoutStepsInput = {
@@ -644,14 +825,21 @@ export type WorkflowJobUpdateOneRequiredWithoutStepsNestedInput = {
 export type WorkflowJobCreateWithoutWorkflowRunInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -661,14 +849,21 @@ export type WorkflowJobCreateWithoutWorkflowRunInput = {
 export type WorkflowJobUncheckedCreateWithoutWorkflowRunInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -707,14 +902,21 @@ export type WorkflowJobScalarWhereInput = {
   NOT?: Prisma.WorkflowJobScalarWhereInput | Prisma.WorkflowJobScalarWhereInput[]
   id?: Prisma.StringFilter<"WorkflowJob"> | string
   githubId?: Prisma.BigIntNullableFilter<"WorkflowJob"> | bigint | number | null
+  nodeId?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runId?: Prisma.BigIntFilter<"WorkflowJob"> | bigint | number
   name?: Prisma.StringFilter<"WorkflowJob"> | string
+  headSha?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   status?: Prisma.EnumWorkflowJobStatusFilter<"WorkflowJob"> | $Enums.WorkflowJobStatus
   conclusion?: Prisma.EnumWorkflowJobConclusionNullableFilter<"WorkflowJob"> | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"WorkflowJob"> | Date | string | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
   runnerGroupName?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
-  githubUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  runnerId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowJob"> | number | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  checkRunUrl?: Prisma.StringNullableFilter<"WorkflowJob"> | string | null
+  labels?: Prisma.StringNullableListFilter<"WorkflowJob">
   workflowRunId?: Prisma.StringFilter<"WorkflowJob"> | string
   createdAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowJob"> | Date | string
@@ -724,14 +926,21 @@ export type WorkflowJobScalarWhereInput = {
 export type WorkflowJobCreateWithoutStepsInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -741,14 +950,21 @@ export type WorkflowJobCreateWithoutStepsInput = {
 export type WorkflowJobUncheckedCreateWithoutStepsInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   workflowRunId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -774,14 +990,21 @@ export type WorkflowJobUpdateToOneWithWhereWithoutStepsInput = {
 export type WorkflowJobUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -791,14 +1014,21 @@ export type WorkflowJobUpdateWithoutStepsInput = {
 export type WorkflowJobUncheckedUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   workflowRunId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -808,14 +1038,21 @@ export type WorkflowJobUncheckedUpdateWithoutStepsInput = {
 export type WorkflowJobCreateManyWorkflowRunInput = {
   id?: string
   githubId?: bigint | number | null
+  nodeId?: string | null
+  runId: bigint | number
   name: string
+  headSha?: string | null
   status: $Enums.WorkflowJobStatus
   conclusion?: $Enums.WorkflowJobConclusion | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   runnerName?: string | null
   runnerGroupName?: string | null
-  githubUrl?: string | null
+  runnerId?: number | null
+  runnerGroupId?: number | null
+  htmlUrl?: string | null
+  checkRunUrl?: string | null
+  labels?: Prisma.WorkflowJobCreatelabelsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -824,14 +1061,21 @@ export type WorkflowJobCreateManyWorkflowRunInput = {
 export type WorkflowJobUpdateWithoutWorkflowRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -841,14 +1085,21 @@ export type WorkflowJobUpdateWithoutWorkflowRunInput = {
 export type WorkflowJobUncheckedUpdateWithoutWorkflowRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -858,14 +1109,21 @@ export type WorkflowJobUncheckedUpdateWithoutWorkflowRunInput = {
 export type WorkflowJobUncheckedUpdateManyWithoutWorkflowRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  headSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowJobStatusFieldUpdateOperationsInput | $Enums.WorkflowJobStatus
   conclusion?: Prisma.NullableEnumWorkflowJobConclusionFieldUpdateOperationsInput | $Enums.WorkflowJobConclusion | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkRunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labels?: Prisma.WorkflowJobUpdatelabelsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -905,14 +1163,21 @@ export type WorkflowJobCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Typ
 export type WorkflowJobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
+  runId?: boolean
   name?: boolean
+  headSha?: boolean
   status?: boolean
   conclusion?: boolean
   startedAt?: boolean
   completedAt?: boolean
   runnerName?: boolean
   runnerGroupName?: boolean
-  githubUrl?: boolean
+  runnerId?: boolean
+  runnerGroupId?: boolean
+  htmlUrl?: boolean
+  checkRunUrl?: boolean
+  labels?: boolean
   workflowRunId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -925,14 +1190,21 @@ export type WorkflowJobSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type WorkflowJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
+  runId?: boolean
   name?: boolean
+  headSha?: boolean
   status?: boolean
   conclusion?: boolean
   startedAt?: boolean
   completedAt?: boolean
   runnerName?: boolean
   runnerGroupName?: boolean
-  githubUrl?: boolean
+  runnerId?: boolean
+  runnerGroupId?: boolean
+  htmlUrl?: boolean
+  checkRunUrl?: boolean
+  labels?: boolean
   workflowRunId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -943,14 +1215,21 @@ export type WorkflowJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 export type WorkflowJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
+  runId?: boolean
   name?: boolean
+  headSha?: boolean
   status?: boolean
   conclusion?: boolean
   startedAt?: boolean
   completedAt?: boolean
   runnerName?: boolean
   runnerGroupName?: boolean
-  githubUrl?: boolean
+  runnerId?: boolean
+  runnerGroupId?: boolean
+  htmlUrl?: boolean
+  checkRunUrl?: boolean
+  labels?: boolean
   workflowRunId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -961,21 +1240,28 @@ export type WorkflowJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type WorkflowJobSelectScalar = {
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
+  runId?: boolean
   name?: boolean
+  headSha?: boolean
   status?: boolean
   conclusion?: boolean
   startedAt?: boolean
   completedAt?: boolean
   runnerName?: boolean
   runnerGroupName?: boolean
-  githubUrl?: boolean
+  runnerId?: boolean
+  runnerGroupId?: boolean
+  htmlUrl?: boolean
+  checkRunUrl?: boolean
+  labels?: boolean
   workflowRunId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type WorkflowJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "name" | "status" | "conclusion" | "startedAt" | "completedAt" | "runnerName" | "runnerGroupName" | "githubUrl" | "workflowRunId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflowJob"]>
+export type WorkflowJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "nodeId" | "runId" | "name" | "headSha" | "status" | "conclusion" | "startedAt" | "completedAt" | "runnerName" | "runnerGroupName" | "runnerId" | "runnerGroupId" | "htmlUrl" | "checkRunUrl" | "labels" | "workflowRunId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflowJob"]>
 export type WorkflowJobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workflowRun?: boolean | Prisma.WorkflowRunDefaultArgs<ExtArgs>
   steps?: boolean | Prisma.WorkflowJob$stepsArgs<ExtArgs>
@@ -997,14 +1283,21 @@ export type $WorkflowJobPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     githubId: bigint | null
+    nodeId: string | null
+    runId: bigint
     name: string
+    headSha: string | null
     status: $Enums.WorkflowJobStatus
     conclusion: $Enums.WorkflowJobConclusion | null
     startedAt: Date | null
     completedAt: Date | null
     runnerName: string | null
     runnerGroupName: string | null
-    githubUrl: string | null
+    runnerId: number | null
+    runnerGroupId: number | null
+    htmlUrl: string | null
+    checkRunUrl: string | null
+    labels: string[]
     workflowRunId: string
     createdAt: Date
     updatedAt: Date
@@ -1436,14 +1729,21 @@ export interface Prisma__WorkflowJobClient<T, Null = never, ExtArgs extends runt
 export interface WorkflowJobFieldRefs {
   readonly id: Prisma.FieldRef<"WorkflowJob", 'String'>
   readonly githubId: Prisma.FieldRef<"WorkflowJob", 'BigInt'>
+  readonly nodeId: Prisma.FieldRef<"WorkflowJob", 'String'>
+  readonly runId: Prisma.FieldRef<"WorkflowJob", 'BigInt'>
   readonly name: Prisma.FieldRef<"WorkflowJob", 'String'>
+  readonly headSha: Prisma.FieldRef<"WorkflowJob", 'String'>
   readonly status: Prisma.FieldRef<"WorkflowJob", 'WorkflowJobStatus'>
   readonly conclusion: Prisma.FieldRef<"WorkflowJob", 'WorkflowJobConclusion'>
   readonly startedAt: Prisma.FieldRef<"WorkflowJob", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"WorkflowJob", 'DateTime'>
   readonly runnerName: Prisma.FieldRef<"WorkflowJob", 'String'>
   readonly runnerGroupName: Prisma.FieldRef<"WorkflowJob", 'String'>
-  readonly githubUrl: Prisma.FieldRef<"WorkflowJob", 'String'>
+  readonly runnerId: Prisma.FieldRef<"WorkflowJob", 'Int'>
+  readonly runnerGroupId: Prisma.FieldRef<"WorkflowJob", 'Int'>
+  readonly htmlUrl: Prisma.FieldRef<"WorkflowJob", 'String'>
+  readonly checkRunUrl: Prisma.FieldRef<"WorkflowJob", 'String'>
+  readonly labels: Prisma.FieldRef<"WorkflowJob", 'String[]'>
   readonly workflowRunId: Prisma.FieldRef<"WorkflowJob", 'String'>
   readonly createdAt: Prisma.FieldRef<"WorkflowJob", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"WorkflowJob", 'DateTime'>

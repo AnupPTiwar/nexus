@@ -40,6 +40,7 @@ export type RepositoryTokenMinAggregateOutputType = {
   type: $Enums.TokenType | null
   isActive: boolean | null
   lastUsedAt: Date | null
+  expiresAt: Date | null
   githubUserId: bigint | null
   githubLogin: string | null
   githubEmail: string | null
@@ -59,6 +60,7 @@ export type RepositoryTokenMaxAggregateOutputType = {
   type: $Enums.TokenType | null
   isActive: boolean | null
   lastUsedAt: Date | null
+  expiresAt: Date | null
   githubUserId: bigint | null
   githubLogin: string | null
   githubEmail: string | null
@@ -78,11 +80,13 @@ export type RepositoryTokenCountAggregateOutputType = {
   type: number
   isActive: number
   lastUsedAt: number
+  expiresAt: number
   githubUserId: number
   githubLogin: number
   githubEmail: number
   githubName: number
   avatarUrl: number
+  scopes: number
   repositoryId: number
   userId: number
   createdAt: number
@@ -107,6 +111,7 @@ export type RepositoryTokenMinAggregateInputType = {
   type?: true
   isActive?: true
   lastUsedAt?: true
+  expiresAt?: true
   githubUserId?: true
   githubLogin?: true
   githubEmail?: true
@@ -126,6 +131,7 @@ export type RepositoryTokenMaxAggregateInputType = {
   type?: true
   isActive?: true
   lastUsedAt?: true
+  expiresAt?: true
   githubUserId?: true
   githubLogin?: true
   githubEmail?: true
@@ -145,11 +151,13 @@ export type RepositoryTokenCountAggregateInputType = {
   type?: true
   isActive?: true
   lastUsedAt?: true
+  expiresAt?: true
   githubUserId?: true
   githubLogin?: true
   githubEmail?: true
   githubName?: true
   avatarUrl?: true
+  scopes?: true
   repositoryId?: true
   userId?: true
   createdAt?: true
@@ -251,11 +259,13 @@ export type RepositoryTokenGroupByOutputType = {
   type: $Enums.TokenType
   isActive: boolean
   lastUsedAt: Date | null
+  expiresAt: Date | null
   githubUserId: bigint | null
   githubLogin: string | null
   githubEmail: string | null
   githubName: string | null
   avatarUrl: string | null
+  scopes: string[]
   repositoryId: string
   userId: string
   createdAt: Date
@@ -293,11 +303,13 @@ export type RepositoryTokenWhereInput = {
   type?: Prisma.EnumTokenTypeFilter<"RepositoryToken"> | $Enums.TokenType
   isActive?: Prisma.BoolFilter<"RepositoryToken"> | boolean
   lastUsedAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
   githubUserId?: Prisma.BigIntNullableFilter<"RepositoryToken"> | bigint | number | null
   githubLogin?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubEmail?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubName?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
+  scopes?: Prisma.StringNullableListFilter<"RepositoryToken">
   repositoryId?: Prisma.StringFilter<"RepositoryToken"> | string
   userId?: Prisma.StringFilter<"RepositoryToken"> | string
   createdAt?: Prisma.DateTimeFilter<"RepositoryToken"> | Date | string
@@ -314,11 +326,13 @@ export type RepositoryTokenOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubLogin?: Prisma.SortOrderInput | Prisma.SortOrder
   githubEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   githubName?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  scopes?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -339,11 +353,13 @@ export type RepositoryTokenWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumTokenTypeFilter<"RepositoryToken"> | $Enums.TokenType
   isActive?: Prisma.BoolFilter<"RepositoryToken"> | boolean
   lastUsedAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
   githubUserId?: Prisma.BigIntNullableFilter<"RepositoryToken"> | bigint | number | null
   githubLogin?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubEmail?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubName?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
+  scopes?: Prisma.StringNullableListFilter<"RepositoryToken">
   repositoryId?: Prisma.StringFilter<"RepositoryToken"> | string
   userId?: Prisma.StringFilter<"RepositoryToken"> | string
   createdAt?: Prisma.DateTimeFilter<"RepositoryToken"> | Date | string
@@ -360,11 +376,13 @@ export type RepositoryTokenOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubLogin?: Prisma.SortOrderInput | Prisma.SortOrder
   githubEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   githubName?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  scopes?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -387,11 +405,13 @@ export type RepositoryTokenScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumTokenTypeWithAggregatesFilter<"RepositoryToken"> | $Enums.TokenType
   isActive?: Prisma.BoolWithAggregatesFilter<"RepositoryToken"> | boolean
   lastUsedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RepositoryToken"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RepositoryToken"> | Date | string | null
   githubUserId?: Prisma.BigIntNullableWithAggregatesFilter<"RepositoryToken"> | bigint | number | null
   githubLogin?: Prisma.StringNullableWithAggregatesFilter<"RepositoryToken"> | string | null
   githubEmail?: Prisma.StringNullableWithAggregatesFilter<"RepositoryToken"> | string | null
   githubName?: Prisma.StringNullableWithAggregatesFilter<"RepositoryToken"> | string | null
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"RepositoryToken"> | string | null
+  scopes?: Prisma.StringNullableListFilter<"RepositoryToken">
   repositoryId?: Prisma.StringWithAggregatesFilter<"RepositoryToken"> | string
   userId?: Prisma.StringWithAggregatesFilter<"RepositoryToken"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RepositoryToken"> | Date | string
@@ -406,11 +426,13 @@ export type RepositoryTokenCreateInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -425,11 +447,13 @@ export type RepositoryTokenUncheckedCreateInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   repositoryId: string
   userId: string
   createdAt?: Date | string
@@ -444,11 +468,13 @@ export type RepositoryTokenUpdateInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -463,11 +489,13 @@ export type RepositoryTokenUncheckedUpdateInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,11 +510,13 @@ export type RepositoryTokenCreateManyInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   repositoryId: string
   userId: string
   createdAt?: Date | string
@@ -501,11 +531,13 @@ export type RepositoryTokenUpdateManyMutationInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -518,11 +550,13 @@ export type RepositoryTokenUncheckedUpdateManyInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -553,11 +587,13 @@ export type RepositoryTokenCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastUsedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   githubUserId?: Prisma.SortOrder
   githubLogin?: Prisma.SortOrder
   githubEmail?: Prisma.SortOrder
   githubName?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  scopes?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -576,6 +612,7 @@ export type RepositoryTokenMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastUsedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   githubUserId?: Prisma.SortOrder
   githubLogin?: Prisma.SortOrder
   githubEmail?: Prisma.SortOrder
@@ -595,6 +632,7 @@ export type RepositoryTokenMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastUsedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   githubUserId?: Prisma.SortOrder
   githubLogin?: Prisma.SortOrder
   githubEmail?: Prisma.SortOrder
@@ -695,16 +733,17 @@ export type RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput = {
   deleteMany?: Prisma.RepositoryTokenScalarWhereInput | Prisma.RepositoryTokenScalarWhereInput[]
 }
 
+export type RepositoryTokenCreatescopesInput = {
+  set: string[]
+}
+
 export type EnumTokenTypeFieldUpdateOperationsInput = {
   set?: $Enums.TokenType
 }
 
-export type NullableBigIntFieldUpdateOperationsInput = {
-  set?: bigint | number | null
-  increment?: bigint | number
-  decrement?: bigint | number
-  multiply?: bigint | number
-  divide?: bigint | number
+export type RepositoryTokenUpdatescopesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type RepositoryTokenCreateWithoutUserInput = {
@@ -714,11 +753,13 @@ export type RepositoryTokenCreateWithoutUserInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -732,11 +773,13 @@ export type RepositoryTokenUncheckedCreateWithoutUserInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   repositoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -779,11 +822,13 @@ export type RepositoryTokenScalarWhereInput = {
   type?: Prisma.EnumTokenTypeFilter<"RepositoryToken"> | $Enums.TokenType
   isActive?: Prisma.BoolFilter<"RepositoryToken"> | boolean
   lastUsedAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"RepositoryToken"> | Date | string | null
   githubUserId?: Prisma.BigIntNullableFilter<"RepositoryToken"> | bigint | number | null
   githubLogin?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubEmail?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   githubName?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"RepositoryToken"> | string | null
+  scopes?: Prisma.StringNullableListFilter<"RepositoryToken">
   repositoryId?: Prisma.StringFilter<"RepositoryToken"> | string
   userId?: Prisma.StringFilter<"RepositoryToken"> | string
   createdAt?: Prisma.DateTimeFilter<"RepositoryToken"> | Date | string
@@ -798,11 +843,13 @@ export type RepositoryTokenCreateWithoutRepositoryInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -816,11 +863,13 @@ export type RepositoryTokenUncheckedCreateWithoutRepositoryInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -860,11 +909,13 @@ export type RepositoryTokenCreateManyUserInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   repositoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -878,11 +929,13 @@ export type RepositoryTokenUpdateWithoutUserInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -896,11 +949,13 @@ export type RepositoryTokenUncheckedUpdateWithoutUserInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -914,11 +969,13 @@ export type RepositoryTokenUncheckedUpdateManyWithoutUserInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -932,11 +989,13 @@ export type RepositoryTokenCreateManyRepositoryInput = {
   type?: $Enums.TokenType
   isActive?: boolean
   lastUsedAt?: Date | string | null
+  expiresAt?: Date | string | null
   githubUserId?: bigint | number | null
   githubLogin?: string | null
   githubEmail?: string | null
   githubName?: string | null
   avatarUrl?: string | null
+  scopes?: Prisma.RepositoryTokenCreatescopesInput | string[]
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -950,11 +1009,13 @@ export type RepositoryTokenUpdateWithoutRepositoryInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -968,11 +1029,13 @@ export type RepositoryTokenUncheckedUpdateWithoutRepositoryInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -986,11 +1049,13 @@ export type RepositoryTokenUncheckedUpdateManyWithoutRepositoryInput = {
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   githubUserId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scopes?: Prisma.RepositoryTokenUpdatescopesInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1006,11 +1071,13 @@ export type RepositoryTokenSelect<ExtArgs extends runtime.Types.Extensions.Inter
   type?: boolean
   isActive?: boolean
   lastUsedAt?: boolean
+  expiresAt?: boolean
   githubUserId?: boolean
   githubLogin?: boolean
   githubEmail?: boolean
   githubName?: boolean
   avatarUrl?: boolean
+  scopes?: boolean
   repositoryId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1027,11 +1094,13 @@ export type RepositoryTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   type?: boolean
   isActive?: boolean
   lastUsedAt?: boolean
+  expiresAt?: boolean
   githubUserId?: boolean
   githubLogin?: boolean
   githubEmail?: boolean
   githubName?: boolean
   avatarUrl?: boolean
+  scopes?: boolean
   repositoryId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1048,11 +1117,13 @@ export type RepositoryTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   type?: boolean
   isActive?: boolean
   lastUsedAt?: boolean
+  expiresAt?: boolean
   githubUserId?: boolean
   githubLogin?: boolean
   githubEmail?: boolean
   githubName?: boolean
   avatarUrl?: boolean
+  scopes?: boolean
   repositoryId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1069,11 +1140,13 @@ export type RepositoryTokenSelectScalar = {
   type?: boolean
   isActive?: boolean
   lastUsedAt?: boolean
+  expiresAt?: boolean
   githubUserId?: boolean
   githubLogin?: boolean
   githubEmail?: boolean
   githubName?: boolean
   avatarUrl?: boolean
+  scopes?: boolean
   repositoryId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1081,7 +1154,7 @@ export type RepositoryTokenSelectScalar = {
   deletedAt?: boolean
 }
 
-export type RepositoryTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "alias" | "type" | "isActive" | "lastUsedAt" | "githubUserId" | "githubLogin" | "githubEmail" | "githubName" | "avatarUrl" | "repositoryId" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["repositoryToken"]>
+export type RepositoryTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "alias" | "type" | "isActive" | "lastUsedAt" | "expiresAt" | "githubUserId" | "githubLogin" | "githubEmail" | "githubName" | "avatarUrl" | "scopes" | "repositoryId" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["repositoryToken"]>
 export type RepositoryTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1108,11 +1181,13 @@ export type $RepositoryTokenPayload<ExtArgs extends runtime.Types.Extensions.Int
     type: $Enums.TokenType
     isActive: boolean
     lastUsedAt: Date | null
+    expiresAt: Date | null
     githubUserId: bigint | null
     githubLogin: string | null
     githubEmail: string | null
     githubName: string | null
     avatarUrl: string | null
+    scopes: string[]
     repositoryId: string
     userId: string
     createdAt: Date
@@ -1549,11 +1624,13 @@ export interface RepositoryTokenFieldRefs {
   readonly type: Prisma.FieldRef<"RepositoryToken", 'TokenType'>
   readonly isActive: Prisma.FieldRef<"RepositoryToken", 'Boolean'>
   readonly lastUsedAt: Prisma.FieldRef<"RepositoryToken", 'DateTime'>
+  readonly expiresAt: Prisma.FieldRef<"RepositoryToken", 'DateTime'>
   readonly githubUserId: Prisma.FieldRef<"RepositoryToken", 'BigInt'>
   readonly githubLogin: Prisma.FieldRef<"RepositoryToken", 'String'>
   readonly githubEmail: Prisma.FieldRef<"RepositoryToken", 'String'>
   readonly githubName: Prisma.FieldRef<"RepositoryToken", 'String'>
   readonly avatarUrl: Prisma.FieldRef<"RepositoryToken", 'String'>
+  readonly scopes: Prisma.FieldRef<"RepositoryToken", 'String[]'>
   readonly repositoryId: Prisma.FieldRef<"RepositoryToken", 'String'>
   readonly userId: Prisma.FieldRef<"RepositoryToken", 'String'>
   readonly createdAt: Prisma.FieldRef<"RepositoryToken", 'DateTime'>

@@ -47,6 +47,16 @@ path.join(process.cwd(), "prisma/generated/libquery_engine-debian-openssl-3.0.x.
  */
 export type User = Prisma.UserModel
 /**
+ * Model Provider
+ * 
+ */
+export type Provider = Prisma.ProviderModel
+/**
+ * Model ProviderAccount
+ * 
+ */
+export type ProviderAccount = Prisma.ProviderAccountModel
+/**
  * Model Repository
  * 
  */
@@ -61,6 +71,11 @@ export type RepositoryToken = Prisma.RepositoryTokenModel
  * 
  */
 export type Workflow = Prisma.WorkflowModel
+/**
+ * Model WorkflowBranch
+ * 
+ */
+export type WorkflowBranch = Prisma.WorkflowBranchModel
 /**
  * Model WorkflowRun
  * 
@@ -77,10 +92,50 @@ export type WorkflowJob = Prisma.WorkflowJobModel
  */
 export type WorkflowStep = Prisma.WorkflowStepModel
 /**
+ * Model BranchPermission
+ * 
+ */
+export type BranchPermission = Prisma.BranchPermissionModel
+/**
+ * Model SyncJob
+ * 
+ */
+export type SyncJob = Prisma.SyncJobModel
+/**
+ * Model WebhookEvent
+ * 
+ */
+export type WebhookEvent = Prisma.WebhookEventModel
+/**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model WorkflowApproval
+ * 
+ */
+export type WorkflowApproval = Prisma.WorkflowApprovalModel
+/**
+ * Model NotificationLog
+ * 
+ */
+export type NotificationLog = Prisma.NotificationLogModel
+/**
+ * Model ReRunHistory
+ * 
+ */
+export type ReRunHistory = Prisma.ReRunHistoryModel
+/**
+ * Model AnalyticsSnapshot
+ * 
+ */
+export type AnalyticsSnapshot = Prisma.AnalyticsSnapshotModel
 
 export type ResourceAction = $Enums.ResourceAction
 export const ResourceAction = $Enums.ResourceAction
@@ -93,6 +148,9 @@ export const WorkflowRunStatus = $Enums.WorkflowRunStatus
 
 export type WorkflowRunConclusion = $Enums.WorkflowRunConclusion
 export const WorkflowRunConclusion = $Enums.WorkflowRunConclusion
+
+export type WorkflowRunSource = $Enums.WorkflowRunSource
+export const WorkflowRunSource = $Enums.WorkflowRunSource
 
 export type WorkflowJobStatus = $Enums.WorkflowJobStatus
 export const WorkflowJobStatus = $Enums.WorkflowJobStatus
@@ -124,8 +182,17 @@ export const AuthProvider = $Enums.AuthProvider
 export type UserStatus = $Enums.UserStatus
 export const UserStatus = $Enums.UserStatus
 
+export type UserRole = $Enums.UserRole
+export const UserRole = $Enums.UserRole
+
 export type NotificationType = $Enums.NotificationType
 export const NotificationType = $Enums.NotificationType
 
 export type SchedulerStatus = $Enums.SchedulerStatus
 export const SchedulerStatus = $Enums.SchedulerStatus
+
+export type SyncStatus = $Enums.SyncStatus
+export const SyncStatus = $Enums.SyncStatus
+
+export type ApprovalStatus = $Enums.ApprovalStatus
+export const ApprovalStatus = $Enums.ApprovalStatus

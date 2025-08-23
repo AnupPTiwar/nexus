@@ -174,6 +174,9 @@ model User {
 
   lastLoginAt DateTime?
 
+  // GitHub token for workflow triggering (encrypted)
+  githubAccessToken String? // Encrypted GitHub access token
+
   // Platform preferences
   importExternalRuns   Boolean @default(false) // Import runs triggered outside platform
   showOnlyPlatformRuns Boolean @default(false) // Filter to show only platform-triggered runs
@@ -188,7 +191,7 @@ model User {
   auditLogs         AuditLog[]
 
   // Simple permissions array (format: "resource:action")
-  permissions String[]
+  permissions String[] @default(["REPOSITORY:READ", "WORKFLOW:READ", "WORKFLOW_RUN:READ"])
 
   // Metadata
   createdAt DateTime @default(now())

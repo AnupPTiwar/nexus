@@ -30,6 +30,9 @@ export type UserMinAggregateOutputType = {
   image: string | null
   status: $Enums.UserStatus | null
   lastLoginAt: Date | null
+  githubAccessToken: string | null
+  importExternalRuns: boolean | null
+  showOnlyPlatformRuns: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -41,6 +44,9 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   status: $Enums.UserStatus | null
   lastLoginAt: Date | null
+  githubAccessToken: string | null
+  importExternalRuns: boolean | null
+  showOnlyPlatformRuns: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -52,6 +58,9 @@ export type UserCountAggregateOutputType = {
   image: number
   status: number
   lastLoginAt: number
+  githubAccessToken: number
+  importExternalRuns: number
+  showOnlyPlatformRuns: number
   permissions: number
   createdAt: number
   updatedAt: number
@@ -66,6 +75,9 @@ export type UserMinAggregateInputType = {
   image?: true
   status?: true
   lastLoginAt?: true
+  githubAccessToken?: true
+  importExternalRuns?: true
+  showOnlyPlatformRuns?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +89,9 @@ export type UserMaxAggregateInputType = {
   image?: true
   status?: true
   lastLoginAt?: true
+  githubAccessToken?: true
+  importExternalRuns?: true
+  showOnlyPlatformRuns?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +103,9 @@ export type UserCountAggregateInputType = {
   image?: true
   status?: true
   lastLoginAt?: true
+  githubAccessToken?: true
+  importExternalRuns?: true
+  showOnlyPlatformRuns?: true
   permissions?: true
   createdAt?: true
   updatedAt?: true
@@ -173,6 +191,9 @@ export type UserGroupByOutputType = {
   image: string | null
   status: $Enums.UserStatus
   lastLoginAt: Date | null
+  githubAccessToken: string | null
+  importExternalRuns: boolean
+  showOnlyPlatformRuns: boolean
   permissions: string[]
   createdAt: Date
   updatedAt: Date
@@ -206,6 +227,9 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  githubAccessToken?: Prisma.StringNullableFilter<"User"> | string | null
+  importExternalRuns?: Prisma.BoolFilter<"User"> | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFilter<"User"> | boolean
   permissions?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -213,6 +237,9 @@ export type UserWhereInput = {
   workflowRuns?: Prisma.WorkflowRunListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   repositoryTokens?: Prisma.RepositoryTokenListRelationFilter
+  branchPermissions?: Prisma.BranchPermissionListRelationFilter
+  providerAccounts?: Prisma.ProviderAccountListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -222,6 +249,9 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubAccessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  importExternalRuns?: Prisma.SortOrder
+  showOnlyPlatformRuns?: Prisma.SortOrder
   permissions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -229,6 +259,9 @@ export type UserOrderByWithRelationInput = {
   workflowRuns?: Prisma.WorkflowRunOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   repositoryTokens?: Prisma.RepositoryTokenOrderByRelationAggregateInput
+  branchPermissions?: Prisma.BranchPermissionOrderByRelationAggregateInput
+  providerAccounts?: Prisma.ProviderAccountOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -242,6 +275,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  githubAccessToken?: Prisma.StringNullableFilter<"User"> | string | null
+  importExternalRuns?: Prisma.BoolFilter<"User"> | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFilter<"User"> | boolean
   permissions?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -249,6 +285,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   workflowRuns?: Prisma.WorkflowRunListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   repositoryTokens?: Prisma.RepositoryTokenListRelationFilter
+  branchPermissions?: Prisma.BranchPermissionListRelationFilter
+  providerAccounts?: Prisma.ProviderAccountListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -258,6 +297,9 @@ export type UserOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubAccessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  importExternalRuns?: Prisma.SortOrder
+  showOnlyPlatformRuns?: Prisma.SortOrder
   permissions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -276,6 +318,9 @@ export type UserScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  githubAccessToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  importExternalRuns?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  showOnlyPlatformRuns?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   permissions?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -288,13 +333,19 @@ export type UserCreateInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -304,13 +355,19 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -320,13 +377,19 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -336,13 +399,19 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -352,6 +421,9 @@ export type UserCreateManyInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -364,6 +436,9 @@ export type UserUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,6 +451,9 @@ export type UserUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -402,6 +480,9 @@ export type UserCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  githubAccessToken?: Prisma.SortOrder
+  importExternalRuns?: Prisma.SortOrder
+  showOnlyPlatformRuns?: Prisma.SortOrder
   permissions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -414,6 +495,9 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  githubAccessToken?: Prisma.SortOrder
+  importExternalRuns?: Prisma.SortOrder
+  showOnlyPlatformRuns?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -425,18 +509,21 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  githubAccessToken?: Prisma.SortOrder
+  importExternalRuns?: Prisma.SortOrder
+  showOnlyPlatformRuns?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCreatepermissionsInput = {
@@ -459,6 +546,10 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type UserUpdatepermissionsInput = {
   set?: string[]
   push?: string | string[]
@@ -466,6 +557,20 @@ export type UserUpdatepermissionsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutProviderAccountsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProviderAccountsInput, Prisma.UserUncheckedCreateWithoutProviderAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProviderAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProviderAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProviderAccountsInput, Prisma.UserUncheckedCreateWithoutProviderAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProviderAccountsInput
+  upsert?: Prisma.UserUpsertWithoutProviderAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProviderAccountsInput, Prisma.UserUpdateWithoutProviderAccountsInput>, Prisma.UserUncheckedUpdateWithoutProviderAccountsInput>
 }
 
 export type UserCreateNestedOneWithoutRepositoriesInput = {
@@ -514,6 +619,20 @@ export type UserUpdateOneWithoutWorkflowRunsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkflowRunsInput, Prisma.UserUpdateWithoutWorkflowRunsInput>, Prisma.UserUncheckedUpdateWithoutWorkflowRunsInput>
 }
 
+export type UserCreateNestedOneWithoutBranchPermissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchPermissionsInput, Prisma.UserUncheckedCreateWithoutBranchPermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchPermissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBranchPermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchPermissionsInput, Prisma.UserUncheckedCreateWithoutBranchPermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchPermissionsInput
+  upsert?: Prisma.UserUpsertWithoutBranchPermissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBranchPermissionsInput, Prisma.UserUpdateWithoutBranchPermissionsInput>, Prisma.UserUncheckedUpdateWithoutBranchPermissionsInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -528,6 +647,122 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserCreateWithoutProviderAccountsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProviderAccountsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProviderAccountsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProviderAccountsInput, Prisma.UserUncheckedCreateWithoutProviderAccountsInput>
+}
+
+export type UserUpsertWithoutProviderAccountsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProviderAccountsInput, Prisma.UserUncheckedUpdateWithoutProviderAccountsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProviderAccountsInput, Prisma.UserUncheckedCreateWithoutProviderAccountsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProviderAccountsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProviderAccountsInput, Prisma.UserUncheckedUpdateWithoutProviderAccountsInput>
+}
+
+export type UserUpdateWithoutProviderAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProviderAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutRepositoriesInput = {
   id?: string
   name?: string | null
@@ -535,12 +770,18 @@ export type UserCreateWithoutRepositoriesInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRepositoriesInput = {
@@ -550,12 +791,18 @@ export type UserUncheckedCreateWithoutRepositoriesInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRepositoriesInput = {
@@ -581,12 +828,18 @@ export type UserUpdateWithoutRepositoriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepositoriesInput = {
@@ -596,12 +849,18 @@ export type UserUncheckedUpdateWithoutRepositoriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRepositoryTokensInput = {
@@ -611,12 +870,18 @@ export type UserCreateWithoutRepositoryTokensInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRepositoryTokensInput = {
@@ -626,12 +891,18 @@ export type UserUncheckedCreateWithoutRepositoryTokensInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRepositoryTokensInput = {
@@ -657,12 +928,18 @@ export type UserUpdateWithoutRepositoryTokensInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepositoryTokensInput = {
@@ -672,12 +949,18 @@ export type UserUncheckedUpdateWithoutRepositoryTokensInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkflowRunsInput = {
@@ -687,12 +970,18 @@ export type UserCreateWithoutWorkflowRunsInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkflowRunsInput = {
@@ -702,12 +991,18 @@ export type UserUncheckedCreateWithoutWorkflowRunsInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkflowRunsInput = {
@@ -733,12 +1028,18 @@ export type UserUpdateWithoutWorkflowRunsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkflowRunsInput = {
@@ -748,12 +1049,118 @@ export type UserUncheckedUpdateWithoutWorkflowRunsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBranchPermissionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBranchPermissionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBranchPermissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBranchPermissionsInput, Prisma.UserUncheckedCreateWithoutBranchPermissionsInput>
+}
+
+export type UserUpsertWithoutBranchPermissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBranchPermissionsInput, Prisma.UserUncheckedUpdateWithoutBranchPermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBranchPermissionsInput, Prisma.UserUncheckedCreateWithoutBranchPermissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBranchPermissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBranchPermissionsInput, Prisma.UserUncheckedUpdateWithoutBranchPermissionsInput>
+}
+
+export type UserUpdateWithoutBranchPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBranchPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -763,12 +1170,18 @@ export type UserCreateWithoutNotificationsInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -778,12 +1191,18 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   image?: string | null
   status?: $Enums.UserStatus
   lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -809,12 +1228,18 @@ export type UserUpdateWithoutNotificationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -824,12 +1249,118 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
-  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAuditLogsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  githubAccessToken?: string | null
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutUserInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutUserInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+}
+
+export type UserUpsertWithoutAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importExternalRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlyPlatformRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutUserNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutUserNestedInput
+  providerAccounts?: Prisma.ProviderAccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -842,6 +1373,9 @@ export type UserCountOutputType = {
   workflowRuns: number
   notifications: number
   repositoryTokens: number
+  branchPermissions: number
+  providerAccounts: number
+  auditLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -849,6 +1383,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   workflowRuns?: boolean | UserCountOutputTypeCountWorkflowRunsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   repositoryTokens?: boolean | UserCountOutputTypeCountRepositoryTokensArgs
+  branchPermissions?: boolean | UserCountOutputTypeCountBranchPermissionsArgs
+  providerAccounts?: boolean | UserCountOutputTypeCountProviderAccountsArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
 }
 
 /**
@@ -889,6 +1426,27 @@ export type UserCountOutputTypeCountRepositoryTokensArgs<ExtArgs extends runtime
   where?: Prisma.RepositoryTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBranchPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BranchPermissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProviderAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProviderAccountWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -897,6 +1455,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   status?: boolean
   lastLoginAt?: boolean
+  githubAccessToken?: boolean
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -904,6 +1465,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   workflowRuns?: boolean | Prisma.User$workflowRunsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   repositoryTokens?: boolean | Prisma.User$repositoryTokensArgs<ExtArgs>
+  branchPermissions?: boolean | Prisma.User$branchPermissionsArgs<ExtArgs>
+  providerAccounts?: boolean | Prisma.User$providerAccountsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -914,6 +1478,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   status?: boolean
   lastLoginAt?: boolean
+  githubAccessToken?: boolean
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -926,6 +1493,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   status?: boolean
   lastLoginAt?: boolean
+  githubAccessToken?: boolean
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -938,17 +1508,23 @@ export type UserSelectScalar = {
   image?: boolean
   status?: boolean
   lastLoginAt?: boolean
+  githubAccessToken?: boolean
+  importExternalRuns?: boolean
+  showOnlyPlatformRuns?: boolean
   permissions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "image" | "status" | "lastLoginAt" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "image" | "status" | "lastLoginAt" | "githubAccessToken" | "importExternalRuns" | "showOnlyPlatformRuns" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repositories?: boolean | Prisma.User$repositoriesArgs<ExtArgs>
   workflowRuns?: boolean | Prisma.User$workflowRunsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   repositoryTokens?: boolean | Prisma.User$repositoryTokensArgs<ExtArgs>
+  branchPermissions?: boolean | Prisma.User$branchPermissionsArgs<ExtArgs>
+  providerAccounts?: boolean | Prisma.User$providerAccountsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -961,6 +1537,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     workflowRuns: Prisma.$WorkflowRunPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     repositoryTokens: Prisma.$RepositoryTokenPayload<ExtArgs>[]
+    branchPermissions: Prisma.$BranchPermissionPayload<ExtArgs>[]
+    providerAccounts: Prisma.$ProviderAccountPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -969,6 +1548,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     status: $Enums.UserStatus
     lastLoginAt: Date | null
+    githubAccessToken: string | null
+    importExternalRuns: boolean
+    showOnlyPlatformRuns: boolean
     permissions: string[]
     createdAt: Date
     updatedAt: Date
@@ -1370,6 +1952,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   workflowRuns<T extends Prisma.User$workflowRunsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workflowRunsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   repositoryTokens<T extends Prisma.User$repositoryTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$repositoryTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepositoryTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  branchPermissions<T extends Prisma.User$branchPermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$branchPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BranchPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  providerAccounts<T extends Prisma.User$providerAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$providerAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProviderAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1405,6 +1990,9 @@ export interface UserFieldRefs {
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly githubAccessToken: Prisma.FieldRef<"User", 'String'>
+  readonly importExternalRuns: Prisma.FieldRef<"User", 'Boolean'>
+  readonly showOnlyPlatformRuns: Prisma.FieldRef<"User", 'Boolean'>
   readonly permissions: Prisma.FieldRef<"User", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -1898,6 +2486,78 @@ export type User$repositoryTokensArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.RepositoryTokenScalarFieldEnum | Prisma.RepositoryTokenScalarFieldEnum[]
+}
+
+/**
+ * User.branchPermissions
+ */
+export type User$branchPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BranchPermission
+   */
+  select?: Prisma.BranchPermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BranchPermission
+   */
+  omit?: Prisma.BranchPermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BranchPermissionInclude<ExtArgs> | null
+  where?: Prisma.BranchPermissionWhereInput
+  orderBy?: Prisma.BranchPermissionOrderByWithRelationInput | Prisma.BranchPermissionOrderByWithRelationInput[]
+  cursor?: Prisma.BranchPermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BranchPermissionScalarFieldEnum | Prisma.BranchPermissionScalarFieldEnum[]
+}
+
+/**
+ * User.providerAccounts
+ */
+export type User$providerAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProviderAccount
+   */
+  select?: Prisma.ProviderAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProviderAccount
+   */
+  omit?: Prisma.ProviderAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProviderAccountInclude<ExtArgs> | null
+  where?: Prisma.ProviderAccountWhereInput
+  orderBy?: Prisma.ProviderAccountOrderByWithRelationInput | Prisma.ProviderAccountOrderByWithRelationInput[]
+  cursor?: Prisma.ProviderAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProviderAccountScalarFieldEnum | Prisma.ProviderAccountScalarFieldEnum[]
+}
+
+/**
+ * User.auditLogs
+ */
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
 }
 
 /**

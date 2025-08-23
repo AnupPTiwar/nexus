@@ -36,10 +36,13 @@ export type WorkflowSumAggregateOutputType = {
 export type WorkflowMinAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
   name: string | null
   path: string | null
   state: $Enums.WorkflowState | null
   isActive: boolean | null
+  badgeUrl: string | null
+  htmlUrl: string | null
   repositoryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,10 +52,13 @@ export type WorkflowMinAggregateOutputType = {
 export type WorkflowMaxAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
   name: string | null
   path: string | null
   state: $Enums.WorkflowState | null
   isActive: boolean | null
+  badgeUrl: string | null
+  htmlUrl: string | null
   repositoryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,11 +68,14 @@ export type WorkflowMaxAggregateOutputType = {
 export type WorkflowCountAggregateOutputType = {
   id: number
   githubId: number
+  nodeId: number
   name: number
   path: number
   state: number
   isActive: number
-  inputs: number
+  badgeUrl: number
+  htmlUrl: number
+  defaultInputs: number
   repositoryId: number
   createdAt: number
   updatedAt: number
@@ -86,10 +95,13 @@ export type WorkflowSumAggregateInputType = {
 export type WorkflowMinAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   name?: true
   path?: true
   state?: true
   isActive?: true
+  badgeUrl?: true
+  htmlUrl?: true
   repositoryId?: true
   createdAt?: true
   updatedAt?: true
@@ -99,10 +111,13 @@ export type WorkflowMinAggregateInputType = {
 export type WorkflowMaxAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   name?: true
   path?: true
   state?: true
   isActive?: true
+  badgeUrl?: true
+  htmlUrl?: true
   repositoryId?: true
   createdAt?: true
   updatedAt?: true
@@ -112,11 +127,14 @@ export type WorkflowMaxAggregateInputType = {
 export type WorkflowCountAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   name?: true
   path?: true
   state?: true
   isActive?: true
-  inputs?: true
+  badgeUrl?: true
+  htmlUrl?: true
+  defaultInputs?: true
   repositoryId?: true
   createdAt?: true
   updatedAt?: true
@@ -213,11 +231,14 @@ export type WorkflowGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type WorkflowGroupByOutputType = {
   id: string
   githubId: bigint
+  nodeId: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive: boolean
-  inputs: runtime.JsonValue
+  badgeUrl: string | null
+  htmlUrl: string | null
+  defaultInputs: runtime.JsonValue | null
   repositoryId: string
   createdAt: Date
   updatedAt: Date
@@ -250,33 +271,41 @@ export type WorkflowWhereInput = {
   NOT?: Prisma.WorkflowWhereInput | Prisma.WorkflowWhereInput[]
   id?: Prisma.StringFilter<"Workflow"> | string
   githubId?: Prisma.BigIntFilter<"Workflow"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"Workflow"> | string | null
   name?: Prisma.StringFilter<"Workflow"> | string
   path?: Prisma.StringFilter<"Workflow"> | string
   state?: Prisma.EnumWorkflowStateFilter<"Workflow"> | $Enums.WorkflowState
   isActive?: Prisma.BoolFilter<"Workflow"> | boolean
-  inputs?: Prisma.JsonFilter<"Workflow">
+  badgeUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  defaultInputs?: Prisma.JsonNullableFilter<"Workflow">
   repositoryId?: Prisma.StringFilter<"Workflow"> | string
   createdAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Workflow"> | Date | string | null
   repository?: Prisma.XOR<Prisma.RepositoryScalarRelationFilter, Prisma.RepositoryWhereInput>
   workflowRuns?: Prisma.WorkflowRunListRelationFilter
+  workflowBranches?: Prisma.WorkflowBranchListRelationFilter
 }
 
 export type WorkflowOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   state?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  inputs?: Prisma.SortOrder
+  badgeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  defaultInputs?: Prisma.SortOrderInput | Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   repository?: Prisma.RepositoryOrderByWithRelationInput
   workflowRuns?: Prisma.WorkflowRunOrderByRelationAggregateInput
+  workflowBranches?: Prisma.WorkflowBranchOrderByRelationAggregateInput
   _relevance?: Prisma.WorkflowOrderByRelevanceInput
 }
 
@@ -287,27 +316,34 @@ export type WorkflowWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.WorkflowWhereInput[]
   NOT?: Prisma.WorkflowWhereInput | Prisma.WorkflowWhereInput[]
   githubId?: Prisma.BigIntFilter<"Workflow"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"Workflow"> | string | null
   name?: Prisma.StringFilter<"Workflow"> | string
   path?: Prisma.StringFilter<"Workflow"> | string
   state?: Prisma.EnumWorkflowStateFilter<"Workflow"> | $Enums.WorkflowState
   isActive?: Prisma.BoolFilter<"Workflow"> | boolean
-  inputs?: Prisma.JsonFilter<"Workflow">
+  badgeUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  defaultInputs?: Prisma.JsonNullableFilter<"Workflow">
   repositoryId?: Prisma.StringFilter<"Workflow"> | string
   createdAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Workflow"> | Date | string | null
   repository?: Prisma.XOR<Prisma.RepositoryScalarRelationFilter, Prisma.RepositoryWhereInput>
   workflowRuns?: Prisma.WorkflowRunListRelationFilter
+  workflowBranches?: Prisma.WorkflowBranchListRelationFilter
 }, "id" | "repositoryId_githubId">
 
 export type WorkflowOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   state?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  inputs?: Prisma.SortOrder
+  badgeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  defaultInputs?: Prisma.SortOrderInput | Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -325,11 +361,14 @@ export type WorkflowScalarWhereWithAggregatesInput = {
   NOT?: Prisma.WorkflowScalarWhereWithAggregatesInput | Prisma.WorkflowScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Workflow"> | string
   githubId?: Prisma.BigIntWithAggregatesFilter<"Workflow"> | bigint | number
+  nodeId?: Prisma.StringNullableWithAggregatesFilter<"Workflow"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Workflow"> | string
   path?: Prisma.StringWithAggregatesFilter<"Workflow"> | string
   state?: Prisma.EnumWorkflowStateWithAggregatesFilter<"Workflow"> | $Enums.WorkflowState
   isActive?: Prisma.BoolWithAggregatesFilter<"Workflow"> | boolean
-  inputs?: Prisma.JsonWithAggregatesFilter<"Workflow">
+  badgeUrl?: Prisma.StringNullableWithAggregatesFilter<"Workflow"> | string | null
+  htmlUrl?: Prisma.StringNullableWithAggregatesFilter<"Workflow"> | string | null
+  defaultInputs?: Prisma.JsonNullableWithAggregatesFilter<"Workflow">
   repositoryId?: Prisma.StringWithAggregatesFilter<"Workflow"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Workflow"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Workflow"> | Date | string
@@ -339,71 +378,90 @@ export type WorkflowScalarWhereWithAggregatesInput = {
 export type WorkflowCreateInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repository: Prisma.RepositoryCreateNestedOneWithoutWorkflowsInput
   workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutWorkflowInput
+  workflowBranches?: Prisma.WorkflowBranchCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowUncheckedCreateInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutWorkflowInput
+  workflowBranches?: Prisma.WorkflowBranchUncheckedCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repository?: Prisma.RepositoryUpdateOneRequiredWithoutWorkflowsNestedInput
   workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutWorkflowNestedInput
+  workflowBranches?: Prisma.WorkflowBranchUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutWorkflowNestedInput
+  workflowBranches?: Prisma.WorkflowBranchUncheckedUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowCreateManyInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -413,11 +471,14 @@ export type WorkflowCreateManyInput = {
 export type WorkflowUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -426,11 +487,14 @@ export type WorkflowUpdateManyMutationInput = {
 export type WorkflowUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -461,11 +525,14 @@ export type WorkflowRepositoryIdGithubIdCompoundUniqueInput = {
 export type WorkflowCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   state?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  inputs?: Prisma.SortOrder
+  badgeUrl?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  defaultInputs?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -479,10 +546,13 @@ export type WorkflowAvgOrderByAggregateInput = {
 export type WorkflowMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   state?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  badgeUrl?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -492,10 +562,13 @@ export type WorkflowMaxOrderByAggregateInput = {
 export type WorkflowMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   state?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  badgeUrl?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
   repositoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -565,6 +638,20 @@ export type EnumWorkflowStateFieldUpdateOperationsInput = {
   set?: $Enums.WorkflowState
 }
 
+export type WorkflowCreateNestedOneWithoutWorkflowBranchesInput = {
+  create?: Prisma.XOR<Prisma.WorkflowCreateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedCreateWithoutWorkflowBranchesInput>
+  connectOrCreate?: Prisma.WorkflowCreateOrConnectWithoutWorkflowBranchesInput
+  connect?: Prisma.WorkflowWhereUniqueInput
+}
+
+export type WorkflowUpdateOneRequiredWithoutWorkflowBranchesNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowCreateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedCreateWithoutWorkflowBranchesInput>
+  connectOrCreate?: Prisma.WorkflowCreateOrConnectWithoutWorkflowBranchesInput
+  upsert?: Prisma.WorkflowUpsertWithoutWorkflowBranchesInput
+  connect?: Prisma.WorkflowWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkflowUpdateToOneWithWhereWithoutWorkflowBranchesInput, Prisma.WorkflowUpdateWithoutWorkflowBranchesInput>, Prisma.WorkflowUncheckedUpdateWithoutWorkflowBranchesInput>
+}
+
 export type WorkflowCreateNestedOneWithoutWorkflowRunsInput = {
   create?: Prisma.XOR<Prisma.WorkflowCreateWithoutWorkflowRunsInput, Prisma.WorkflowUncheckedCreateWithoutWorkflowRunsInput>
   connectOrCreate?: Prisma.WorkflowCreateOrConnectWithoutWorkflowRunsInput
@@ -582,29 +669,37 @@ export type WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput = {
 export type WorkflowCreateWithoutRepositoryInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutWorkflowInput
+  workflowBranches?: Prisma.WorkflowBranchCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowUncheckedCreateWithoutRepositoryInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutWorkflowInput
+  workflowBranches?: Prisma.WorkflowBranchUncheckedCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowCreateOrConnectWithoutRepositoryInput = {
@@ -639,43 +734,142 @@ export type WorkflowScalarWhereInput = {
   NOT?: Prisma.WorkflowScalarWhereInput | Prisma.WorkflowScalarWhereInput[]
   id?: Prisma.StringFilter<"Workflow"> | string
   githubId?: Prisma.BigIntFilter<"Workflow"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"Workflow"> | string | null
   name?: Prisma.StringFilter<"Workflow"> | string
   path?: Prisma.StringFilter<"Workflow"> | string
   state?: Prisma.EnumWorkflowStateFilter<"Workflow"> | $Enums.WorkflowState
   isActive?: Prisma.BoolFilter<"Workflow"> | boolean
-  inputs?: Prisma.JsonFilter<"Workflow">
+  badgeUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"Workflow"> | string | null
+  defaultInputs?: Prisma.JsonNullableFilter<"Workflow">
   repositoryId?: Prisma.StringFilter<"Workflow"> | string
   createdAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Workflow"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Workflow"> | Date | string | null
 }
 
-export type WorkflowCreateWithoutWorkflowRunsInput = {
+export type WorkflowCreateWithoutWorkflowBranchesInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repository: Prisma.RepositoryCreateNestedOneWithoutWorkflowsInput
+  workflowRuns?: Prisma.WorkflowRunCreateNestedManyWithoutWorkflowInput
+}
+
+export type WorkflowUncheckedCreateWithoutWorkflowBranchesInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  name: string
+  path: string
+  state: $Enums.WorkflowState
+  isActive?: boolean
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  repositoryId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  workflowRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutWorkflowInput
+}
+
+export type WorkflowCreateOrConnectWithoutWorkflowBranchesInput = {
+  where: Prisma.WorkflowWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkflowCreateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedCreateWithoutWorkflowBranchesInput>
+}
+
+export type WorkflowUpsertWithoutWorkflowBranchesInput = {
+  update: Prisma.XOR<Prisma.WorkflowUpdateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedUpdateWithoutWorkflowBranchesInput>
+  create: Prisma.XOR<Prisma.WorkflowCreateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedCreateWithoutWorkflowBranchesInput>
+  where?: Prisma.WorkflowWhereInput
+}
+
+export type WorkflowUpdateToOneWithWhereWithoutWorkflowBranchesInput = {
+  where?: Prisma.WorkflowWhereInput
+  data: Prisma.XOR<Prisma.WorkflowUpdateWithoutWorkflowBranchesInput, Prisma.WorkflowUncheckedUpdateWithoutWorkflowBranchesInput>
+}
+
+export type WorkflowUpdateWithoutWorkflowBranchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  repository?: Prisma.RepositoryUpdateOneRequiredWithoutWorkflowsNestedInput
+  workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutWorkflowNestedInput
+}
+
+export type WorkflowUncheckedUpdateWithoutWorkflowBranchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutWorkflowNestedInput
+}
+
+export type WorkflowCreateWithoutWorkflowRunsInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  name: string
+  path: string
+  state: $Enums.WorkflowState
+  isActive?: boolean
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  repository: Prisma.RepositoryCreateNestedOneWithoutWorkflowsInput
+  workflowBranches?: Prisma.WorkflowBranchCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowUncheckedCreateWithoutWorkflowRunsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  workflowBranches?: Prisma.WorkflowBranchUncheckedCreateNestedManyWithoutWorkflowInput
 }
 
 export type WorkflowCreateOrConnectWithoutWorkflowRunsInput = {
@@ -697,39 +891,50 @@ export type WorkflowUpdateToOneWithWhereWithoutWorkflowRunsInput = {
 export type WorkflowUpdateWithoutWorkflowRunsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repository?: Prisma.RepositoryUpdateOneRequiredWithoutWorkflowsNestedInput
+  workflowBranches?: Prisma.WorkflowBranchUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowUncheckedUpdateWithoutWorkflowRunsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   repositoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workflowBranches?: Prisma.WorkflowBranchUncheckedUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowCreateManyRepositoryInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   name: string
   path: string
   state: $Enums.WorkflowState
   isActive?: boolean
-  inputs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: string | null
+  htmlUrl?: string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -738,39 +943,50 @@ export type WorkflowCreateManyRepositoryInput = {
 export type WorkflowUpdateWithoutRepositoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   workflowRuns?: Prisma.WorkflowRunUpdateManyWithoutWorkflowNestedInput
+  workflowBranches?: Prisma.WorkflowBranchUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowUncheckedUpdateWithoutRepositoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   workflowRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutWorkflowNestedInput
+  workflowBranches?: Prisma.WorkflowBranchUncheckedUpdateManyWithoutWorkflowNestedInput
 }
 
 export type WorkflowUncheckedUpdateManyWithoutRepositoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   state?: Prisma.EnumWorkflowStateFieldUpdateOperationsInput | $Enums.WorkflowState
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  inputs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  badgeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultInputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -783,10 +999,12 @@ export type WorkflowUncheckedUpdateManyWithoutRepositoryInput = {
 
 export type WorkflowCountOutputType = {
   workflowRuns: number
+  workflowBranches: number
 }
 
 export type WorkflowCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workflowRuns?: boolean | WorkflowCountOutputTypeCountWorkflowRunsArgs
+  workflowBranches?: boolean | WorkflowCountOutputTypeCountWorkflowBranchesArgs
 }
 
 /**
@@ -806,32 +1024,46 @@ export type WorkflowCountOutputTypeCountWorkflowRunsArgs<ExtArgs extends runtime
   where?: Prisma.WorkflowRunWhereInput
 }
 
+/**
+ * WorkflowCountOutputType without action
+ */
+export type WorkflowCountOutputTypeCountWorkflowBranchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkflowBranchWhereInput
+}
+
 
 export type WorkflowSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   name?: boolean
   path?: boolean
   state?: boolean
   isActive?: boolean
-  inputs?: boolean
+  badgeUrl?: boolean
+  htmlUrl?: boolean
+  defaultInputs?: boolean
   repositoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
   workflowRuns?: boolean | Prisma.Workflow$workflowRunsArgs<ExtArgs>
+  workflowBranches?: boolean | Prisma.Workflow$workflowBranchesArgs<ExtArgs>
   _count?: boolean | Prisma.WorkflowCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workflow"]>
 
 export type WorkflowSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   name?: boolean
   path?: boolean
   state?: boolean
   isActive?: boolean
-  inputs?: boolean
+  badgeUrl?: boolean
+  htmlUrl?: boolean
+  defaultInputs?: boolean
   repositoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -842,11 +1074,14 @@ export type WorkflowSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type WorkflowSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   name?: boolean
   path?: boolean
   state?: boolean
   isActive?: boolean
-  inputs?: boolean
+  badgeUrl?: boolean
+  htmlUrl?: boolean
+  defaultInputs?: boolean
   repositoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -857,21 +1092,25 @@ export type WorkflowSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type WorkflowSelectScalar = {
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   name?: boolean
   path?: boolean
   state?: boolean
   isActive?: boolean
-  inputs?: boolean
+  badgeUrl?: boolean
+  htmlUrl?: boolean
+  defaultInputs?: boolean
   repositoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type WorkflowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "name" | "path" | "state" | "isActive" | "inputs" | "repositoryId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflow"]>
+export type WorkflowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "nodeId" | "name" | "path" | "state" | "isActive" | "badgeUrl" | "htmlUrl" | "defaultInputs" | "repositoryId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflow"]>
 export type WorkflowInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
   workflowRuns?: boolean | Prisma.Workflow$workflowRunsArgs<ExtArgs>
+  workflowBranches?: boolean | Prisma.Workflow$workflowBranchesArgs<ExtArgs>
   _count?: boolean | Prisma.WorkflowCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkflowIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -886,18 +1125,22 @@ export type $WorkflowPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     repository: Prisma.$RepositoryPayload<ExtArgs>
     workflowRuns: Prisma.$WorkflowRunPayload<ExtArgs>[]
+    workflowBranches: Prisma.$WorkflowBranchPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     githubId: bigint
+    nodeId: string | null
     name: string
     path: string
     state: $Enums.WorkflowState
     isActive: boolean
+    badgeUrl: string | null
+    htmlUrl: string | null
     /**
      * [WorkflowInput[]]
      */
-    inputs: runtime.JsonValue
+    defaultInputs: runtime.JsonValue | null
     repositoryId: string
     createdAt: Date
     updatedAt: Date
@@ -1298,6 +1541,7 @@ export interface Prisma__WorkflowClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   repository<T extends Prisma.RepositoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RepositoryDefaultArgs<ExtArgs>>): Prisma.Prisma__RepositoryClient<runtime.Types.Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   workflowRuns<T extends Prisma.Workflow$workflowRunsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workflow$workflowRunsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workflowBranches<T extends Prisma.Workflow$workflowBranchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workflow$workflowBranchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowBranchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,11 +1573,14 @@ export interface Prisma__WorkflowClient<T, Null = never, ExtArgs extends runtime
 export interface WorkflowFieldRefs {
   readonly id: Prisma.FieldRef<"Workflow", 'String'>
   readonly githubId: Prisma.FieldRef<"Workflow", 'BigInt'>
+  readonly nodeId: Prisma.FieldRef<"Workflow", 'String'>
   readonly name: Prisma.FieldRef<"Workflow", 'String'>
   readonly path: Prisma.FieldRef<"Workflow", 'String'>
   readonly state: Prisma.FieldRef<"Workflow", 'WorkflowState'>
   readonly isActive: Prisma.FieldRef<"Workflow", 'Boolean'>
-  readonly inputs: Prisma.FieldRef<"Workflow", 'Json'>
+  readonly badgeUrl: Prisma.FieldRef<"Workflow", 'String'>
+  readonly htmlUrl: Prisma.FieldRef<"Workflow", 'String'>
+  readonly defaultInputs: Prisma.FieldRef<"Workflow", 'Json'>
   readonly repositoryId: Prisma.FieldRef<"Workflow", 'String'>
   readonly createdAt: Prisma.FieldRef<"Workflow", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Workflow", 'DateTime'>
@@ -1764,6 +2011,30 @@ export type Workflow$workflowRunsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.WorkflowRunScalarFieldEnum | Prisma.WorkflowRunScalarFieldEnum[]
+}
+
+/**
+ * Workflow.workflowBranches
+ */
+export type Workflow$workflowBranchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkflowBranch
+   */
+  select?: Prisma.WorkflowBranchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkflowBranch
+   */
+  omit?: Prisma.WorkflowBranchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkflowBranchInclude<ExtArgs> | null
+  where?: Prisma.WorkflowBranchWhereInput
+  orderBy?: Prisma.WorkflowBranchOrderByWithRelationInput | Prisma.WorkflowBranchOrderByWithRelationInput[]
+  cursor?: Prisma.WorkflowBranchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkflowBranchScalarFieldEnum | Prisma.WorkflowBranchScalarFieldEnum[]
 }
 
 /**

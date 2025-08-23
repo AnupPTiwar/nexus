@@ -147,7 +147,7 @@ const validateToken = async (token: string) => {
 **Status**: 🟢 **FULLY IMPLEMENTED** - All core components operational
 
 #### **Completed Infrastructure**
-- ✅ **Authentication System**: NextAuth.js v5 with GitHub OAuth fully configured
+- ✅ **Authentication System**: NextAuth.js v5 with GitHub OAuth + GitHub token storage for workflow triggering
 - ✅ **Database Schema**: Complete Prisma schema with all models (827 lines)
 - ✅ **User Management**: Full CRUD with permissions, stats, filtering, tables
 - ✅ **Repository Management**: Complete repository CRUD with token management
@@ -158,10 +158,12 @@ const validateToken = async (token: string) => {
 #### **Completed Features**
 ```yaml
 Authentication:
-  - GitHub OAuth login/logout
-  - Session management with NextAuth
+  - GitHub OAuth login/logout with repo and workflow scopes
+  - Encrypted GitHub access token storage in User model
+  - Session management with NextAuth extended with user permissions
   - Route protection middleware
-  - User profile management
+  - User profile management with default read permissions
+  - Server-side only GitHub token access for workflow triggering
 
 Repository Management:
   - Add GitHub repositories
@@ -190,7 +192,7 @@ API Infrastructure:
 #### **Current Database Schema Status**
 ```yaml
 Implemented Models (18 models):
-  ✅ User - Complete with permissions and preferences
+  ✅ User - Complete with permissions, preferences, and encrypted GitHub token storage
   ✅ Provider - OAuth provider management
   ✅ ProviderAccount - GitHub account linking  
   ✅ Repository - GitHub repository integration
@@ -466,9 +468,17 @@ nexus/
 ## 🗃️ Key Files & Their Purpose
 
 ### 🔐 Authentication
-- `lib/auth.ts`: NextAuth configuration with GitHub OAuth
+- `lib/auth.ts`: NextAuth configuration with GitHub OAuth + token storage (✅ **UPDATED**)
+- `types/next-auth.d.ts`: Extended session types with permissions (✅ **NEW**)
 - `middleware.ts`: Route protection
 - `app/(auth)/`: Authentication routes and layouts
+
+#### **GitHub Token Integration Details**
+- **Storage**: Encrypted GitHub access_token in User.githubAccessToken field
+- **Scopes**: `repo workflow user:email` for full workflow management
+- **Security**: Server-side only access, never exposed to client
+- **Auto-Creation**: New users get default read permissions
+- **Session Extension**: User permissions included in NextAuth session
 
 ### 🗄️ Database
 - `prisma/schema.prisma`: Complete database schema

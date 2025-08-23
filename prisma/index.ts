@@ -1,1 +1,4 @@
-export * from "./generated/client";
+export { PrismaClient } from "./generated/client";
+export * from "./generated/commonInputTypes";
+export * from "./generated/enums";
+export * from "./generated/models";

@@ -30,6 +30,7 @@ export type WorkflowRunAvgAggregateOutputType = {
   runNumber: number | null
   runAttempt: number | null
   runnerId: number | null
+  runnerGroupId: number | null
   actorId: number | null
 }
 
@@ -38,27 +39,47 @@ export type WorkflowRunSumAggregateOutputType = {
   runNumber: number | null
   runAttempt: number | null
   runnerId: number | null
+  runnerGroupId: number | null
   actorId: bigint | null
 }
 
 export type WorkflowRunMinAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
   runNumber: number | null
   runAttempt: number | null
+  displayTitle: string | null
   status: $Enums.WorkflowRunStatus | null
   conclusion: $Enums.WorkflowRunConclusion | null
+  source: $Enums.WorkflowRunSource | null
   triggerBranch: string | null
+  headBranch: string | null
   headSha: string | null
+  baseSha: string | null
+  event: string | null
+  environment: string | null
+  approvalRequired: boolean | null
   runnerId: number | null
   runnerName: string | null
+  runnerGroupId: number | null
+  runnerGroupName: string | null
   runStartedAt: Date | null
   runCompletedAt: Date | null
+  htmlUrl: string | null
+  jobsUrl: string | null
+  logsUrl: string | null
+  checkSuiteUrl: string | null
+  artifactsUrl: string | null
+  cancelUrl: string | null
+  rerunUrl: string | null
   actorId: bigint | null
   actorLogin: string | null
+  actorType: string | null
+  triggeredById: string | null
+  actorAccountId: string | null
   parentRunId: string | null
   workflowId: string | null
-  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -67,21 +88,40 @@ export type WorkflowRunMinAggregateOutputType = {
 export type WorkflowRunMaxAggregateOutputType = {
   id: string | null
   githubId: bigint | null
+  nodeId: string | null
   runNumber: number | null
   runAttempt: number | null
+  displayTitle: string | null
   status: $Enums.WorkflowRunStatus | null
   conclusion: $Enums.WorkflowRunConclusion | null
+  source: $Enums.WorkflowRunSource | null
   triggerBranch: string | null
+  headBranch: string | null
   headSha: string | null
+  baseSha: string | null
+  event: string | null
+  environment: string | null
+  approvalRequired: boolean | null
   runnerId: number | null
   runnerName: string | null
+  runnerGroupId: number | null
+  runnerGroupName: string | null
   runStartedAt: Date | null
   runCompletedAt: Date | null
+  htmlUrl: string | null
+  jobsUrl: string | null
+  logsUrl: string | null
+  checkSuiteUrl: string | null
+  artifactsUrl: string | null
+  cancelUrl: string | null
+  rerunUrl: string | null
   actorId: bigint | null
   actorLogin: string | null
+  actorType: string | null
+  triggeredById: string | null
+  actorAccountId: string | null
   parentRunId: string | null
   workflowId: string | null
-  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -90,22 +130,42 @@ export type WorkflowRunMaxAggregateOutputType = {
 export type WorkflowRunCountAggregateOutputType = {
   id: number
   githubId: number
+  nodeId: number
   runNumber: number
   runAttempt: number
+  displayTitle: number
   status: number
   conclusion: number
+  source: number
   triggerBranch: number
+  headBranch: number
   headSha: number
+  baseSha: number
+  event: number
+  environment: number
+  approvalRequired: number
   runnerId: number
   runnerName: number
+  runnerGroupId: number
+  runnerGroupName: number
   inputs: number
+  outputs: number
   runStartedAt: number
   runCompletedAt: number
+  htmlUrl: number
+  jobsUrl: number
+  logsUrl: number
+  checkSuiteUrl: number
+  artifactsUrl: number
+  cancelUrl: number
+  rerunUrl: number
   actorId: number
   actorLogin: number
+  actorType: number
+  triggeredById: number
+  actorAccountId: number
   parentRunId: number
   workflowId: number
-  userId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -118,6 +178,7 @@ export type WorkflowRunAvgAggregateInputType = {
   runNumber?: true
   runAttempt?: true
   runnerId?: true
+  runnerGroupId?: true
   actorId?: true
 }
 
@@ -126,27 +187,47 @@ export type WorkflowRunSumAggregateInputType = {
   runNumber?: true
   runAttempt?: true
   runnerId?: true
+  runnerGroupId?: true
   actorId?: true
 }
 
 export type WorkflowRunMinAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   runNumber?: true
   runAttempt?: true
+  displayTitle?: true
   status?: true
   conclusion?: true
+  source?: true
   triggerBranch?: true
+  headBranch?: true
   headSha?: true
+  baseSha?: true
+  event?: true
+  environment?: true
+  approvalRequired?: true
   runnerId?: true
   runnerName?: true
+  runnerGroupId?: true
+  runnerGroupName?: true
   runStartedAt?: true
   runCompletedAt?: true
+  htmlUrl?: true
+  jobsUrl?: true
+  logsUrl?: true
+  checkSuiteUrl?: true
+  artifactsUrl?: true
+  cancelUrl?: true
+  rerunUrl?: true
   actorId?: true
   actorLogin?: true
+  actorType?: true
+  triggeredById?: true
+  actorAccountId?: true
   parentRunId?: true
   workflowId?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -155,21 +236,40 @@ export type WorkflowRunMinAggregateInputType = {
 export type WorkflowRunMaxAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   runNumber?: true
   runAttempt?: true
+  displayTitle?: true
   status?: true
   conclusion?: true
+  source?: true
   triggerBranch?: true
+  headBranch?: true
   headSha?: true
+  baseSha?: true
+  event?: true
+  environment?: true
+  approvalRequired?: true
   runnerId?: true
   runnerName?: true
+  runnerGroupId?: true
+  runnerGroupName?: true
   runStartedAt?: true
   runCompletedAt?: true
+  htmlUrl?: true
+  jobsUrl?: true
+  logsUrl?: true
+  checkSuiteUrl?: true
+  artifactsUrl?: true
+  cancelUrl?: true
+  rerunUrl?: true
   actorId?: true
   actorLogin?: true
+  actorType?: true
+  triggeredById?: true
+  actorAccountId?: true
   parentRunId?: true
   workflowId?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -178,22 +278,42 @@ export type WorkflowRunMaxAggregateInputType = {
 export type WorkflowRunCountAggregateInputType = {
   id?: true
   githubId?: true
+  nodeId?: true
   runNumber?: true
   runAttempt?: true
+  displayTitle?: true
   status?: true
   conclusion?: true
+  source?: true
   triggerBranch?: true
+  headBranch?: true
   headSha?: true
+  baseSha?: true
+  event?: true
+  environment?: true
+  approvalRequired?: true
   runnerId?: true
   runnerName?: true
+  runnerGroupId?: true
+  runnerGroupName?: true
   inputs?: true
+  outputs?: true
   runStartedAt?: true
   runCompletedAt?: true
+  htmlUrl?: true
+  jobsUrl?: true
+  logsUrl?: true
+  checkSuiteUrl?: true
+  artifactsUrl?: true
+  cancelUrl?: true
+  rerunUrl?: true
   actorId?: true
   actorLogin?: true
+  actorType?: true
+  triggeredById?: true
+  actorAccountId?: true
   parentRunId?: true
   workflowId?: true
-  userId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -289,22 +409,42 @@ export type WorkflowRunGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type WorkflowRunGroupByOutputType = {
   id: string
   githubId: bigint
+  nodeId: string | null
   runNumber: number
   runAttempt: number
+  displayTitle: string | null
   status: $Enums.WorkflowRunStatus
   conclusion: $Enums.WorkflowRunConclusion | null
+  source: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch: string | null
   headSha: string
+  baseSha: string | null
+  event: string | null
+  environment: string | null
+  approvalRequired: boolean
   runnerId: number | null
   runnerName: string | null
+  runnerGroupId: number | null
+  runnerGroupName: string | null
   inputs: runtime.JsonValue | null
+  outputs: runtime.JsonValue | null
   runStartedAt: Date | null
   runCompletedAt: Date | null
+  htmlUrl: string | null
+  jobsUrl: string | null
+  logsUrl: string | null
+  checkSuiteUrl: string | null
+  artifactsUrl: string | null
+  cancelUrl: string | null
+  rerunUrl: string | null
   actorId: bigint | null
   actorLogin: string | null
+  actorType: string | null
+  triggeredById: string | null
+  actorAccountId: string | null
   parentRunId: string | null
   workflowId: string
-  userId: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -336,59 +476,105 @@ export type WorkflowRunWhereInput = {
   NOT?: Prisma.WorkflowRunWhereInput | Prisma.WorkflowRunWhereInput[]
   id?: Prisma.StringFilter<"WorkflowRun"> | string
   githubId?: Prisma.BigIntFilter<"WorkflowRun"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   runNumber?: Prisma.IntFilter<"WorkflowRun"> | number
   runAttempt?: Prisma.IntFilter<"WorkflowRun"> | number
+  displayTitle?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   status?: Prisma.EnumWorkflowRunStatusFilter<"WorkflowRun"> | $Enums.WorkflowRunStatus
   conclusion?: Prisma.EnumWorkflowRunConclusionNullableFilter<"WorkflowRun"> | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFilter<"WorkflowRun"> | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFilter<"WorkflowRun"> | string
+  headBranch?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   headSha?: Prisma.StringFilter<"WorkflowRun"> | string
+  baseSha?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  event?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  environment?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  approvalRequired?: Prisma.BoolFilter<"WorkflowRun"> | boolean
   runnerId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
+  runnerGroupName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   inputs?: Prisma.JsonNullableFilter<"WorkflowRun">
+  outputs?: Prisma.JsonNullableFilter<"WorkflowRun">
   runStartedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
   runCompletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  jobsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  logsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  checkSuiteUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  artifactsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  cancelUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  rerunUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   actorId?: Prisma.BigIntNullableFilter<"WorkflowRun"> | bigint | number | null
   actorLogin?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorType?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  triggeredById?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorAccountId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   parentRunId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   workflowId?: Prisma.StringFilter<"WorkflowRun"> | string
-  userId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
+  triggeredBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  actorAccount?: Prisma.XOR<Prisma.ProviderAccountNullableScalarRelationFilter, Prisma.ProviderAccountWhereInput> | null
   parentRun?: Prisma.XOR<Prisma.WorkflowRunNullableScalarRelationFilter, Prisma.WorkflowRunWhereInput> | null
   reRuns?: Prisma.WorkflowRunListRelationFilter
   workflow?: Prisma.XOR<Prisma.WorkflowScalarRelationFilter, Prisma.WorkflowWhereInput>
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   jobs?: Prisma.WorkflowJobListRelationFilter
+  approvals?: Prisma.WorkflowApprovalListRelationFilter
+  reRunHistory?: Prisma.ReRunHistoryListRelationFilter
 }
 
 export type WorkflowRunOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
+  displayTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrderInput | Prisma.SortOrder
+  source?: Prisma.SortOrder
   triggerBranch?: Prisma.SortOrder
+  headBranch?: Prisma.SortOrderInput | Prisma.SortOrder
   headSha?: Prisma.SortOrder
+  baseSha?: Prisma.SortOrderInput | Prisma.SortOrder
+  event?: Prisma.SortOrderInput | Prisma.SortOrder
+  environment?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvalRequired?: Prisma.SortOrder
   runnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupName?: Prisma.SortOrderInput | Prisma.SortOrder
   inputs?: Prisma.SortOrderInput | Prisma.SortOrder
+  outputs?: Prisma.SortOrderInput | Prisma.SortOrder
   runStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   runCompletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  logsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkSuiteUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  artifactsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancelUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  rerunUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   actorId?: Prisma.SortOrderInput | Prisma.SortOrder
   actorLogin?: Prisma.SortOrderInput | Prisma.SortOrder
+  actorType?: Prisma.SortOrderInput | Prisma.SortOrder
+  triggeredById?: Prisma.SortOrderInput | Prisma.SortOrder
+  actorAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   parentRunId?: Prisma.SortOrderInput | Prisma.SortOrder
   workflowId?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  triggeredBy?: Prisma.UserOrderByWithRelationInput
+  actorAccount?: Prisma.ProviderAccountOrderByWithRelationInput
   parentRun?: Prisma.WorkflowRunOrderByWithRelationInput
   reRuns?: Prisma.WorkflowRunOrderByRelationAggregateInput
   workflow?: Prisma.WorkflowOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
   jobs?: Prisma.WorkflowJobOrderByRelationAggregateInput
+  approvals?: Prisma.WorkflowApprovalOrderByRelationAggregateInput
+  reRunHistory?: Prisma.ReRunHistoryOrderByRelationAggregateInput
   _relevance?: Prisma.WorkflowRunOrderByRelevanceInput
 }
 
@@ -399,51 +585,94 @@ export type WorkflowRunWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.WorkflowRunWhereInput[]
   NOT?: Prisma.WorkflowRunWhereInput | Prisma.WorkflowRunWhereInput[]
   githubId?: Prisma.BigIntFilter<"WorkflowRun"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   runNumber?: Prisma.IntFilter<"WorkflowRun"> | number
   runAttempt?: Prisma.IntFilter<"WorkflowRun"> | number
+  displayTitle?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   status?: Prisma.EnumWorkflowRunStatusFilter<"WorkflowRun"> | $Enums.WorkflowRunStatus
   conclusion?: Prisma.EnumWorkflowRunConclusionNullableFilter<"WorkflowRun"> | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFilter<"WorkflowRun"> | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFilter<"WorkflowRun"> | string
+  headBranch?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   headSha?: Prisma.StringFilter<"WorkflowRun"> | string
+  baseSha?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  event?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  environment?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  approvalRequired?: Prisma.BoolFilter<"WorkflowRun"> | boolean
   runnerId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
+  runnerGroupName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   inputs?: Prisma.JsonNullableFilter<"WorkflowRun">
+  outputs?: Prisma.JsonNullableFilter<"WorkflowRun">
   runStartedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
   runCompletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  jobsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  logsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  checkSuiteUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  artifactsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  cancelUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  rerunUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   actorId?: Prisma.BigIntNullableFilter<"WorkflowRun"> | bigint | number | null
   actorLogin?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorType?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  triggeredById?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorAccountId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   parentRunId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   workflowId?: Prisma.StringFilter<"WorkflowRun"> | string
-  userId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
+  triggeredBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  actorAccount?: Prisma.XOR<Prisma.ProviderAccountNullableScalarRelationFilter, Prisma.ProviderAccountWhereInput> | null
   parentRun?: Prisma.XOR<Prisma.WorkflowRunNullableScalarRelationFilter, Prisma.WorkflowRunWhereInput> | null
   reRuns?: Prisma.WorkflowRunListRelationFilter
   workflow?: Prisma.XOR<Prisma.WorkflowScalarRelationFilter, Prisma.WorkflowWhereInput>
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   jobs?: Prisma.WorkflowJobListRelationFilter
+  approvals?: Prisma.WorkflowApprovalListRelationFilter
+  reRunHistory?: Prisma.ReRunHistoryListRelationFilter
 }, "id" | "workflowId_githubId_runAttempt">
 
 export type WorkflowRunOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrderInput | Prisma.SortOrder
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
+  displayTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrderInput | Prisma.SortOrder
+  source?: Prisma.SortOrder
   triggerBranch?: Prisma.SortOrder
+  headBranch?: Prisma.SortOrderInput | Prisma.SortOrder
   headSha?: Prisma.SortOrder
+  baseSha?: Prisma.SortOrderInput | Prisma.SortOrder
+  event?: Prisma.SortOrderInput | Prisma.SortOrder
+  environment?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvalRequired?: Prisma.SortOrder
   runnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   runnerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  runnerGroupName?: Prisma.SortOrderInput | Prisma.SortOrder
   inputs?: Prisma.SortOrderInput | Prisma.SortOrder
+  outputs?: Prisma.SortOrderInput | Prisma.SortOrder
   runStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   runCompletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  logsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkSuiteUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  artifactsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancelUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  rerunUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   actorId?: Prisma.SortOrderInput | Prisma.SortOrder
   actorLogin?: Prisma.SortOrderInput | Prisma.SortOrder
+  actorType?: Prisma.SortOrderInput | Prisma.SortOrder
+  triggeredById?: Prisma.SortOrderInput | Prisma.SortOrder
+  actorAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   parentRunId?: Prisma.SortOrderInput | Prisma.SortOrder
   workflowId?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -460,22 +689,42 @@ export type WorkflowRunScalarWhereWithAggregatesInput = {
   NOT?: Prisma.WorkflowRunScalarWhereWithAggregatesInput | Prisma.WorkflowRunScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"WorkflowRun"> | string
   githubId?: Prisma.BigIntWithAggregatesFilter<"WorkflowRun"> | bigint | number
+  nodeId?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   runNumber?: Prisma.IntWithAggregatesFilter<"WorkflowRun"> | number
   runAttempt?: Prisma.IntWithAggregatesFilter<"WorkflowRun"> | number
+  displayTitle?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   status?: Prisma.EnumWorkflowRunStatusWithAggregatesFilter<"WorkflowRun"> | $Enums.WorkflowRunStatus
   conclusion?: Prisma.EnumWorkflowRunConclusionNullableWithAggregatesFilter<"WorkflowRun"> | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceWithAggregatesFilter<"WorkflowRun"> | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringWithAggregatesFilter<"WorkflowRun"> | string
+  headBranch?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   headSha?: Prisma.StringWithAggregatesFilter<"WorkflowRun"> | string
+  baseSha?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  event?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  environment?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  approvalRequired?: Prisma.BoolWithAggregatesFilter<"WorkflowRun"> | boolean
   runnerId?: Prisma.IntNullableWithAggregatesFilter<"WorkflowRun"> | number | null
   runnerName?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  runnerGroupId?: Prisma.IntNullableWithAggregatesFilter<"WorkflowRun"> | number | null
+  runnerGroupName?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   inputs?: Prisma.JsonNullableWithAggregatesFilter<"WorkflowRun">
+  outputs?: Prisma.JsonNullableWithAggregatesFilter<"WorkflowRun">
   runStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
   runCompletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
+  htmlUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  jobsUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  logsUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  checkSuiteUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  artifactsUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  cancelUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  rerunUrl?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   actorId?: Prisma.BigIntNullableWithAggregatesFilter<"WorkflowRun"> | bigint | number | null
   actorLogin?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  actorType?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  triggeredById?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+  actorAccountId?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   parentRunId?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   workflowId?: Prisma.StringWithAggregatesFilter<"WorkflowRun"> | string
-  userId?: Prisma.StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WorkflowRun"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WorkflowRun"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
@@ -484,126 +733,234 @@ export type WorkflowRunScalarWhereWithAggregatesInput = {
 export type WorkflowRunCreateInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
   parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
   reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
   workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
-  user?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
   jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunUncheckedCreateInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
   jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
   reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
   workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
-  user?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
   jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
   jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunCreateManyInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -612,19 +969,38 @@ export type WorkflowRunCreateManyInput = {
 export type WorkflowRunUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -633,22 +1009,42 @@ export type WorkflowRunUpdateManyMutationInput = {
 export type WorkflowRunUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -684,22 +1080,42 @@ export type WorkflowRunWorkflowIdGithubIdRunAttemptCompoundUniqueInput = {
 export type WorkflowRunCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
+  displayTitle?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
+  source?: Prisma.SortOrder
   triggerBranch?: Prisma.SortOrder
+  headBranch?: Prisma.SortOrder
   headSha?: Prisma.SortOrder
+  baseSha?: Prisma.SortOrder
+  event?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  approvalRequired?: Prisma.SortOrder
   runnerId?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  runnerGroupName?: Prisma.SortOrder
   inputs?: Prisma.SortOrder
+  outputs?: Prisma.SortOrder
   runStartedAt?: Prisma.SortOrder
   runCompletedAt?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  jobsUrl?: Prisma.SortOrder
+  logsUrl?: Prisma.SortOrder
+  checkSuiteUrl?: Prisma.SortOrder
+  artifactsUrl?: Prisma.SortOrder
+  cancelUrl?: Prisma.SortOrder
+  rerunUrl?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   actorLogin?: Prisma.SortOrder
+  actorType?: Prisma.SortOrder
+  triggeredById?: Prisma.SortOrder
+  actorAccountId?: Prisma.SortOrder
   parentRunId?: Prisma.SortOrder
   workflowId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -710,27 +1126,47 @@ export type WorkflowRunAvgOrderByAggregateInput = {
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
   runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
 }
 
 export type WorkflowRunMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
+  displayTitle?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
+  source?: Prisma.SortOrder
   triggerBranch?: Prisma.SortOrder
+  headBranch?: Prisma.SortOrder
   headSha?: Prisma.SortOrder
+  baseSha?: Prisma.SortOrder
+  event?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  approvalRequired?: Prisma.SortOrder
   runnerId?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  runnerGroupName?: Prisma.SortOrder
   runStartedAt?: Prisma.SortOrder
   runCompletedAt?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  jobsUrl?: Prisma.SortOrder
+  logsUrl?: Prisma.SortOrder
+  checkSuiteUrl?: Prisma.SortOrder
+  artifactsUrl?: Prisma.SortOrder
+  cancelUrl?: Prisma.SortOrder
+  rerunUrl?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   actorLogin?: Prisma.SortOrder
+  actorType?: Prisma.SortOrder
+  triggeredById?: Prisma.SortOrder
+  actorAccountId?: Prisma.SortOrder
   parentRunId?: Prisma.SortOrder
   workflowId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -739,21 +1175,40 @@ export type WorkflowRunMaxOrderByAggregateInput = {
 export type WorkflowRunMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  nodeId?: Prisma.SortOrder
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
+  displayTitle?: Prisma.SortOrder
   status?: Prisma.SortOrder
   conclusion?: Prisma.SortOrder
+  source?: Prisma.SortOrder
   triggerBranch?: Prisma.SortOrder
+  headBranch?: Prisma.SortOrder
   headSha?: Prisma.SortOrder
+  baseSha?: Prisma.SortOrder
+  event?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  approvalRequired?: Prisma.SortOrder
   runnerId?: Prisma.SortOrder
   runnerName?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
+  runnerGroupName?: Prisma.SortOrder
   runStartedAt?: Prisma.SortOrder
   runCompletedAt?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  jobsUrl?: Prisma.SortOrder
+  logsUrl?: Prisma.SortOrder
+  checkSuiteUrl?: Prisma.SortOrder
+  artifactsUrl?: Prisma.SortOrder
+  cancelUrl?: Prisma.SortOrder
+  rerunUrl?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   actorLogin?: Prisma.SortOrder
+  actorType?: Prisma.SortOrder
+  triggeredById?: Prisma.SortOrder
+  actorAccountId?: Prisma.SortOrder
   parentRunId?: Prisma.SortOrder
   workflowId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -764,6 +1219,7 @@ export type WorkflowRunSumOrderByAggregateInput = {
   runNumber?: Prisma.SortOrder
   runAttempt?: Prisma.SortOrder
   runnerId?: Prisma.SortOrder
+  runnerGroupId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
 }
 
@@ -772,45 +1228,87 @@ export type WorkflowRunScalarRelationFilter = {
   isNot?: Prisma.WorkflowRunWhereInput
 }
 
-export type WorkflowRunCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput> | Prisma.WorkflowRunCreateWithoutUserInput[] | Prisma.WorkflowRunUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutUserInput | Prisma.WorkflowRunCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.WorkflowRunCreateManyUserInputEnvelope
+export type WorkflowRunCreateNestedManyWithoutTriggeredByInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput> | Prisma.WorkflowRunCreateWithoutTriggeredByInput[] | Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput | Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput[]
+  createMany?: Prisma.WorkflowRunCreateManyTriggeredByInputEnvelope
   connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
 }
 
-export type WorkflowRunUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput> | Prisma.WorkflowRunCreateWithoutUserInput[] | Prisma.WorkflowRunUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutUserInput | Prisma.WorkflowRunCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.WorkflowRunCreateManyUserInputEnvelope
+export type WorkflowRunUncheckedCreateNestedManyWithoutTriggeredByInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput> | Prisma.WorkflowRunCreateWithoutTriggeredByInput[] | Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput | Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput[]
+  createMany?: Prisma.WorkflowRunCreateManyTriggeredByInputEnvelope
   connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
 }
 
-export type WorkflowRunUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput> | Prisma.WorkflowRunCreateWithoutUserInput[] | Prisma.WorkflowRunUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutUserInput | Prisma.WorkflowRunCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutUserInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.WorkflowRunCreateManyUserInputEnvelope
+export type WorkflowRunUpdateManyWithoutTriggeredByNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput> | Prisma.WorkflowRunCreateWithoutTriggeredByInput[] | Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput | Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput[]
+  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutTriggeredByInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutTriggeredByInput[]
+  createMany?: Prisma.WorkflowRunCreateManyTriggeredByInputEnvelope
   set?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   disconnect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   delete?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
-  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutUserInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutUserInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutTriggeredByInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutTriggeredByInput[]
+  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutTriggeredByInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutTriggeredByInput[]
   deleteMany?: Prisma.WorkflowRunScalarWhereInput | Prisma.WorkflowRunScalarWhereInput[]
 }
 
-export type WorkflowRunUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput> | Prisma.WorkflowRunCreateWithoutUserInput[] | Prisma.WorkflowRunUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutUserInput | Prisma.WorkflowRunCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutUserInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.WorkflowRunCreateManyUserInputEnvelope
+export type WorkflowRunUncheckedUpdateManyWithoutTriggeredByNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput> | Prisma.WorkflowRunCreateWithoutTriggeredByInput[] | Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput | Prisma.WorkflowRunCreateOrConnectWithoutTriggeredByInput[]
+  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutTriggeredByInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutTriggeredByInput[]
+  createMany?: Prisma.WorkflowRunCreateManyTriggeredByInputEnvelope
   set?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   disconnect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   delete?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
   connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
-  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutUserInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutUserInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutTriggeredByInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutTriggeredByInput[]
+  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutTriggeredByInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutTriggeredByInput[]
+  deleteMany?: Prisma.WorkflowRunScalarWhereInput | Prisma.WorkflowRunScalarWhereInput[]
+}
+
+export type WorkflowRunCreateNestedManyWithoutActorAccountInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput> | Prisma.WorkflowRunCreateWithoutActorAccountInput[] | Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput | Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput[]
+  createMany?: Prisma.WorkflowRunCreateManyActorAccountInputEnvelope
+  connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+}
+
+export type WorkflowRunUncheckedCreateNestedManyWithoutActorAccountInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput> | Prisma.WorkflowRunCreateWithoutActorAccountInput[] | Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput | Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput[]
+  createMany?: Prisma.WorkflowRunCreateManyActorAccountInputEnvelope
+  connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+}
+
+export type WorkflowRunUpdateManyWithoutActorAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput> | Prisma.WorkflowRunCreateWithoutActorAccountInput[] | Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput | Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput[]
+  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutActorAccountInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutActorAccountInput[]
+  createMany?: Prisma.WorkflowRunCreateManyActorAccountInputEnvelope
+  set?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  disconnect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  delete?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutActorAccountInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutActorAccountInput[]
+  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutActorAccountInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutActorAccountInput[]
+  deleteMany?: Prisma.WorkflowRunScalarWhereInput | Prisma.WorkflowRunScalarWhereInput[]
+}
+
+export type WorkflowRunUncheckedUpdateManyWithoutActorAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput> | Prisma.WorkflowRunCreateWithoutActorAccountInput[] | Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput[]
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput | Prisma.WorkflowRunCreateOrConnectWithoutActorAccountInput[]
+  upsert?: Prisma.WorkflowRunUpsertWithWhereUniqueWithoutActorAccountInput | Prisma.WorkflowRunUpsertWithWhereUniqueWithoutActorAccountInput[]
+  createMany?: Prisma.WorkflowRunCreateManyActorAccountInputEnvelope
+  set?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  disconnect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  delete?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  connect?: Prisma.WorkflowRunWhereUniqueInput | Prisma.WorkflowRunWhereUniqueInput[]
+  update?: Prisma.WorkflowRunUpdateWithWhereUniqueWithoutActorAccountInput | Prisma.WorkflowRunUpdateWithWhereUniqueWithoutActorAccountInput[]
+  updateMany?: Prisma.WorkflowRunUpdateManyWithWhereWithoutActorAccountInput | Prisma.WorkflowRunUpdateManyWithWhereWithoutActorAccountInput[]
   deleteMany?: Prisma.WorkflowRunScalarWhereInput | Prisma.WorkflowRunScalarWhereInput[]
 }
 
@@ -892,12 +1390,8 @@ export type NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput = {
   set?: $Enums.WorkflowRunConclusion | null
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type EnumWorkflowRunSourceFieldUpdateOperationsInput = {
+  set?: $Enums.WorkflowRunSource
 }
 
 export type WorkflowRunUpdateOneWithoutReRunsNestedInput = {
@@ -952,47 +1446,117 @@ export type WorkflowRunUpdateOneRequiredWithoutJobsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WorkflowRunUpdateToOneWithWhereWithoutJobsInput, Prisma.WorkflowRunUpdateWithoutJobsInput>, Prisma.WorkflowRunUncheckedUpdateWithoutJobsInput>
 }
 
-export type WorkflowRunCreateWithoutUserInput = {
+export type WorkflowRunCreateNestedOneWithoutApprovalsInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedCreateWithoutApprovalsInput>
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutApprovalsInput
+  connect?: Prisma.WorkflowRunWhereUniqueInput
+}
+
+export type WorkflowRunUpdateOneRequiredWithoutApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedCreateWithoutApprovalsInput>
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutApprovalsInput
+  upsert?: Prisma.WorkflowRunUpsertWithoutApprovalsInput
+  connect?: Prisma.WorkflowRunWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkflowRunUpdateToOneWithWhereWithoutApprovalsInput, Prisma.WorkflowRunUpdateWithoutApprovalsInput>, Prisma.WorkflowRunUncheckedUpdateWithoutApprovalsInput>
+}
+
+export type WorkflowRunCreateNestedOneWithoutReRunHistoryInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedCreateWithoutReRunHistoryInput>
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutReRunHistoryInput
+  connect?: Prisma.WorkflowRunWhereUniqueInput
+}
+
+export type WorkflowRunUpdateOneRequiredWithoutReRunHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkflowRunCreateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedCreateWithoutReRunHistoryInput>
+  connectOrCreate?: Prisma.WorkflowRunCreateOrConnectWithoutReRunHistoryInput
+  upsert?: Prisma.WorkflowRunUpsertWithoutReRunHistoryInput
+  connect?: Prisma.WorkflowRunWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkflowRunUpdateToOneWithWhereWithoutReRunHistoryInput, Prisma.WorkflowRunUpdateWithoutReRunHistoryInput>, Prisma.WorkflowRunUncheckedUpdateWithoutReRunHistoryInput>
+}
+
+export type WorkflowRunCreateWithoutTriggeredByInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
   parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
   reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
   workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
   jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
-export type WorkflowRunUncheckedCreateWithoutUserInput = {
+export type WorkflowRunUncheckedCreateWithoutTriggeredByInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
   createdAt?: Date | string
@@ -1000,32 +1564,34 @@ export type WorkflowRunUncheckedCreateWithoutUserInput = {
   deletedAt?: Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
   jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
-export type WorkflowRunCreateOrConnectWithoutUserInput = {
+export type WorkflowRunCreateOrConnectWithoutTriggeredByInput = {
   where: Prisma.WorkflowRunWhereUniqueInput
-  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput>
 }
 
-export type WorkflowRunCreateManyUserInputEnvelope = {
-  data: Prisma.WorkflowRunCreateManyUserInput | Prisma.WorkflowRunCreateManyUserInput[]
+export type WorkflowRunCreateManyTriggeredByInputEnvelope = {
+  data: Prisma.WorkflowRunCreateManyTriggeredByInput | Prisma.WorkflowRunCreateManyTriggeredByInput[]
   skipDuplicates?: boolean
 }
 
-export type WorkflowRunUpsertWithWhereUniqueWithoutUserInput = {
+export type WorkflowRunUpsertWithWhereUniqueWithoutTriggeredByInput = {
   where: Prisma.WorkflowRunWhereUniqueInput
-  update: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutUserInput, Prisma.WorkflowRunUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutUserInput, Prisma.WorkflowRunUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedUpdateWithoutTriggeredByInput>
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedCreateWithoutTriggeredByInput>
 }
 
-export type WorkflowRunUpdateWithWhereUniqueWithoutUserInput = {
+export type WorkflowRunUpdateWithWhereUniqueWithoutTriggeredByInput = {
   where: Prisma.WorkflowRunWhereUniqueInput
-  data: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutUserInput, Prisma.WorkflowRunUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutTriggeredByInput, Prisma.WorkflowRunUncheckedUpdateWithoutTriggeredByInput>
 }
 
-export type WorkflowRunUpdateManyWithWhereWithoutUserInput = {
+export type WorkflowRunUpdateManyWithWhereWithoutTriggeredByInput = {
   where: Prisma.WorkflowRunScalarWhereInput
-  data: Prisma.XOR<Prisma.WorkflowRunUpdateManyMutationInput, Prisma.WorkflowRunUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateManyMutationInput, Prisma.WorkflowRunUncheckedUpdateManyWithoutTriggeredByInput>
 }
 
 export type WorkflowRunScalarWhereInput = {
@@ -1034,75 +1600,259 @@ export type WorkflowRunScalarWhereInput = {
   NOT?: Prisma.WorkflowRunScalarWhereInput | Prisma.WorkflowRunScalarWhereInput[]
   id?: Prisma.StringFilter<"WorkflowRun"> | string
   githubId?: Prisma.BigIntFilter<"WorkflowRun"> | bigint | number
+  nodeId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   runNumber?: Prisma.IntFilter<"WorkflowRun"> | number
   runAttempt?: Prisma.IntFilter<"WorkflowRun"> | number
+  displayTitle?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   status?: Prisma.EnumWorkflowRunStatusFilter<"WorkflowRun"> | $Enums.WorkflowRunStatus
   conclusion?: Prisma.EnumWorkflowRunConclusionNullableFilter<"WorkflowRun"> | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFilter<"WorkflowRun"> | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFilter<"WorkflowRun"> | string
+  headBranch?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   headSha?: Prisma.StringFilter<"WorkflowRun"> | string
+  baseSha?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  event?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  environment?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  approvalRequired?: Prisma.BoolFilter<"WorkflowRun"> | boolean
   runnerId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
   runnerName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  runnerGroupId?: Prisma.IntNullableFilter<"WorkflowRun"> | number | null
+  runnerGroupName?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   inputs?: Prisma.JsonNullableFilter<"WorkflowRun">
+  outputs?: Prisma.JsonNullableFilter<"WorkflowRun">
   runStartedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
   runCompletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
+  htmlUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  jobsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  logsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  checkSuiteUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  artifactsUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  cancelUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  rerunUrl?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   actorId?: Prisma.BigIntNullableFilter<"WorkflowRun"> | bigint | number | null
   actorLogin?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorType?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  triggeredById?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
+  actorAccountId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   parentRunId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   workflowId?: Prisma.StringFilter<"WorkflowRun"> | string
-  userId?: Prisma.StringNullableFilter<"WorkflowRun"> | string | null
   createdAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkflowRun"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
 }
 
-export type WorkflowRunCreateWithoutWorkflowInput = {
+export type WorkflowRunCreateWithoutActorAccountInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
   parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
   reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
-  user?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
   jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
-export type WorkflowRunUncheckedCreateWithoutWorkflowInput = {
+export type WorkflowRunUncheckedCreateWithoutActorAccountInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
   parentRunId?: string | null
-  userId?: string | null
+  workflowId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
   jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
+}
+
+export type WorkflowRunCreateOrConnectWithoutActorAccountInput = {
+  where: Prisma.WorkflowRunWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput>
+}
+
+export type WorkflowRunCreateManyActorAccountInputEnvelope = {
+  data: Prisma.WorkflowRunCreateManyActorAccountInput | Prisma.WorkflowRunCreateManyActorAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type WorkflowRunUpsertWithWhereUniqueWithoutActorAccountInput = {
+  where: Prisma.WorkflowRunWhereUniqueInput
+  update: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedUpdateWithoutActorAccountInput>
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedCreateWithoutActorAccountInput>
+}
+
+export type WorkflowRunUpdateWithWhereUniqueWithoutActorAccountInput = {
+  where: Prisma.WorkflowRunWhereUniqueInput
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutActorAccountInput, Prisma.WorkflowRunUncheckedUpdateWithoutActorAccountInput>
+}
+
+export type WorkflowRunUpdateManyWithWhereWithoutActorAccountInput = {
+  where: Prisma.WorkflowRunScalarWhereInput
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateManyMutationInput, Prisma.WorkflowRunUncheckedUpdateManyWithoutActorAccountInput>
+}
+
+export type WorkflowRunCreateWithoutWorkflowInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
+  parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
+  reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
+  jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
+}
+
+export type WorkflowRunUncheckedCreateWithoutWorkflowInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
+  parentRunId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
+  jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunCreateOrConnectWithoutWorkflowInput = {
@@ -1134,51 +1884,95 @@ export type WorkflowRunUpdateManyWithWhereWithoutWorkflowInput = {
 export type WorkflowRunCreateWithoutReRunsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
   parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
   workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
-  user?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
   jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunUncheckedCreateWithoutReRunsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunCreateOrConnectWithoutReRunsInput = {
@@ -1189,51 +1983,95 @@ export type WorkflowRunCreateOrConnectWithoutReRunsInput = {
 export type WorkflowRunCreateWithoutParentRunInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
   reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
   workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
-  user?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
   jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunUncheckedCreateWithoutParentRunInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
   jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunCreateOrConnectWithoutParentRunInput = {
@@ -1260,51 +2098,95 @@ export type WorkflowRunUpdateToOneWithWhereWithoutReRunsInput = {
 export type WorkflowRunUpdateWithoutReRunsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
   workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
-  user?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
   jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateWithoutReRunsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUpsertWithWhereUniqueWithoutParentRunInput = {
@@ -1326,51 +2208,95 @@ export type WorkflowRunUpdateManyWithWhereWithoutParentRunInput = {
 export type WorkflowRunCreateWithoutJobsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
   parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
   reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
   workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
-  user?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunUncheckedCreateWithoutJobsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
 export type WorkflowRunCreateOrConnectWithoutJobsInput = {
@@ -1392,117 +2318,291 @@ export type WorkflowRunUpdateToOneWithWhereWithoutJobsInput = {
 export type WorkflowRunUpdateWithoutJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
   reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
   workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
-  user?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateWithoutJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
-export type WorkflowRunCreateManyUserInput = {
+export type WorkflowRunCreateWithoutApprovalsInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
+  parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
+  reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
+  workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
+  jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryCreateNestedManyWithoutParentRunInput
+}
+
+export type WorkflowRunUncheckedCreateWithoutApprovalsInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
   workflowId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
+  jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedCreateNestedManyWithoutParentRunInput
 }
 
-export type WorkflowRunUpdateWithoutUserInput = {
+export type WorkflowRunCreateOrConnectWithoutApprovalsInput = {
+  where: Prisma.WorkflowRunWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedCreateWithoutApprovalsInput>
+}
+
+export type WorkflowRunUpsertWithoutApprovalsInput = {
+  update: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedUpdateWithoutApprovalsInput>
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedCreateWithoutApprovalsInput>
+  where?: Prisma.WorkflowRunWhereInput
+}
+
+export type WorkflowRunUpdateToOneWithWhereWithoutApprovalsInput = {
+  where?: Prisma.WorkflowRunWhereInput
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutApprovalsInput, Prisma.WorkflowRunUncheckedUpdateWithoutApprovalsInput>
+}
+
+export type WorkflowRunUpdateWithoutApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
   reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
   workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
   jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
-export type WorkflowRunUncheckedUpdateWithoutUserInput = {
+export type WorkflowRunUncheckedUpdateWithoutApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1510,24 +2610,566 @@ export type WorkflowRunUncheckedUpdateWithoutUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
   jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
-export type WorkflowRunUncheckedUpdateManyWithoutUserInput = {
+export type WorkflowRunCreateWithoutReRunHistoryInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  triggeredBy?: Prisma.UserCreateNestedOneWithoutWorkflowRunsInput
+  actorAccount?: Prisma.ProviderAccountCreateNestedOneWithoutWorkflowRunsInput
+  parentRun?: Prisma.WorkflowRunCreateNestedOneWithoutReRunsInput
+  reRuns?: Prisma.WorkflowRunCreateNestedManyWithoutParentRunInput
+  workflow: Prisma.WorkflowCreateNestedOneWithoutWorkflowRunsInput
+  jobs?: Prisma.WorkflowJobCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalCreateNestedManyWithoutWorkflowRunInput
+}
+
+export type WorkflowRunUncheckedCreateWithoutReRunHistoryInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
+  parentRunId?: string | null
+  workflowId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedCreateNestedManyWithoutParentRunInput
+  jobs?: Prisma.WorkflowJobUncheckedCreateNestedManyWithoutWorkflowRunInput
+  approvals?: Prisma.WorkflowApprovalUncheckedCreateNestedManyWithoutWorkflowRunInput
+}
+
+export type WorkflowRunCreateOrConnectWithoutReRunHistoryInput = {
+  where: Prisma.WorkflowRunWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedCreateWithoutReRunHistoryInput>
+}
+
+export type WorkflowRunUpsertWithoutReRunHistoryInput = {
+  update: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedUpdateWithoutReRunHistoryInput>
+  create: Prisma.XOR<Prisma.WorkflowRunCreateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedCreateWithoutReRunHistoryInput>
+  where?: Prisma.WorkflowRunWhereInput
+}
+
+export type WorkflowRunUpdateToOneWithWhereWithoutReRunHistoryInput = {
+  where?: Prisma.WorkflowRunWhereInput
+  data: Prisma.XOR<Prisma.WorkflowRunUpdateWithoutReRunHistoryInput, Prisma.WorkflowRunUncheckedUpdateWithoutReRunHistoryInput>
+}
+
+export type WorkflowRunUpdateWithoutReRunHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
+  parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
+  reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
+  workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
+  jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+}
+
+export type WorkflowRunUncheckedUpdateWithoutReRunHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workflowId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
+  jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+}
+
+export type WorkflowRunCreateManyTriggeredByInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  actorAccountId?: string | null
+  parentRunId?: string | null
+  workflowId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type WorkflowRunUpdateWithoutTriggeredByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
+  parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
+  reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
+  workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
+  jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
+}
+
+export type WorkflowRunUncheckedUpdateWithoutTriggeredByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workflowId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
+  jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
+}
+
+export type WorkflowRunUncheckedUpdateManyWithoutTriggeredByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workflowId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type WorkflowRunCreateManyActorAccountInput = {
+  id?: string
+  githubId: bigint | number
+  nodeId?: string | null
+  runNumber: number
+  runAttempt?: number
+  displayTitle?: string | null
+  status: $Enums.WorkflowRunStatus
+  conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
+  triggerBranch: string
+  headBranch?: string | null
+  headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
+  runnerId?: number | null
+  runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Date | string | null
+  runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
+  actorId?: bigint | number | null
+  actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  parentRunId?: string | null
+  workflowId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type WorkflowRunUpdateWithoutActorAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
+  reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
+  workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
+  jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
+}
+
+export type WorkflowRunUncheckedUpdateWithoutActorAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workflowId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
+  jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
+}
+
+export type WorkflowRunUncheckedUpdateManyWithoutActorAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
+  conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
+  triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1538,21 +3180,41 @@ export type WorkflowRunUncheckedUpdateManyWithoutUserInput = {
 export type WorkflowRunCreateManyWorkflowInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   parentRunId?: string | null
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1561,71 +3223,135 @@ export type WorkflowRunCreateManyWorkflowInput = {
 export type WorkflowRunUpdateWithoutWorkflowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   parentRun?: Prisma.WorkflowRunUpdateOneWithoutReRunsNestedInput
   reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
-  user?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
   jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateWithoutWorkflowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
   jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateManyWithoutWorkflowInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentRunId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1634,21 +3360,41 @@ export type WorkflowRunUncheckedUpdateManyWithoutWorkflowInput = {
 export type WorkflowRunCreateManyParentRunInput = {
   id?: string
   githubId: bigint | number
+  nodeId?: string | null
   runNumber: number
   runAttempt?: number
+  displayTitle?: string | null
   status: $Enums.WorkflowRunStatus
   conclusion?: $Enums.WorkflowRunConclusion | null
+  source?: $Enums.WorkflowRunSource
   triggerBranch: string
+  headBranch?: string | null
   headSha: string
+  baseSha?: string | null
+  event?: string | null
+  environment?: string | null
+  approvalRequired?: boolean
   runnerId?: number | null
   runnerName?: string | null
+  runnerGroupId?: number | null
+  runnerGroupName?: string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Date | string | null
   runCompletedAt?: Date | string | null
+  htmlUrl?: string | null
+  jobsUrl?: string | null
+  logsUrl?: string | null
+  checkSuiteUrl?: string | null
+  artifactsUrl?: string | null
+  cancelUrl?: string | null
+  rerunUrl?: string | null
   actorId?: bigint | number | null
   actorLogin?: string | null
+  actorType?: string | null
+  triggeredById?: string | null
+  actorAccountId?: string | null
   workflowId: string
-  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1657,71 +3403,135 @@ export type WorkflowRunCreateManyParentRunInput = {
 export type WorkflowRunUpdateWithoutParentRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  triggeredBy?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
+  actorAccount?: Prisma.ProviderAccountUpdateOneWithoutWorkflowRunsNestedInput
   reRuns?: Prisma.WorkflowRunUpdateManyWithoutParentRunNestedInput
   workflow?: Prisma.WorkflowUpdateOneRequiredWithoutWorkflowRunsNestedInput
-  user?: Prisma.UserUpdateOneWithoutWorkflowRunsNestedInput
   jobs?: Prisma.WorkflowJobUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateWithoutParentRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reRuns?: Prisma.WorkflowRunUncheckedUpdateManyWithoutParentRunNestedInput
   jobs?: Prisma.WorkflowJobUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  approvals?: Prisma.WorkflowApprovalUncheckedUpdateManyWithoutWorkflowRunNestedInput
+  reRunHistory?: Prisma.ReRunHistoryUncheckedUpdateManyWithoutParentRunNestedInput
 }
 
 export type WorkflowRunUncheckedUpdateManyWithoutParentRunInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   githubId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  nodeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   runNumber?: Prisma.IntFieldUpdateOperationsInput | number
   runAttempt?: Prisma.IntFieldUpdateOperationsInput | number
+  displayTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumWorkflowRunStatusFieldUpdateOperationsInput | $Enums.WorkflowRunStatus
   conclusion?: Prisma.NullableEnumWorkflowRunConclusionFieldUpdateOperationsInput | $Enums.WorkflowRunConclusion | null
+  source?: Prisma.EnumWorkflowRunSourceFieldUpdateOperationsInput | $Enums.WorkflowRunSource
   triggerBranch?: Prisma.StringFieldUpdateOperationsInput | string
+  headBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   headSha?: Prisma.StringFieldUpdateOperationsInput | string
+  baseSha?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  event?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  environment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvalRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   runnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   runnerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  runnerGroupId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  runnerGroupName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outputs?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   runStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   runCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkSuiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artifactsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rerunUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   actorLogin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  triggeredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actorAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workflowId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1735,11 +3545,15 @@ export type WorkflowRunUncheckedUpdateManyWithoutParentRunInput = {
 export type WorkflowRunCountOutputType = {
   reRuns: number
   jobs: number
+  approvals: number
+  reRunHistory: number
 }
 
 export type WorkflowRunCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reRuns?: boolean | WorkflowRunCountOutputTypeCountReRunsArgs
   jobs?: boolean | WorkflowRunCountOutputTypeCountJobsArgs
+  approvals?: boolean | WorkflowRunCountOutputTypeCountApprovalsArgs
+  reRunHistory?: boolean | WorkflowRunCountOutputTypeCountReRunHistoryArgs
 }
 
 /**
@@ -1766,166 +3580,296 @@ export type WorkflowRunCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Type
   where?: Prisma.WorkflowJobWhereInput
 }
 
+/**
+ * WorkflowRunCountOutputType without action
+ */
+export type WorkflowRunCountOutputTypeCountApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkflowApprovalWhereInput
+}
+
+/**
+ * WorkflowRunCountOutputType without action
+ */
+export type WorkflowRunCountOutputTypeCountReRunHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReRunHistoryWhereInput
+}
+
 
 export type WorkflowRunSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   runNumber?: boolean
   runAttempt?: boolean
+  displayTitle?: boolean
   status?: boolean
   conclusion?: boolean
+  source?: boolean
   triggerBranch?: boolean
+  headBranch?: boolean
   headSha?: boolean
+  baseSha?: boolean
+  event?: boolean
+  environment?: boolean
+  approvalRequired?: boolean
   runnerId?: boolean
   runnerName?: boolean
+  runnerGroupId?: boolean
+  runnerGroupName?: boolean
   inputs?: boolean
+  outputs?: boolean
   runStartedAt?: boolean
   runCompletedAt?: boolean
+  htmlUrl?: boolean
+  jobsUrl?: boolean
+  logsUrl?: boolean
+  checkSuiteUrl?: boolean
+  artifactsUrl?: boolean
+  cancelUrl?: boolean
+  rerunUrl?: boolean
   actorId?: boolean
   actorLogin?: boolean
+  actorType?: boolean
+  triggeredById?: boolean
+  actorAccountId?: boolean
   parentRunId?: boolean
   workflowId?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   reRuns?: boolean | Prisma.WorkflowRun$reRunsArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
   jobs?: boolean | Prisma.WorkflowRun$jobsArgs<ExtArgs>
+  approvals?: boolean | Prisma.WorkflowRun$approvalsArgs<ExtArgs>
+  reRunHistory?: boolean | Prisma.WorkflowRun$reRunHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workflowRun"]>
 
 export type WorkflowRunSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   runNumber?: boolean
   runAttempt?: boolean
+  displayTitle?: boolean
   status?: boolean
   conclusion?: boolean
+  source?: boolean
   triggerBranch?: boolean
+  headBranch?: boolean
   headSha?: boolean
+  baseSha?: boolean
+  event?: boolean
+  environment?: boolean
+  approvalRequired?: boolean
   runnerId?: boolean
   runnerName?: boolean
+  runnerGroupId?: boolean
+  runnerGroupName?: boolean
   inputs?: boolean
+  outputs?: boolean
   runStartedAt?: boolean
   runCompletedAt?: boolean
+  htmlUrl?: boolean
+  jobsUrl?: boolean
+  logsUrl?: boolean
+  checkSuiteUrl?: boolean
+  artifactsUrl?: boolean
+  cancelUrl?: boolean
+  rerunUrl?: boolean
   actorId?: boolean
   actorLogin?: boolean
+  actorType?: boolean
+  triggeredById?: boolean
+  actorAccountId?: boolean
   parentRunId?: boolean
   workflowId?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
 }, ExtArgs["result"]["workflowRun"]>
 
 export type WorkflowRunSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   runNumber?: boolean
   runAttempt?: boolean
+  displayTitle?: boolean
   status?: boolean
   conclusion?: boolean
+  source?: boolean
   triggerBranch?: boolean
+  headBranch?: boolean
   headSha?: boolean
+  baseSha?: boolean
+  event?: boolean
+  environment?: boolean
+  approvalRequired?: boolean
   runnerId?: boolean
   runnerName?: boolean
+  runnerGroupId?: boolean
+  runnerGroupName?: boolean
   inputs?: boolean
+  outputs?: boolean
   runStartedAt?: boolean
   runCompletedAt?: boolean
+  htmlUrl?: boolean
+  jobsUrl?: boolean
+  logsUrl?: boolean
+  checkSuiteUrl?: boolean
+  artifactsUrl?: boolean
+  cancelUrl?: boolean
+  rerunUrl?: boolean
   actorId?: boolean
   actorLogin?: boolean
+  actorType?: boolean
+  triggeredById?: boolean
+  actorAccountId?: boolean
   parentRunId?: boolean
   workflowId?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
 }, ExtArgs["result"]["workflowRun"]>
 
 export type WorkflowRunSelectScalar = {
   id?: boolean
   githubId?: boolean
+  nodeId?: boolean
   runNumber?: boolean
   runAttempt?: boolean
+  displayTitle?: boolean
   status?: boolean
   conclusion?: boolean
+  source?: boolean
   triggerBranch?: boolean
+  headBranch?: boolean
   headSha?: boolean
+  baseSha?: boolean
+  event?: boolean
+  environment?: boolean
+  approvalRequired?: boolean
   runnerId?: boolean
   runnerName?: boolean
+  runnerGroupId?: boolean
+  runnerGroupName?: boolean
   inputs?: boolean
+  outputs?: boolean
   runStartedAt?: boolean
   runCompletedAt?: boolean
+  htmlUrl?: boolean
+  jobsUrl?: boolean
+  logsUrl?: boolean
+  checkSuiteUrl?: boolean
+  artifactsUrl?: boolean
+  cancelUrl?: boolean
+  rerunUrl?: boolean
   actorId?: boolean
   actorLogin?: boolean
+  actorType?: boolean
+  triggeredById?: boolean
+  actorAccountId?: boolean
   parentRunId?: boolean
   workflowId?: boolean
-  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type WorkflowRunOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "runNumber" | "runAttempt" | "status" | "conclusion" | "triggerBranch" | "headSha" | "runnerId" | "runnerName" | "inputs" | "runStartedAt" | "runCompletedAt" | "actorId" | "actorLogin" | "parentRunId" | "workflowId" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflowRun"]>
+export type WorkflowRunOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "nodeId" | "runNumber" | "runAttempt" | "displayTitle" | "status" | "conclusion" | "source" | "triggerBranch" | "headBranch" | "headSha" | "baseSha" | "event" | "environment" | "approvalRequired" | "runnerId" | "runnerName" | "runnerGroupId" | "runnerGroupName" | "inputs" | "outputs" | "runStartedAt" | "runCompletedAt" | "htmlUrl" | "jobsUrl" | "logsUrl" | "checkSuiteUrl" | "artifactsUrl" | "cancelUrl" | "rerunUrl" | "actorId" | "actorLogin" | "actorType" | "triggeredById" | "actorAccountId" | "parentRunId" | "workflowId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["workflowRun"]>
 export type WorkflowRunInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   reRuns?: boolean | Prisma.WorkflowRun$reRunsArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
   jobs?: boolean | Prisma.WorkflowRun$jobsArgs<ExtArgs>
+  approvals?: boolean | Prisma.WorkflowRun$approvalsArgs<ExtArgs>
+  reRunHistory?: boolean | Prisma.WorkflowRun$reRunHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkflowRunIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
 }
 export type WorkflowRunIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  triggeredBy?: boolean | Prisma.WorkflowRun$triggeredByArgs<ExtArgs>
+  actorAccount?: boolean | Prisma.WorkflowRun$actorAccountArgs<ExtArgs>
   parentRun?: boolean | Prisma.WorkflowRun$parentRunArgs<ExtArgs>
   workflow?: boolean | Prisma.WorkflowDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.WorkflowRun$userArgs<ExtArgs>
 }
 
 export type $WorkflowRunPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WorkflowRun"
   objects: {
+    triggeredBy: Prisma.$UserPayload<ExtArgs> | null
+    actorAccount: Prisma.$ProviderAccountPayload<ExtArgs> | null
     parentRun: Prisma.$WorkflowRunPayload<ExtArgs> | null
     reRuns: Prisma.$WorkflowRunPayload<ExtArgs>[]
     workflow: Prisma.$WorkflowPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs> | null
     jobs: Prisma.$WorkflowJobPayload<ExtArgs>[]
+    approvals: Prisma.$WorkflowApprovalPayload<ExtArgs>[]
+    reRunHistory: Prisma.$ReRunHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     githubId: bigint
+    nodeId: string | null
     runNumber: number
     runAttempt: number
+    displayTitle: string | null
     status: $Enums.WorkflowRunStatus
     conclusion: $Enums.WorkflowRunConclusion | null
+    source: $Enums.WorkflowRunSource
     triggerBranch: string
+    headBranch: string | null
     headSha: string
+    baseSha: string | null
+    event: string | null
+    environment: string | null
+    approvalRequired: boolean
     runnerId: number | null
     runnerName: string | null
+    runnerGroupId: number | null
+    runnerGroupName: string | null
     /**
      * [WorkflowRunInputs]
      */
     inputs: runtime.JsonValue | null
+    /**
+     * [WorkflowRunOutputs]
+     */
+    outputs: runtime.JsonValue | null
     runStartedAt: Date | null
     runCompletedAt: Date | null
+    htmlUrl: string | null
+    jobsUrl: string | null
+    logsUrl: string | null
+    checkSuiteUrl: string | null
+    artifactsUrl: string | null
+    cancelUrl: string | null
+    rerunUrl: string | null
     actorId: bigint | null
     actorLogin: string | null
+    actorType: string | null
+    triggeredById: string | null
+    actorAccountId: string | null
     parentRunId: string | null
     workflowId: string
-    userId: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2323,11 +4267,14 @@ readonly fields: WorkflowRunFieldRefs;
  */
 export interface Prisma__WorkflowRunClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  triggeredBy<T extends Prisma.WorkflowRun$triggeredByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$triggeredByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  actorAccount<T extends Prisma.WorkflowRun$actorAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$actorAccountArgs<ExtArgs>>): Prisma.Prisma__ProviderAccountClient<runtime.Types.Result.GetResult<Prisma.$ProviderAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   parentRun<T extends Prisma.WorkflowRun$parentRunArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$parentRunArgs<ExtArgs>>): Prisma.Prisma__WorkflowRunClient<runtime.Types.Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reRuns<T extends Prisma.WorkflowRun$reRunsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$reRunsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workflow<T extends Prisma.WorkflowDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkflowClient<runtime.Types.Result.GetResult<Prisma.$WorkflowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.WorkflowRun$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   jobs<T extends Prisma.WorkflowRun$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvals<T extends Prisma.WorkflowRun$approvalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$approvalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reRunHistory<T extends Prisma.WorkflowRun$reRunHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkflowRun$reRunHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReRunHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2359,22 +4306,42 @@ export interface Prisma__WorkflowRunClient<T, Null = never, ExtArgs extends runt
 export interface WorkflowRunFieldRefs {
   readonly id: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly githubId: Prisma.FieldRef<"WorkflowRun", 'BigInt'>
+  readonly nodeId: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly runNumber: Prisma.FieldRef<"WorkflowRun", 'Int'>
   readonly runAttempt: Prisma.FieldRef<"WorkflowRun", 'Int'>
+  readonly displayTitle: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly status: Prisma.FieldRef<"WorkflowRun", 'WorkflowRunStatus'>
   readonly conclusion: Prisma.FieldRef<"WorkflowRun", 'WorkflowRunConclusion'>
+  readonly source: Prisma.FieldRef<"WorkflowRun", 'WorkflowRunSource'>
   readonly triggerBranch: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly headBranch: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly headSha: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly baseSha: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly event: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly environment: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly approvalRequired: Prisma.FieldRef<"WorkflowRun", 'Boolean'>
   readonly runnerId: Prisma.FieldRef<"WorkflowRun", 'Int'>
   readonly runnerName: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly runnerGroupId: Prisma.FieldRef<"WorkflowRun", 'Int'>
+  readonly runnerGroupName: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly inputs: Prisma.FieldRef<"WorkflowRun", 'Json'>
+  readonly outputs: Prisma.FieldRef<"WorkflowRun", 'Json'>
   readonly runStartedAt: Prisma.FieldRef<"WorkflowRun", 'DateTime'>
   readonly runCompletedAt: Prisma.FieldRef<"WorkflowRun", 'DateTime'>
+  readonly htmlUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly jobsUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly logsUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly checkSuiteUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly artifactsUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly cancelUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly rerunUrl: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly actorId: Prisma.FieldRef<"WorkflowRun", 'BigInt'>
   readonly actorLogin: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly actorType: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly triggeredById: Prisma.FieldRef<"WorkflowRun", 'String'>
+  readonly actorAccountId: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly parentRunId: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly workflowId: Prisma.FieldRef<"WorkflowRun", 'String'>
-  readonly userId: Prisma.FieldRef<"WorkflowRun", 'String'>
   readonly createdAt: Prisma.FieldRef<"WorkflowRun", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"WorkflowRun", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"WorkflowRun", 'DateTime'>
@@ -2783,6 +4750,44 @@ export type WorkflowRunDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * WorkflowRun.triggeredBy
+ */
+export type WorkflowRun$triggeredByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * WorkflowRun.actorAccount
+ */
+export type WorkflowRun$actorAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProviderAccount
+   */
+  select?: Prisma.ProviderAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProviderAccount
+   */
+  omit?: Prisma.ProviderAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProviderAccountInclude<ExtArgs> | null
+  where?: Prisma.ProviderAccountWhereInput
+}
+
+/**
  * WorkflowRun.parentRun
  */
 export type WorkflowRun$parentRunArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2826,25 +4831,6 @@ export type WorkflowRun$reRunsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * WorkflowRun.user
- */
-export type WorkflowRun$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
  * WorkflowRun.jobs
  */
 export type WorkflowRun$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2866,6 +4852,54 @@ export type WorkflowRun$jobsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.WorkflowJobScalarFieldEnum | Prisma.WorkflowJobScalarFieldEnum[]
+}
+
+/**
+ * WorkflowRun.approvals
+ */
+export type WorkflowRun$approvalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkflowApproval
+   */
+  select?: Prisma.WorkflowApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkflowApproval
+   */
+  omit?: Prisma.WorkflowApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkflowApprovalInclude<ExtArgs> | null
+  where?: Prisma.WorkflowApprovalWhereInput
+  orderBy?: Prisma.WorkflowApprovalOrderByWithRelationInput | Prisma.WorkflowApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.WorkflowApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkflowApprovalScalarFieldEnum | Prisma.WorkflowApprovalScalarFieldEnum[]
+}
+
+/**
+ * WorkflowRun.reRunHistory
+ */
+export type WorkflowRun$reRunHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReRunHistory
+   */
+  select?: Prisma.ReRunHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReRunHistory
+   */
+  omit?: Prisma.ReRunHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReRunHistoryInclude<ExtArgs> | null
+  where?: Prisma.ReRunHistoryWhereInput
+  orderBy?: Prisma.ReRunHistoryOrderByWithRelationInput | Prisma.ReRunHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ReRunHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReRunHistoryScalarFieldEnum | Prisma.ReRunHistoryScalarFieldEnum[]
 }
 
 /**

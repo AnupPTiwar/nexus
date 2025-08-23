@@ -19,14 +19,27 @@ export type RepositoryModel = runtime.Types.Result.DefaultSelection<Prisma.$Repo
 
 export type AggregateRepository = {
   _count: RepositoryCountAggregateOutputType | null
+  _avg: RepositoryAvgAggregateOutputType | null
+  _sum: RepositorySumAggregateOutputType | null
   _min: RepositoryMinAggregateOutputType | null
   _max: RepositoryMaxAggregateOutputType | null
+}
+
+export type RepositoryAvgAggregateOutputType = {
+  githubRepoId: number | null
+  syncInterval: number | null
+}
+
+export type RepositorySumAggregateOutputType = {
+  githubRepoId: bigint | null
+  syncInterval: number | null
 }
 
 export type RepositoryMinAggregateOutputType = {
   id: string | null
   name: string | null
   githubOwner: string | null
+  githubRepoId: bigint | null
   githubUrl: string | null
   description: string | null
   visibility: $Enums.Visibility | null
@@ -34,6 +47,10 @@ export type RepositoryMinAggregateOutputType = {
   isSyncing: boolean | null
   lastSyncAt: Date | null
   webhookSecret: string | null
+  webhookId: string | null
+  importAllRuns: boolean | null
+  autoSync: boolean | null
+  syncInterval: number | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -44,6 +61,7 @@ export type RepositoryMaxAggregateOutputType = {
   id: string | null
   name: string | null
   githubOwner: string | null
+  githubRepoId: bigint | null
   githubUrl: string | null
   description: string | null
   visibility: $Enums.Visibility | null
@@ -51,6 +69,10 @@ export type RepositoryMaxAggregateOutputType = {
   isSyncing: boolean | null
   lastSyncAt: Date | null
   webhookSecret: string | null
+  webhookId: string | null
+  importAllRuns: boolean | null
+  autoSync: boolean | null
+  syncInterval: number | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,6 +83,7 @@ export type RepositoryCountAggregateOutputType = {
   id: number
   name: number
   githubOwner: number
+  githubRepoId: number
   githubUrl: number
   description: number
   visibility: number
@@ -68,6 +91,10 @@ export type RepositoryCountAggregateOutputType = {
   isSyncing: number
   lastSyncAt: number
   webhookSecret: number
+  webhookId: number
+  importAllRuns: number
+  autoSync: number
+  syncInterval: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -76,10 +103,21 @@ export type RepositoryCountAggregateOutputType = {
 }
 
 
+export type RepositoryAvgAggregateInputType = {
+  githubRepoId?: true
+  syncInterval?: true
+}
+
+export type RepositorySumAggregateInputType = {
+  githubRepoId?: true
+  syncInterval?: true
+}
+
 export type RepositoryMinAggregateInputType = {
   id?: true
   name?: true
   githubOwner?: true
+  githubRepoId?: true
   githubUrl?: true
   description?: true
   visibility?: true
@@ -87,6 +125,10 @@ export type RepositoryMinAggregateInputType = {
   isSyncing?: true
   lastSyncAt?: true
   webhookSecret?: true
+  webhookId?: true
+  importAllRuns?: true
+  autoSync?: true
+  syncInterval?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -97,6 +139,7 @@ export type RepositoryMaxAggregateInputType = {
   id?: true
   name?: true
   githubOwner?: true
+  githubRepoId?: true
   githubUrl?: true
   description?: true
   visibility?: true
@@ -104,6 +147,10 @@ export type RepositoryMaxAggregateInputType = {
   isSyncing?: true
   lastSyncAt?: true
   webhookSecret?: true
+  webhookId?: true
+  importAllRuns?: true
+  autoSync?: true
+  syncInterval?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -114,6 +161,7 @@ export type RepositoryCountAggregateInputType = {
   id?: true
   name?: true
   githubOwner?: true
+  githubRepoId?: true
   githubUrl?: true
   description?: true
   visibility?: true
@@ -121,6 +169,10 @@ export type RepositoryCountAggregateInputType = {
   isSyncing?: true
   lastSyncAt?: true
   webhookSecret?: true
+  webhookId?: true
+  importAllRuns?: true
+  autoSync?: true
+  syncInterval?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -166,6 +218,18 @@ export type RepositoryAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: RepositoryAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: RepositorySumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: RepositoryMinAggregateInputType
@@ -196,6 +260,8 @@ export type RepositoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: RepositoryCountAggregateInputType | true
+  _avg?: RepositoryAvgAggregateInputType
+  _sum?: RepositorySumAggregateInputType
   _min?: RepositoryMinAggregateInputType
   _max?: RepositoryMaxAggregateInputType
 }
@@ -204,6 +270,7 @@ export type RepositoryGroupByOutputType = {
   id: string
   name: string
   githubOwner: string
+  githubRepoId: bigint | null
   githubUrl: string
   description: string | null
   visibility: $Enums.Visibility
@@ -211,11 +278,17 @@ export type RepositoryGroupByOutputType = {
   isSyncing: boolean
   lastSyncAt: Date | null
   webhookSecret: string | null
+  webhookId: string | null
+  importAllRuns: boolean
+  autoSync: boolean
+  syncInterval: number | null
   userId: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
   _count: RepositoryCountAggregateOutputType | null
+  _avg: RepositoryAvgAggregateOutputType | null
+  _sum: RepositorySumAggregateOutputType | null
   _min: RepositoryMinAggregateOutputType | null
   _max: RepositoryMaxAggregateOutputType | null
 }
@@ -242,6 +315,7 @@ export type RepositoryWhereInput = {
   id?: Prisma.StringFilter<"Repository"> | string
   name?: Prisma.StringFilter<"Repository"> | string
   githubOwner?: Prisma.StringFilter<"Repository"> | string
+  githubRepoId?: Prisma.BigIntNullableFilter<"Repository"> | bigint | number | null
   githubUrl?: Prisma.StringFilter<"Repository"> | string
   description?: Prisma.StringNullableFilter<"Repository"> | string | null
   visibility?: Prisma.EnumVisibilityFilter<"Repository"> | $Enums.Visibility
@@ -249,6 +323,10 @@ export type RepositoryWhereInput = {
   isSyncing?: Prisma.BoolFilter<"Repository"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   webhookSecret?: Prisma.StringNullableFilter<"Repository"> | string | null
+  webhookId?: Prisma.StringNullableFilter<"Repository"> | string | null
+  importAllRuns?: Prisma.BoolFilter<"Repository"> | boolean
+  autoSync?: Prisma.BoolFilter<"Repository"> | boolean
+  syncInterval?: Prisma.IntNullableFilter<"Repository"> | number | null
   userId?: Prisma.StringNullableFilter<"Repository"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
@@ -256,12 +334,17 @@ export type RepositoryWhereInput = {
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   repositoryTokens?: Prisma.RepositoryTokenListRelationFilter
   workflows?: Prisma.WorkflowListRelationFilter
+  branchPermissions?: Prisma.BranchPermissionListRelationFilter
+  syncJobs?: Prisma.SyncJobListRelationFilter
+  webhookEvents?: Prisma.WebhookEventListRelationFilter
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotListRelationFilter
 }
 
 export type RepositoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   githubOwner?: Prisma.SortOrder
+  githubRepoId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -269,6 +352,10 @@ export type RepositoryOrderByWithRelationInput = {
   isSyncing?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   webhookSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  webhookId?: Prisma.SortOrderInput | Prisma.SortOrder
+  importAllRuns?: Prisma.SortOrder
+  autoSync?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -276,6 +363,10 @@ export type RepositoryOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   repositoryTokens?: Prisma.RepositoryTokenOrderByRelationAggregateInput
   workflows?: Prisma.WorkflowOrderByRelationAggregateInput
+  branchPermissions?: Prisma.BranchPermissionOrderByRelationAggregateInput
+  syncJobs?: Prisma.SyncJobOrderByRelationAggregateInput
+  webhookEvents?: Prisma.WebhookEventOrderByRelationAggregateInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotOrderByRelationAggregateInput
   _relevance?: Prisma.RepositoryOrderByRelevanceInput
 }
 
@@ -287,12 +378,17 @@ export type RepositoryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RepositoryWhereInput | Prisma.RepositoryWhereInput[]
   name?: Prisma.StringFilter<"Repository"> | string
   githubOwner?: Prisma.StringFilter<"Repository"> | string
+  githubRepoId?: Prisma.BigIntNullableFilter<"Repository"> | bigint | number | null
   description?: Prisma.StringNullableFilter<"Repository"> | string | null
   visibility?: Prisma.EnumVisibilityFilter<"Repository"> | $Enums.Visibility
   isActive?: Prisma.BoolFilter<"Repository"> | boolean
   isSyncing?: Prisma.BoolFilter<"Repository"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   webhookSecret?: Prisma.StringNullableFilter<"Repository"> | string | null
+  webhookId?: Prisma.StringNullableFilter<"Repository"> | string | null
+  importAllRuns?: Prisma.BoolFilter<"Repository"> | boolean
+  autoSync?: Prisma.BoolFilter<"Repository"> | boolean
+  syncInterval?: Prisma.IntNullableFilter<"Repository"> | number | null
   userId?: Prisma.StringNullableFilter<"Repository"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
@@ -300,12 +396,17 @@ export type RepositoryWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   repositoryTokens?: Prisma.RepositoryTokenListRelationFilter
   workflows?: Prisma.WorkflowListRelationFilter
+  branchPermissions?: Prisma.BranchPermissionListRelationFilter
+  syncJobs?: Prisma.SyncJobListRelationFilter
+  webhookEvents?: Prisma.WebhookEventListRelationFilter
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotListRelationFilter
 }, "id" | "githubUrl">
 
 export type RepositoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   githubOwner?: Prisma.SortOrder
+  githubRepoId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -313,13 +414,19 @@ export type RepositoryOrderByWithAggregationInput = {
   isSyncing?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   webhookSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  webhookId?: Prisma.SortOrderInput | Prisma.SortOrder
+  importAllRuns?: Prisma.SortOrder
+  autoSync?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RepositoryCountOrderByAggregateInput
+  _avg?: Prisma.RepositoryAvgOrderByAggregateInput
   _max?: Prisma.RepositoryMaxOrderByAggregateInput
   _min?: Prisma.RepositoryMinOrderByAggregateInput
+  _sum?: Prisma.RepositorySumOrderByAggregateInput
 }
 
 export type RepositoryScalarWhereWithAggregatesInput = {
@@ -329,6 +436,7 @@ export type RepositoryScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Repository"> | string
   name?: Prisma.StringWithAggregatesFilter<"Repository"> | string
   githubOwner?: Prisma.StringWithAggregatesFilter<"Repository"> | string
+  githubRepoId?: Prisma.BigIntNullableWithAggregatesFilter<"Repository"> | bigint | number | null
   githubUrl?: Prisma.StringWithAggregatesFilter<"Repository"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"Repository"> | $Enums.Visibility
@@ -336,6 +444,10 @@ export type RepositoryScalarWhereWithAggregatesInput = {
   isSyncing?: Prisma.BoolWithAggregatesFilter<"Repository"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Repository"> | Date | string | null
   webhookSecret?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
+  webhookId?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
+  importAllRuns?: Prisma.BoolWithAggregatesFilter<"Repository"> | boolean
+  autoSync?: Prisma.BoolWithAggregatesFilter<"Repository"> | boolean
+  syncInterval?: Prisma.IntNullableWithAggregatesFilter<"Repository"> | number | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
@@ -346,6 +458,7 @@ export type RepositoryCreateInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -353,18 +466,27 @@ export type RepositoryCreateInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
   workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUncheckedCreateInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -372,18 +494,27 @@ export type RepositoryUncheckedCreateInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
   workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -391,18 +522,27 @@ export type RepositoryUpdateInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
   workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -410,18 +550,27 @@ export type RepositoryUncheckedUpdateInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
   workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryCreateManyInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -429,6 +578,10 @@ export type RepositoryCreateManyInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -439,6 +592,7 @@ export type RepositoryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -446,6 +600,10 @@ export type RepositoryUpdateManyMutationInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -455,6 +613,7 @@ export type RepositoryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -462,6 +621,10 @@ export type RepositoryUncheckedUpdateManyInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -488,6 +651,7 @@ export type RepositoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   githubOwner?: Prisma.SortOrder
+  githubRepoId?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -495,16 +659,26 @@ export type RepositoryCountOrderByAggregateInput = {
   isSyncing?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   webhookSecret?: Prisma.SortOrder
+  webhookId?: Prisma.SortOrder
+  importAllRuns?: Prisma.SortOrder
+  autoSync?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
+export type RepositoryAvgOrderByAggregateInput = {
+  githubRepoId?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrder
+}
+
 export type RepositoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   githubOwner?: Prisma.SortOrder
+  githubRepoId?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -512,6 +686,10 @@ export type RepositoryMaxOrderByAggregateInput = {
   isSyncing?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   webhookSecret?: Prisma.SortOrder
+  webhookId?: Prisma.SortOrder
+  importAllRuns?: Prisma.SortOrder
+  autoSync?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -522,6 +700,7 @@ export type RepositoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   githubOwner?: Prisma.SortOrder
+  githubRepoId?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -529,15 +708,29 @@ export type RepositoryMinOrderByAggregateInput = {
   isSyncing?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   webhookSecret?: Prisma.SortOrder
+  webhookId?: Prisma.SortOrder
+  importAllRuns?: Prisma.SortOrder
+  autoSync?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
+export type RepositorySumOrderByAggregateInput = {
+  githubRepoId?: Prisma.SortOrder
+  syncInterval?: Prisma.SortOrder
+}
+
 export type RepositoryScalarRelationFilter = {
   is?: Prisma.RepositoryWhereInput
   isNot?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryNullableScalarRelationFilter = {
+  is?: Prisma.RepositoryWhereInput | null
+  isNot?: Prisma.RepositoryWhereInput | null
 }
 
 export type RepositoryCreateNestedManyWithoutUserInput = {
@@ -582,12 +775,24 @@ export type RepositoryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.RepositoryScalarWhereInput | Prisma.RepositoryScalarWhereInput[]
 }
 
+export type NullableBigIntFieldUpdateOperationsInput = {
+  set?: bigint | number | null
+  increment?: bigint | number
+  decrement?: bigint | number
+  multiply?: bigint | number
+  divide?: bigint | number
+}
+
 export type EnumVisibilityFieldUpdateOperationsInput = {
   set?: $Enums.Visibility
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type RepositoryCreateNestedOneWithoutRepositoryTokensInput = {
@@ -618,10 +823,69 @@ export type RepositoryUpdateOneRequiredWithoutWorkflowsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutWorkflowsInput, Prisma.RepositoryUpdateWithoutWorkflowsInput>, Prisma.RepositoryUncheckedUpdateWithoutWorkflowsInput>
 }
 
+export type RepositoryCreateNestedOneWithoutBranchPermissionsInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedCreateWithoutBranchPermissionsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutBranchPermissionsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+}
+
+export type RepositoryUpdateOneRequiredWithoutBranchPermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedCreateWithoutBranchPermissionsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutBranchPermissionsInput
+  upsert?: Prisma.RepositoryUpsertWithoutBranchPermissionsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutBranchPermissionsInput, Prisma.RepositoryUpdateWithoutBranchPermissionsInput>, Prisma.RepositoryUncheckedUpdateWithoutBranchPermissionsInput>
+}
+
+export type RepositoryCreateNestedOneWithoutSyncJobsInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutSyncJobsInput, Prisma.RepositoryUncheckedCreateWithoutSyncJobsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutSyncJobsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+}
+
+export type RepositoryUpdateOneRequiredWithoutSyncJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutSyncJobsInput, Prisma.RepositoryUncheckedCreateWithoutSyncJobsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutSyncJobsInput
+  upsert?: Prisma.RepositoryUpsertWithoutSyncJobsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutSyncJobsInput, Prisma.RepositoryUpdateWithoutSyncJobsInput>, Prisma.RepositoryUncheckedUpdateWithoutSyncJobsInput>
+}
+
+export type RepositoryCreateNestedOneWithoutWebhookEventsInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedCreateWithoutWebhookEventsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutWebhookEventsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+}
+
+export type RepositoryUpdateOneRequiredWithoutWebhookEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedCreateWithoutWebhookEventsInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutWebhookEventsInput
+  upsert?: Prisma.RepositoryUpsertWithoutWebhookEventsInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutWebhookEventsInput, Prisma.RepositoryUpdateWithoutWebhookEventsInput>, Prisma.RepositoryUncheckedUpdateWithoutWebhookEventsInput>
+}
+
+export type RepositoryCreateNestedOneWithoutAnalyticsSnapshotInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedCreateWithoutAnalyticsSnapshotInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutAnalyticsSnapshotInput
+  connect?: Prisma.RepositoryWhereUniqueInput
+}
+
+export type RepositoryUpdateOneWithoutAnalyticsSnapshotNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedCreateWithoutAnalyticsSnapshotInput>
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutAnalyticsSnapshotInput
+  upsert?: Prisma.RepositoryUpsertWithoutAnalyticsSnapshotInput
+  disconnect?: Prisma.RepositoryWhereInput | boolean
+  delete?: Prisma.RepositoryWhereInput | boolean
+  connect?: Prisma.RepositoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutAnalyticsSnapshotInput, Prisma.RepositoryUpdateWithoutAnalyticsSnapshotInput>, Prisma.RepositoryUncheckedUpdateWithoutAnalyticsSnapshotInput>
+}
+
 export type RepositoryCreateWithoutUserInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -629,17 +893,26 @@ export type RepositoryCreateWithoutUserInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
   workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -647,11 +920,19 @@ export type RepositoryUncheckedCreateWithoutUserInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
   workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryCreateOrConnectWithoutUserInput = {
@@ -687,6 +968,7 @@ export type RepositoryScalarWhereInput = {
   id?: Prisma.StringFilter<"Repository"> | string
   name?: Prisma.StringFilter<"Repository"> | string
   githubOwner?: Prisma.StringFilter<"Repository"> | string
+  githubRepoId?: Prisma.BigIntNullableFilter<"Repository"> | bigint | number | null
   githubUrl?: Prisma.StringFilter<"Repository"> | string
   description?: Prisma.StringNullableFilter<"Repository"> | string | null
   visibility?: Prisma.EnumVisibilityFilter<"Repository"> | $Enums.Visibility
@@ -694,6 +976,10 @@ export type RepositoryScalarWhereInput = {
   isSyncing?: Prisma.BoolFilter<"Repository"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   webhookSecret?: Prisma.StringNullableFilter<"Repository"> | string | null
+  webhookId?: Prisma.StringNullableFilter<"Repository"> | string | null
+  importAllRuns?: Prisma.BoolFilter<"Repository"> | boolean
+  autoSync?: Prisma.BoolFilter<"Repository"> | boolean
+  syncInterval?: Prisma.IntNullableFilter<"Repository"> | number | null
   userId?: Prisma.StringNullableFilter<"Repository"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
@@ -704,6 +990,7 @@ export type RepositoryCreateWithoutRepositoryTokensInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -711,17 +998,26 @@ export type RepositoryCreateWithoutRepositoryTokensInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
   workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUncheckedCreateWithoutRepositoryTokensInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -729,11 +1025,19 @@ export type RepositoryUncheckedCreateWithoutRepositoryTokensInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryCreateOrConnectWithoutRepositoryTokensInput = {
@@ -756,6 +1060,7 @@ export type RepositoryUpdateWithoutRepositoryTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -763,17 +1068,26 @@ export type RepositoryUpdateWithoutRepositoryTokensInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
   workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateWithoutRepositoryTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -781,17 +1095,26 @@ export type RepositoryUncheckedUpdateWithoutRepositoryTokensInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryCreateWithoutWorkflowsInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -799,17 +1122,26 @@ export type RepositoryCreateWithoutWorkflowsInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
   repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUncheckedCreateWithoutWorkflowsInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -817,11 +1149,19 @@ export type RepositoryUncheckedCreateWithoutWorkflowsInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryCreateOrConnectWithoutWorkflowsInput = {
@@ -844,6 +1184,7 @@ export type RepositoryUpdateWithoutWorkflowsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -851,17 +1192,26 @@ export type RepositoryUpdateWithoutWorkflowsInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateWithoutWorkflowsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -869,17 +1219,26 @@ export type RepositoryUncheckedUpdateWithoutWorkflowsInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
 }
 
-export type RepositoryCreateManyUserInput = {
+export type RepositoryCreateWithoutBranchPermissionsInput = {
   id?: string
   name: string
   githubOwner: string
+  githubRepoId?: bigint | number | null
   githubUrl: string
   description?: string | null
   visibility: $Enums.Visibility
@@ -887,6 +1246,506 @@ export type RepositoryCreateManyUserInput = {
   isSyncing?: boolean
   lastSyncAt?: Date | string | null
   webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryUncheckedCreateWithoutBranchPermissionsInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  userId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryCreateOrConnectWithoutBranchPermissionsInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedCreateWithoutBranchPermissionsInput>
+}
+
+export type RepositoryUpsertWithoutBranchPermissionsInput = {
+  update: Prisma.XOR<Prisma.RepositoryUpdateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedUpdateWithoutBranchPermissionsInput>
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedCreateWithoutBranchPermissionsInput>
+  where?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryUpdateToOneWithWhereWithoutBranchPermissionsInput = {
+  where?: Prisma.RepositoryWhereInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateWithoutBranchPermissionsInput, Prisma.RepositoryUncheckedUpdateWithoutBranchPermissionsInput>
+}
+
+export type RepositoryUpdateWithoutBranchPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateWithoutBranchPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryCreateWithoutSyncJobsInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryUncheckedCreateWithoutSyncJobsInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  userId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryCreateOrConnectWithoutSyncJobsInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutSyncJobsInput, Prisma.RepositoryUncheckedCreateWithoutSyncJobsInput>
+}
+
+export type RepositoryUpsertWithoutSyncJobsInput = {
+  update: Prisma.XOR<Prisma.RepositoryUpdateWithoutSyncJobsInput, Prisma.RepositoryUncheckedUpdateWithoutSyncJobsInput>
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutSyncJobsInput, Prisma.RepositoryUncheckedCreateWithoutSyncJobsInput>
+  where?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryUpdateToOneWithWhereWithoutSyncJobsInput = {
+  where?: Prisma.RepositoryWhereInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateWithoutSyncJobsInput, Prisma.RepositoryUncheckedUpdateWithoutSyncJobsInput>
+}
+
+export type RepositoryUpdateWithoutSyncJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateWithoutSyncJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryCreateWithoutWebhookEventsInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryUncheckedCreateWithoutWebhookEventsInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  userId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryCreateOrConnectWithoutWebhookEventsInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedCreateWithoutWebhookEventsInput>
+}
+
+export type RepositoryUpsertWithoutWebhookEventsInput = {
+  update: Prisma.XOR<Prisma.RepositoryUpdateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedUpdateWithoutWebhookEventsInput>
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedCreateWithoutWebhookEventsInput>
+  where?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryUpdateToOneWithWhereWithoutWebhookEventsInput = {
+  where?: Prisma.RepositoryWhereInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateWithoutWebhookEventsInput, Prisma.RepositoryUncheckedUpdateWithoutWebhookEventsInput>
+}
+
+export type RepositoryUpdateWithoutWebhookEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateWithoutWebhookEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryCreateWithoutAnalyticsSnapshotInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutRepositoriesInput
+  repositoryTokens?: Prisma.RepositoryTokenCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryUncheckedCreateWithoutAnalyticsSnapshotInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
+  userId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedCreateNestedManyWithoutRepositoryInput
+  workflows?: Prisma.WorkflowUncheckedCreateNestedManyWithoutRepositoryInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedCreateNestedManyWithoutRepositoryInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutRepositoryInput
+  webhookEvents?: Prisma.WebhookEventUncheckedCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryCreateOrConnectWithoutAnalyticsSnapshotInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedCreateWithoutAnalyticsSnapshotInput>
+}
+
+export type RepositoryUpsertWithoutAnalyticsSnapshotInput = {
+  update: Prisma.XOR<Prisma.RepositoryUpdateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedUpdateWithoutAnalyticsSnapshotInput>
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedCreateWithoutAnalyticsSnapshotInput>
+  where?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryUpdateToOneWithWhereWithoutAnalyticsSnapshotInput = {
+  where?: Prisma.RepositoryWhereInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateWithoutAnalyticsSnapshotInput, Prisma.RepositoryUncheckedUpdateWithoutAnalyticsSnapshotInput>
+}
+
+export type RepositoryUpdateWithoutAnalyticsSnapshotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutRepositoriesNestedInput
+  repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateWithoutAnalyticsSnapshotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
+  workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryCreateManyUserInput = {
+  id?: string
+  name: string
+  githubOwner: string
+  githubRepoId?: bigint | number | null
+  githubUrl: string
+  description?: string | null
+  visibility: $Enums.Visibility
+  isActive?: boolean
+  isSyncing?: boolean
+  lastSyncAt?: Date | string | null
+  webhookSecret?: string | null
+  webhookId?: string | null
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -896,6 +1755,7 @@ export type RepositoryUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -903,17 +1763,26 @@ export type RepositoryUpdateWithoutUserInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUpdateManyWithoutRepositoryNestedInput
   workflows?: Prisma.WorkflowUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -921,17 +1790,26 @@ export type RepositoryUncheckedUpdateWithoutUserInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   repositoryTokens?: Prisma.RepositoryTokenUncheckedUpdateManyWithoutRepositoryNestedInput
   workflows?: Prisma.WorkflowUncheckedUpdateManyWithoutRepositoryNestedInput
+  branchPermissions?: Prisma.BranchPermissionUncheckedUpdateManyWithoutRepositoryNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutRepositoryNestedInput
+  webhookEvents?: Prisma.WebhookEventUncheckedUpdateManyWithoutRepositoryNestedInput
+  AnalyticsSnapshot?: Prisma.AnalyticsSnapshotUncheckedUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   githubOwner?: Prisma.StringFieldUpdateOperationsInput | string
+  githubRepoId?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   githubUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -939,6 +1817,10 @@ export type RepositoryUncheckedUpdateManyWithoutUserInput = {
   isSyncing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   webhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  webhookId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importAllRuns?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoSync?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  syncInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -952,11 +1834,19 @@ export type RepositoryUncheckedUpdateManyWithoutUserInput = {
 export type RepositoryCountOutputType = {
   repositoryTokens: number
   workflows: number
+  branchPermissions: number
+  syncJobs: number
+  webhookEvents: number
+  AnalyticsSnapshot: number
 }
 
 export type RepositoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repositoryTokens?: boolean | RepositoryCountOutputTypeCountRepositoryTokensArgs
   workflows?: boolean | RepositoryCountOutputTypeCountWorkflowsArgs
+  branchPermissions?: boolean | RepositoryCountOutputTypeCountBranchPermissionsArgs
+  syncJobs?: boolean | RepositoryCountOutputTypeCountSyncJobsArgs
+  webhookEvents?: boolean | RepositoryCountOutputTypeCountWebhookEventsArgs
+  AnalyticsSnapshot?: boolean | RepositoryCountOutputTypeCountAnalyticsSnapshotArgs
 }
 
 /**
@@ -983,11 +1873,40 @@ export type RepositoryCountOutputTypeCountWorkflowsArgs<ExtArgs extends runtime.
   where?: Prisma.WorkflowWhereInput
 }
 
+/**
+ * RepositoryCountOutputType without action
+ */
+export type RepositoryCountOutputTypeCountBranchPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BranchPermissionWhereInput
+}
+
+/**
+ * RepositoryCountOutputType without action
+ */
+export type RepositoryCountOutputTypeCountSyncJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SyncJobWhereInput
+}
+
+/**
+ * RepositoryCountOutputType without action
+ */
+export type RepositoryCountOutputTypeCountWebhookEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WebhookEventWhereInput
+}
+
+/**
+ * RepositoryCountOutputType without action
+ */
+export type RepositoryCountOutputTypeCountAnalyticsSnapshotArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsSnapshotWhereInput
+}
+
 
 export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   githubOwner?: boolean
+  githubRepoId?: boolean
   githubUrl?: boolean
   description?: boolean
   visibility?: boolean
@@ -995,6 +1914,10 @@ export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   isSyncing?: boolean
   lastSyncAt?: boolean
   webhookSecret?: boolean
+  webhookId?: boolean
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1002,6 +1925,10 @@ export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.Repository$userArgs<ExtArgs>
   repositoryTokens?: boolean | Prisma.Repository$repositoryTokensArgs<ExtArgs>
   workflows?: boolean | Prisma.Repository$workflowsArgs<ExtArgs>
+  branchPermissions?: boolean | Prisma.Repository$branchPermissionsArgs<ExtArgs>
+  syncJobs?: boolean | Prisma.Repository$syncJobsArgs<ExtArgs>
+  webhookEvents?: boolean | Prisma.Repository$webhookEventsArgs<ExtArgs>
+  AnalyticsSnapshot?: boolean | Prisma.Repository$AnalyticsSnapshotArgs<ExtArgs>
   _count?: boolean | Prisma.RepositoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repository"]>
 
@@ -1009,6 +1936,7 @@ export type RepositorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   githubOwner?: boolean
+  githubRepoId?: boolean
   githubUrl?: boolean
   description?: boolean
   visibility?: boolean
@@ -1016,6 +1944,10 @@ export type RepositorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   isSyncing?: boolean
   lastSyncAt?: boolean
   webhookSecret?: boolean
+  webhookId?: boolean
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1027,6 +1959,7 @@ export type RepositorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   githubOwner?: boolean
+  githubRepoId?: boolean
   githubUrl?: boolean
   description?: boolean
   visibility?: boolean
@@ -1034,6 +1967,10 @@ export type RepositorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   isSyncing?: boolean
   lastSyncAt?: boolean
   webhookSecret?: boolean
+  webhookId?: boolean
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1045,6 +1982,7 @@ export type RepositorySelectScalar = {
   id?: boolean
   name?: boolean
   githubOwner?: boolean
+  githubRepoId?: boolean
   githubUrl?: boolean
   description?: boolean
   visibility?: boolean
@@ -1052,17 +1990,25 @@ export type RepositorySelectScalar = {
   isSyncing?: boolean
   lastSyncAt?: boolean
   webhookSecret?: boolean
+  webhookId?: boolean
+  importAllRuns?: boolean
+  autoSync?: boolean
+  syncInterval?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "githubOwner" | "githubUrl" | "description" | "visibility" | "isActive" | "isSyncing" | "lastSyncAt" | "webhookSecret" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["repository"]>
+export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "githubOwner" | "githubRepoId" | "githubUrl" | "description" | "visibility" | "isActive" | "isSyncing" | "lastSyncAt" | "webhookSecret" | "webhookId" | "importAllRuns" | "autoSync" | "syncInterval" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["repository"]>
 export type RepositoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Repository$userArgs<ExtArgs>
   repositoryTokens?: boolean | Prisma.Repository$repositoryTokensArgs<ExtArgs>
   workflows?: boolean | Prisma.Repository$workflowsArgs<ExtArgs>
+  branchPermissions?: boolean | Prisma.Repository$branchPermissionsArgs<ExtArgs>
+  syncJobs?: boolean | Prisma.Repository$syncJobsArgs<ExtArgs>
+  webhookEvents?: boolean | Prisma.Repository$webhookEventsArgs<ExtArgs>
+  AnalyticsSnapshot?: boolean | Prisma.Repository$AnalyticsSnapshotArgs<ExtArgs>
   _count?: boolean | Prisma.RepositoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RepositoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1078,11 +2024,16 @@ export type $RepositoryPayload<ExtArgs extends runtime.Types.Extensions.Internal
     user: Prisma.$UserPayload<ExtArgs> | null
     repositoryTokens: Prisma.$RepositoryTokenPayload<ExtArgs>[]
     workflows: Prisma.$WorkflowPayload<ExtArgs>[]
+    branchPermissions: Prisma.$BranchPermissionPayload<ExtArgs>[]
+    syncJobs: Prisma.$SyncJobPayload<ExtArgs>[]
+    webhookEvents: Prisma.$WebhookEventPayload<ExtArgs>[]
+    AnalyticsSnapshot: Prisma.$AnalyticsSnapshotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     githubOwner: string
+    githubRepoId: bigint | null
     githubUrl: string
     description: string | null
     visibility: $Enums.Visibility
@@ -1090,6 +2041,10 @@ export type $RepositoryPayload<ExtArgs extends runtime.Types.Extensions.Internal
     isSyncing: boolean
     lastSyncAt: Date | null
     webhookSecret: string | null
+    webhookId: string | null
+    importAllRuns: boolean
+    autoSync: boolean
+    syncInterval: number | null
     userId: string | null
     createdAt: Date
     updatedAt: Date
@@ -1491,6 +2446,10 @@ export interface Prisma__RepositoryClient<T, Null = never, ExtArgs extends runti
   user<T extends Prisma.Repository$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   repositoryTokens<T extends Prisma.Repository$repositoryTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$repositoryTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepositoryTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workflows<T extends Prisma.Repository$workflowsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$workflowsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  branchPermissions<T extends Prisma.Repository$branchPermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$branchPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BranchPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  syncJobs<T extends Prisma.Repository$syncJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$syncJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SyncJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  webhookEvents<T extends Prisma.Repository$webhookEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$webhookEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebhookEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  AnalyticsSnapshot<T extends Prisma.Repository$AnalyticsSnapshotArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$AnalyticsSnapshotArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1523,6 +2482,7 @@ export interface RepositoryFieldRefs {
   readonly id: Prisma.FieldRef<"Repository", 'String'>
   readonly name: Prisma.FieldRef<"Repository", 'String'>
   readonly githubOwner: Prisma.FieldRef<"Repository", 'String'>
+  readonly githubRepoId: Prisma.FieldRef<"Repository", 'BigInt'>
   readonly githubUrl: Prisma.FieldRef<"Repository", 'String'>
   readonly description: Prisma.FieldRef<"Repository", 'String'>
   readonly visibility: Prisma.FieldRef<"Repository", 'Visibility'>
@@ -1530,6 +2490,10 @@ export interface RepositoryFieldRefs {
   readonly isSyncing: Prisma.FieldRef<"Repository", 'Boolean'>
   readonly lastSyncAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly webhookSecret: Prisma.FieldRef<"Repository", 'String'>
+  readonly webhookId: Prisma.FieldRef<"Repository", 'String'>
+  readonly importAllRuns: Prisma.FieldRef<"Repository", 'Boolean'>
+  readonly autoSync: Prisma.FieldRef<"Repository", 'Boolean'>
+  readonly syncInterval: Prisma.FieldRef<"Repository", 'Int'>
   readonly userId: Prisma.FieldRef<"Repository", 'String'>
   readonly createdAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Repository", 'DateTime'>
@@ -2003,6 +2967,102 @@ export type Repository$workflowsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.WorkflowScalarFieldEnum | Prisma.WorkflowScalarFieldEnum[]
+}
+
+/**
+ * Repository.branchPermissions
+ */
+export type Repository$branchPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BranchPermission
+   */
+  select?: Prisma.BranchPermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BranchPermission
+   */
+  omit?: Prisma.BranchPermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BranchPermissionInclude<ExtArgs> | null
+  where?: Prisma.BranchPermissionWhereInput
+  orderBy?: Prisma.BranchPermissionOrderByWithRelationInput | Prisma.BranchPermissionOrderByWithRelationInput[]
+  cursor?: Prisma.BranchPermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BranchPermissionScalarFieldEnum | Prisma.BranchPermissionScalarFieldEnum[]
+}
+
+/**
+ * Repository.syncJobs
+ */
+export type Repository$syncJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SyncJob
+   */
+  select?: Prisma.SyncJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SyncJob
+   */
+  omit?: Prisma.SyncJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SyncJobInclude<ExtArgs> | null
+  where?: Prisma.SyncJobWhereInput
+  orderBy?: Prisma.SyncJobOrderByWithRelationInput | Prisma.SyncJobOrderByWithRelationInput[]
+  cursor?: Prisma.SyncJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SyncJobScalarFieldEnum | Prisma.SyncJobScalarFieldEnum[]
+}
+
+/**
+ * Repository.webhookEvents
+ */
+export type Repository$webhookEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WebhookEvent
+   */
+  select?: Prisma.WebhookEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WebhookEvent
+   */
+  omit?: Prisma.WebhookEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WebhookEventInclude<ExtArgs> | null
+  where?: Prisma.WebhookEventWhereInput
+  orderBy?: Prisma.WebhookEventOrderByWithRelationInput | Prisma.WebhookEventOrderByWithRelationInput[]
+  cursor?: Prisma.WebhookEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WebhookEventScalarFieldEnum | Prisma.WebhookEventScalarFieldEnum[]
+}
+
+/**
+ * Repository.AnalyticsSnapshot
+ */
+export type Repository$AnalyticsSnapshotArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsSnapshot
+   */
+  select?: Prisma.AnalyticsSnapshotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsSnapshot
+   */
+  omit?: Prisma.AnalyticsSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsSnapshotInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsSnapshotWhereInput
+  orderBy?: Prisma.AnalyticsSnapshotOrderByWithRelationInput | Prisma.AnalyticsSnapshotOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsSnapshotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsSnapshotScalarFieldEnum | Prisma.AnalyticsSnapshotScalarFieldEnum[]
 }
 
 /**

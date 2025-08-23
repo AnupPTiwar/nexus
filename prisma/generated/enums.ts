@@ -12,7 +12,8 @@ export const ResourceAction = {
   DELETE: 'DELETE',
   MANAGE: 'MANAGE',
   READ: 'READ',
-  UPDATE: 'UPDATE'
+  UPDATE: 'UPDATE',
+  TRIGGER: 'TRIGGER'
 } as const
 
 export type ResourceAction = (typeof ResourceAction)[keyof typeof ResourceAction]
@@ -29,7 +30,8 @@ export const ResourceType = {
   SCHEDULER: 'SCHEDULER',
   WORKFLOW_TEMPLATE: 'WORKFLOW_TEMPLATE',
   NOTIFICATION: 'NOTIFICATION',
-  USER_PREFERENCES: 'USER_PREFERENCES'
+  USER_PREFERENCES: 'USER_PREFERENCES',
+  BRANCH: 'BRANCH'
 } as const
 
 export type ResourceType = (typeof ResourceType)[keyof typeof ResourceType]
@@ -39,7 +41,8 @@ export const WorkflowRunStatus = {
   QUEUED: 'QUEUED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
-  DISPATCHED: 'DISPATCHED'
+  DISPATCHED: 'DISPATCHED',
+  PENDING: 'PENDING'
 } as const
 
 export type WorkflowRunStatus = (typeof WorkflowRunStatus)[keyof typeof WorkflowRunStatus]
@@ -54,6 +57,17 @@ export const WorkflowRunConclusion = {
 } as const
 
 export type WorkflowRunConclusion = (typeof WorkflowRunConclusion)[keyof typeof WorkflowRunConclusion]
+
+
+export const WorkflowRunSource = {
+  PLATFORM: 'PLATFORM',
+  GITHUB_UI: 'GITHUB_UI',
+  GITHUB_API: 'GITHUB_API',
+  GITHUB_EVENT: 'GITHUB_EVENT',
+  IMPORTED: 'IMPORTED'
+} as const
+
+export type WorkflowRunSource = (typeof WorkflowRunSource)[keyof typeof WorkflowRunSource]
 
 
 export const WorkflowJobStatus = {
@@ -105,7 +119,8 @@ export const AuditAction = {
   TRIGGER_WORKFLOW: 'TRIGGER_WORKFLOW',
   SYNC_REPOSITORY: 'SYNC_REPOSITORY',
   LOCK_USER: 'LOCK_USER',
-  UNLOCK_USER: 'UNLOCK_USER'
+  UNLOCK_USER: 'UNLOCK_USER',
+  IMPORT_WORKFLOW_RUN: 'IMPORT_WORKFLOW_RUN'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -137,7 +152,9 @@ export type WorkflowState = (typeof WorkflowState)[keyof typeof WorkflowState]
 
 export const AuthProvider = {
   GITHUB: 'GITHUB',
-  MICROSOFT: 'MICROSOFT'
+  MICROSOFT: 'MICROSOFT',
+  GITLAB: 'GITLAB',
+  BITBUCKET: 'BITBUCKET'
 } as const
 
 export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
@@ -151,6 +168,16 @@ export const UserStatus = {
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const UserRole = {
+  OWNER: 'OWNER',
+  CONTRIBUTOR: 'CONTRIBUTOR',
+  MEMBER: 'MEMBER',
+  VIEWER: 'VIEWER'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const NotificationType = {
@@ -170,3 +197,23 @@ export const SchedulerStatus = {
 } as const
 
 export type SchedulerStatus = (typeof SchedulerStatus)[keyof typeof SchedulerStatus]
+
+
+export const SyncStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type SyncStatus = (typeof SyncStatus)[keyof typeof SyncStatus]
+
+
+export const ApprovalStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  TIMED_OUT: 'TIMED_OUT'
+} as const
+
+export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
