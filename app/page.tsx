@@ -33,7 +33,7 @@ const capabilities = [
         title: "Repository Integration",
         description:
             "Seamlessly connect and manage multiple GitHub repositories with secure token management",
-        color: "dark",
+        color: "gray",
     },
     {
         icon: IconPlayerPlay,
