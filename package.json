@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset && pnpm db:seed"
   },
   "dependencies": {
     "@mantine/carousel": "^8.2.7",
@@ -29,6 +31,7 @@
     "@tanstack/react-query": "^5.85.5",
     "bullmq": "^5.58.0",
     "dayjs": "^1.11.13",
+    "dotenv": "^17.2.1",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "next": "15.5.0",
@@ -40,6 +43,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
+    "@faker-js/faker": "^9.9.0",
     "@tanstack/react-query-devtools": "^5.85.5",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -48,6 +52,7 @@
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
     "prisma": "^6.14.0",
+    "tsx": "^4.20.5",
     "typescript": "^5"
   }
 }
