@@ -1,0 +1,53 @@
+name: Build Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag'
+        required: true
+        default: 'latest'
+        type: string
+      platform:
+        description: 'Target platform'
+        required: false
+        default: 'linux/amd64'
+        type: choice
+        options:
+          - linux/amd64
+          - linux/arm64
+          - linux/amd64,linux/arm64
+      push_to_registry:
+        description: 'Push image to registry'
+        required: false
+        default: true
+        type: boolean
+      registry:
+        description: 'Container registry'
+        required: false
+        default: 'docker.io'
+        type: choice
+        options:
+          - docker.io
+          - ghcr.io
+          - gcr.io
+      cache_enabled:
+        description: 'Enable Docker layer caching'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Build Docker image
+        run: |
+          echo "Building image with tag: ${{ inputs.image_tag }}"
+          echo "Platform: ${{ inputs.platform }}"
+          echo "Push to registry: ${{ inputs.push_to_registry }}"
+          echo "Registry: ${{ inputs.registry }}"
+          echo "Cache enabled: ${{ inputs.cache_enabled }}"

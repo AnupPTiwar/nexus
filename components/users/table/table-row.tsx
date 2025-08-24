@@ -1,6 +1,14 @@
 "use client";
 
-import { ActionIcon, Avatar, Badge, Group, Table, Text, Tooltip } from "@mantine/core";
+import {
+    ActionIcon,
+    Avatar,
+    Badge,
+    Group,
+    Table,
+    Text,
+    Tooltip,
+} from "@mantine/core";
 import { IconEdit, IconShield } from "@tabler/icons-react";
 import type { User } from "@/lib/validations/user";
 
@@ -10,7 +18,11 @@ interface UserTableRowProps {
     onManagePermissions: (user: User) => void;
 }
 
-export function UserTableRow({ user, onEdit, onManagePermissions }: UserTableRowProps) {
+export function UserTableRow({
+    user,
+    onEdit,
+    onManagePermissions,
+}: UserTableRowProps) {
     const getStatusColor = (status: string) => {
         switch (status) {
             case "ACTIVE":
@@ -55,7 +67,11 @@ export function UserTableRow({ user, onEdit, onManagePermissions }: UserTableRow
             </Table.Td>
 
             <Table.Td>
-                <Badge size="sm" variant="light" color={getStatusColor(user.status)}>
+                <Badge
+                    size="sm"
+                    variant="light"
+                    color={getStatusColor(user.status)}
+                >
                     {user.status.replace(/_/g, " ")}
                 </Badge>
             </Table.Td>
@@ -73,15 +89,11 @@ export function UserTableRow({ user, onEdit, onManagePermissions }: UserTableRow
             </Table.Td>
 
             <Table.Td>
-                <Text size="sm">
-                    {user._count?.repositories || 0}
-                </Text>
+                <Text size="sm">{user._count?.repositories || 0}</Text>
             </Table.Td>
 
             <Table.Td>
-                <Text size="sm">
-                    {user._count?.workflowRuns || 0}
-                </Text>
+                <Text size="sm">{user._count?.workflowRuns || 0}</Text>
             </Table.Td>
 
             <Table.Td>

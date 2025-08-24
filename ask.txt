@@ -1,0 +1,30 @@
+ok lets start with sync operation \                              │
+│   the sync operationm will sync the workflows from the github      │
+│   aloign with othetr details and also the inputs (main branch )\   │
+│   While user can have default access to main branch (for public    │
+│   repo workflwos ) and all branch access for private repo \        │
+│   and user with permission manage on repo can use any brnach from  │
+│   the public repo \                                                │
+│   While user can specifically ask for access to branch wile        │
+│   triggering i gave this context for jut and hight level required  │
+│   for undrstanding the sync part \                                 │
+│   the branch specific inputs can be fetched at run time using      │
+│   github token (a token can be fetched for a given user u as take  │
+│   private token for repo x as first priority , if user has no      │
+│   private token check ih user has manage premission on the repo    │
+│   then throw error you cannnot use public token add a private      │
+│   tokne please. and for other user return any private token for    │
+│   the repo also if both doesnot happen then return error no token  │
+│   found ) create this utilty methdos as well 
+Another improtna thing when user clicks on sync then the         │
+│   backend api will push the details to bullmq queue and there      │
+│   will be a proessor worklwo syncprovcersor which will take do     │
+│   the processing , also we will get live updates for the sycn      │
+│   oepration how many going how many completed and how many failed  │
+│   , how manuy passed , like this (this will be an component card   │
+│   like which can be displayed as notiftication tile on the aside   │
+│   compoennt which open on clikcing thr notifckation pannel         │
+│   )(notifciation pannel will define the contract type for          │
+│   creating a notification tiles )\                                 │
+│   this will be done usiong SSE \                                   │
+│   for notication we get sysnc started , complete => failed/passed

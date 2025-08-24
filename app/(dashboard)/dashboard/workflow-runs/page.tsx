@@ -1,8 +1,8 @@
 "use client";
 
-import { PageHeader } from "@/components/page-header";
 import { Center, Paper, Stack, Text, ThemeIcon } from "@mantine/core";
 import { IconPlayerPlay } from "@tabler/icons-react";
+import { PageHeader } from "@/components/page-header";
 
 export default function WorkflowRunsPage() {
     return (
@@ -30,7 +30,8 @@ export default function WorkflowRunsPage() {
                                 Execution History
                             </Text>
                             <Text size="sm" c="dimmed">
-                                Workflow runs and execution logs will be displayed here
+                                Workflow runs and execution logs will be
+                                displayed here
                             </Text>
                         </Stack>
                     </Stack>

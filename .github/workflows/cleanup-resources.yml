@@ -1,0 +1,42 @@
+name: Cleanup Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      resource_type:
+        description: 'Type of resources to cleanup'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - containers
+          - images
+          - volumes
+          - networks
+          - cache
+      age_threshold_days:
+        description: 'Delete resources older than (days)'
+        required: false
+        default: '7'
+        type: number
+      dry_run:
+        description: 'Show what would be deleted without actually deleting'
+        required: false
+        default: true
+        type: boolean
+      exclude_pattern:
+        description: 'Exclude resources matching pattern (regex)'
+        required: false
+        type: string
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup resources
+        run: |
+          echo "Resource type: ${{ inputs.resource_type }}"
+          echo "Age threshold: ${{ inputs.age_threshold_days }} days"
+          echo "Dry run: ${{ inputs.dry_run }}"
+          echo "Exclude pattern: ${{ inputs.exclude_pattern }}"

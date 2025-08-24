@@ -1,0 +1,52 @@
+name: Database Migration
+
+on:
+  workflow_dispatch:
+    inputs:
+      migration_direction:
+        description: 'Migration direction'
+        required: true
+        default: 'up'
+        type: choice
+        options:
+          - up
+          - down
+          - reset
+      target_migration:
+        description: 'Target migration name (optional)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Perform a dry run without applying changes'
+        required: false
+        default: false
+        type: boolean
+      backup_database:
+        description: 'Create database backup before migration'
+        required: false
+        default: true
+        type: boolean
+      environment:
+        description: 'Database environment'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Run migration
+        run: |
+          echo "Migration direction: ${{ inputs.migration_direction }}"
+          echo "Target migration: ${{ inputs.target_migration }}"
+          echo "Dry run: ${{ inputs.dry_run }}"
+          echo "Backup: ${{ inputs.backup_database }}"
+          echo "Environment: ${{ inputs.environment }}"

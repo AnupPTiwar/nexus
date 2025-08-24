@@ -1,0 +1,48 @@
+name: Run Test Suite
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Type of tests to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - unit
+          - integration
+          - e2e
+      browser:
+        description: 'Browser for E2E tests'
+        required: false
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+          - safari
+      parallel_jobs:
+        description: 'Number of parallel test jobs'
+        required: false
+        default: '4'
+        type: string
+      timeout_minutes:
+        description: 'Test timeout in minutes'
+        required: false
+        default: '30'
+        type: number
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Run tests
+        run: |
+          echo "Running ${{ inputs.test_type }} tests"
+          echo "Browser: ${{ inputs.browser }}"
+          echo "Parallel jobs: ${{ inputs.parallel_jobs }}"
+          echo "Timeout: ${{ inputs.timeout_minutes }} minutes"

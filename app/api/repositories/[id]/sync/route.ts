@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { SyncRepositorySchema } from "@/lib/validations/repository";
+import { syncQueue } from "@/queues";
 
 export async function POST(
     request: Request,
@@ -31,11 +32,17 @@ export async function POST(
             );
         }
 
-        const { force } = validationResult.data;
+        const {
+            force = false,
+            syncWorkflows = true,
+            syncRuns = true,
+            syncBranches = true,
+            fullSync = false,
+        } = validationResult.data;
 
         // Check if repository exists
         const repository = await prisma.repository.findUnique({
-            where: { 
+            where: {
                 id,
                 deletedAt: null,
             },
@@ -78,43 +85,93 @@ export async function POST(
             where: { id },
             data: {
                 isSyncing: true,
+                lastSyncAt: new Date(),
             },
         });
 
-        // TODO: Implement actual GitHub API sync logic here
-        // This would involve:
-        // 1. Fetching workflows from GitHub API
-        // 2. Updating/creating workflow records in database
-        // 3. Handling webhook setup
-        // 4. Error handling and rollback
+        // Create sync job record
+        const syncJob = await prisma.syncJob.create({
+            data: {
+                repositoryId: id,
+                type: fullSync ? "full" : "incremental",
+                status: "PENDING",
+                progress: {
+                    workflows: { total: 0, completed: 0, failed: 0 },
+                    runs: { total: 0, completed: 0, failed: 0 },
+                    branches: { total: 0, completed: 0, failed: 0 },
+                } as object, // Type assertion for Prisma Json
+                startedAt: new Date(),
+            },
+        });
 
-        // For now, simulate sync completion after a short delay
-        setTimeout(async () => {
-            try {
-                await prisma.repository.update({
-                    where: { id },
-                    data: {
-                        isSyncing: false,
-                        lastSyncAt: new Date(),
-                    },
-                });
-            } catch (error) {
-                console.error("Error completing sync:", error);
-            }
-        }, 2000);
+        // Add job to BullMQ queue
+        const job = await syncQueue.add(
+            "repository-sync",
+            {
+                repositoryId: id,
+                syncJobId: syncJob.id,
+                userId: session.user.id,
+                options: {
+                    syncWorkflows,
+                    syncRuns,
+                    syncBranches,
+                    fullSync,
+                },
+                repository: {
+                    name: repository.name,
+                    owner: repository.githubOwner,
+                    url: repository.githubUrl,
+                    visibility: repository.visibility,
+                },
+            },
+            {
+                attempts: 3,
+                backoff: {
+                    type: "exponential",
+                    delay: 5000,
+                },
+                removeOnComplete: 10,
+                removeOnFail: 5,
+            },
+        );
+
+        // Create notification for sync start
+        await prisma.notification.create({
+            data: {
+                userId: session.user.id,
+                type: "INFO",
+                title: "Sync Started",
+                message: `Repository sync started for ${repository.githubOwner}/${repository.name}`,
+                resourceType: "REPOSITORY",
+                resourceId: id,
+                metadata: {
+                    syncJobId: syncJob.id,
+                    jobId: job.id,
+                    repository: repository.name,
+                    owner: repository.githubOwner,
+                } as object, // Type assertion for Prisma Json
+            },
+        });
 
         return NextResponse.json({
-            message: "Repository sync started successfully",
-            repositoryId: id,
-            force,
+            success: true,
+            syncJobId: syncJob.id,
+            jobId: job.id,
+            message: "Repository sync started",
+            repository: {
+                id: repository.id,
+                name: repository.name,
+                owner: repository.githubOwner,
+            },
         });
     } catch (error) {
         console.error("Error syncing repository:", error);
-        
+
         // Ensure we reset syncing status on error
         try {
+            const { id: repositoryId } = await params;
             await prisma.repository.update({
-                where: { id },
+                where: { id: repositoryId },
                 data: {
                     isSyncing: false,
                 },

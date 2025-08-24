@@ -1,0 +1,42 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+      version:
+        description: 'Version to deploy'
+        required: true
+        default: 'latest'
+        type: string
+      force_deploy:
+        description: 'Force deployment even if tests fail'
+        required: false
+        default: false
+        type: boolean
+      notification_channel:
+        description: 'Slack channel for notifications'
+        required: false
+        default: '#deployments'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy application
+        run: |
+          echo "Deploying version ${{ inputs.version }} to ${{ inputs.environment }}"
+          echo "Force deploy: ${{ inputs.force_deploy }}"
+          echo "Notification channel: ${{ inputs.notification_channel }}"

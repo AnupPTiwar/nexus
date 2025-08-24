@@ -1,8 +1,8 @@
 "use client";
 
-import { PageHeader } from "@/components/page-header";
 import { Center, Paper, Stack, Text, ThemeIcon } from "@mantine/core";
 import { IconGitBranch } from "@tabler/icons-react";
+import { PageHeader } from "@/components/page-header";
 
 export default function WorkflowsPage() {
     return (
@@ -30,7 +30,8 @@ export default function WorkflowsPage() {
                                 Workflow Configuration
                             </Text>
                             <Text size="sm" c="dimmed">
-                                Workflow management interface will be displayed here
+                                Workflow management interface will be displayed
+                                here
                             </Text>
                         </Stack>
                     </Stack>

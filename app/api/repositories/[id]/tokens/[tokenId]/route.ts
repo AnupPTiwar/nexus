@@ -119,7 +119,9 @@ export async function PUT(
         // Convert BigInt values to strings for JSON serialization
         const serializedToken = {
             ...updatedToken,
-            githubUserId: updatedToken.githubUserId ? updatedToken.githubUserId.toString() : null,
+            githubUserId: updatedToken.githubUserId
+                ? updatedToken.githubUserId.toString()
+                : null,
         };
 
         return NextResponse.json(serializedToken);

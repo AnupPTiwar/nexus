@@ -20,6 +20,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
                         retry: (failureCount, error) => {
                             // Don't retry on 4xx errors
                             if (error instanceof Error && "status" in error) {
+                                // biome-ignore lint/suspicious/noExplicitAny: <error can be any>
                                 const status = (error as any).status;
                                 if (status >= 400 && status < 500) {
                                     return false;
@@ -32,16 +33,13 @@ export function QueryProvider({ children }: QueryProviderProps) {
                         retry: false, // Don't retry mutations by default
                     },
                 },
-            })
+            }),
     );
 
     return (
         <QueryClientProvider client={queryClient}>
             {children}
-            <ReactQueryDevtools 
-                initialIsOpen={false}
-                position="bottom-right"
-            />
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     );
 }

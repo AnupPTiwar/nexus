@@ -10,12 +10,16 @@ interface FiltersProps {
     onClearFilters: () => void;
 }
 
-export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersProps) {
+export function Filters({
+    filters,
+    onFiltersChange,
+    onClearFilters,
+}: FiltersProps) {
     const hasActiveFilters = Boolean(
-        filters.search || 
-        filters.visibility || 
-        filters.isActive !== undefined || 
-        filters.isSyncing !== undefined
+        filters.search ||
+            filters.visibility ||
+            filters.isActive !== undefined ||
+            filters.isSyncing !== undefined,
     );
 
     return (
@@ -25,7 +29,9 @@ export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersPro
                 leftSection={<IconSearch size={16} />}
                 value={filters.search || ""}
                 onChange={(event) =>
-                    onFiltersChange({ search: event.currentTarget.value || undefined })
+                    onFiltersChange({
+                        search: event.currentTarget.value || undefined,
+                    })
                 }
                 style={{ flex: 1, minWidth: 200 }}
             />
@@ -38,7 +44,9 @@ export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersPro
                 ]}
                 value={filters.visibility || null}
                 onChange={(value) =>
-                    onFiltersChange({ visibility: value as "PUBLIC" | "PRIVATE" | undefined })
+                    onFiltersChange({
+                        visibility: value as "PUBLIC" | "PRIVATE" | undefined,
+                    })
                 }
                 clearable
                 w={150}
@@ -50,10 +58,14 @@ export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersPro
                     { value: "true", label: "Active" },
                     { value: "false", label: "Inactive" },
                 ]}
-                value={filters.isActive !== undefined ? String(filters.isActive) : null}
+                value={
+                    filters.isActive !== undefined
+                        ? String(filters.isActive)
+                        : null
+                }
                 onChange={(value) =>
-                    onFiltersChange({ 
-                        isActive: value ? value === "true" : undefined 
+                    onFiltersChange({
+                        isActive: value ? value === "true" : undefined,
                     })
                 }
                 clearable
@@ -66,10 +78,14 @@ export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersPro
                     { value: "true", label: "Syncing" },
                     { value: "false", label: "Not Syncing" },
                 ]}
-                value={filters.isSyncing !== undefined ? String(filters.isSyncing) : null}
+                value={
+                    filters.isSyncing !== undefined
+                        ? String(filters.isSyncing)
+                        : null
+                }
                 onChange={(value) =>
-                    onFiltersChange({ 
-                        isSyncing: value ? value === "true" : undefined 
+                    onFiltersChange({
+                        isSyncing: value ? value === "true" : undefined,
                     })
                 }
                 clearable
@@ -86,9 +102,7 @@ export function Filters({ filters, onFiltersChange, onClearFilters }: FiltersPro
                     { value: "visibility", label: "Visibility" },
                 ]}
                 value={filters.sortBy}
-                onChange={(value) =>
-                    onFiltersChange({ sortBy: value as any })
-                }
+                onChange={(value) => onFiltersChange({ sortBy: value as any })}
                 w={140}
             />
 

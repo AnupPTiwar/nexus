@@ -1,0 +1,50 @@
+name: Security Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      scan_type:
+        description: 'Type of security scan'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - dependencies
+          - code
+          - secrets
+          - containers
+      severity_threshold:
+        description: 'Minimum severity level to report'
+        required: false
+        default: 'medium'
+        type: choice
+        options:
+          - low
+          - medium
+          - high
+          - critical
+      fail_on_issues:
+        description: 'Fail workflow if security issues found'
+        required: false
+        default: false
+        type: boolean
+      generate_report:
+        description: 'Generate detailed security report'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Run security scan
+        run: |
+          echo "Scan type: ${{ inputs.scan_type }}"
+          echo "Severity threshold: ${{ inputs.severity_threshold }}"
+          echo "Fail on issues: ${{ inputs.fail_on_issues }}"
+          echo "Generate report: ${{ inputs.generate_report }}"

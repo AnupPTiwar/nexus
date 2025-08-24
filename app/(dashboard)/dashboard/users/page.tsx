@@ -5,22 +5,19 @@ import { useDisclosure } from "@mantine/hooks";
 import { IconPlus, IconUsers } from "@tabler/icons-react";
 import { useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import { PermissionsModal } from "@/components/users/permissions-modal";
 import { Filters } from "@/components/users/filters";
+import { PermissionsModal } from "@/components/users/permissions-modal";
 import { StatsContainer } from "@/components/users/stats";
 import { TableContainer } from "@/components/users/table";
 import { useUsers } from "@/hooks/use-users";
-import type {
-    UsersQuery,
-    User,
-} from "@/lib/validations/user";
+import type { User, UsersQuery } from "@/lib/validations/user";
 
 export default function UsersPage() {
     const [
         permissionsModalOpened,
         { open: openPermissionsModal, close: closePermissionsModal },
     ] = useDisclosure(false);
-    
+
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     const [filters, setFilters] = useState<UsersQuery>({

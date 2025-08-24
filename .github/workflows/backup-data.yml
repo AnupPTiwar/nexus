@@ -1,0 +1,66 @@
+name: Backup Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_type:
+        description: 'Type of backup to create'
+        required: true
+        default: 'incremental'
+        type: choice
+        options:
+          - full
+          - incremental
+          - differential
+      data_sources:
+        description: 'Data sources to backup'
+        required: true
+        default: 'database'
+        type: choice
+        options:
+          - database
+          - files
+          - both
+      compression:
+        description: 'Compression level'
+        required: false
+        default: 'medium'
+        type: choice
+        options:
+          - none
+          - low
+          - medium
+          - high
+      encryption:
+        description: 'Enable backup encryption'
+        required: false
+        default: true
+        type: boolean
+      retention_days:
+        description: 'Backup retention period (days)'
+        required: false
+        default: '30'
+        type: number
+      storage_location:
+        description: 'Backup storage location'
+        required: false
+        default: 's3'
+        type: choice
+        options:
+          - s3
+          - gcs
+          - azure
+          - local
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create backup
+        run: |
+          echo "Backup type: ${{ inputs.backup_type }}"
+          echo "Data sources: ${{ inputs.data_sources }}"
+          echo "Compression: ${{ inputs.compression }}"
+          echo "Encryption: ${{ inputs.encryption }}"
+          echo "Retention: ${{ inputs.retention_days }} days"
+          echo "Storage: ${{ inputs.storage_location }}"

@@ -1,0 +1,55 @@
+name: Feature Toggle Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_name:
+        description: 'Feature flag name'
+        required: true
+        type: string
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'enable'
+        type: choice
+        options:
+          - enable
+          - disable
+          - toggle
+          - status
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      percentage:
+        description: 'Rollout percentage (0-100)'
+        required: false
+        default: '100'
+        type: number
+      user_groups:
+        description: 'Target user groups (comma-separated)'
+        required: false
+        type: string
+      notify_teams:
+        description: 'Notify development teams'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  feature-toggle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Manage feature toggle
+        run: |
+          echo "Feature name: ${{ inputs.feature_name }}"
+          echo "Action: ${{ inputs.action }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Percentage: ${{ inputs.percentage }}%"
+          echo "User groups: ${{ inputs.user_groups }}"
+          echo "Notify teams: ${{ inputs.notify_teams }}"

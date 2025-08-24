@@ -33,7 +33,10 @@ export const ResourceActionEnum = z.enum([
 // Permission format: "RESOURCE:ACTION"
 export const PermissionSchema = z
     .string()
-    .regex(/^[A-Z_]+:[A-Z]+$/, "Invalid permission format. Use RESOURCE:ACTION");
+    .regex(
+        /^[A-Z_]+:[A-Z]+$/,
+        "Invalid permission format. Use RESOURCE:ACTION",
+    );
 
 // User query params schema
 export const UsersQuerySchema = z.object({
@@ -41,7 +44,9 @@ export const UsersQuerySchema = z.object({
     limit: z.coerce.number().min(1).max(100).default(10),
     search: z.string().optional(),
     status: UserStatusEnum.optional(),
-    sortBy: z.enum(["name", "email", "createdAt", "lastLoginAt", "status"]).default("createdAt"),
+    sortBy: z
+        .enum(["name", "email", "createdAt", "lastLoginAt", "status"])
+        .default("createdAt"),
     sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
 
@@ -67,10 +72,12 @@ export const UserSchema = z.object({
     permissions: z.array(z.string()),
     createdAt: z.date(),
     updatedAt: z.date(),
-    _count: z.object({
-        repositories: z.number(),
-        workflowRuns: z.number(),
-    }).optional(),
+    _count: z
+        .object({
+            repositories: z.number(),
+            workflowRuns: z.number(),
+        })
+        .optional(),
 });
 
 export const UsersResponseSchema = z.object({

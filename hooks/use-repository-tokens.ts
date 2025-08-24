@@ -13,10 +13,14 @@ export function useRepositoryTokens(repositoryId: string, enabled = true) {
     return useQuery<RepositoryTokensResponse>({
         queryKey: ["repository-tokens", repositoryId],
         queryFn: async () => {
-            const response = await fetch(`/api/repositories/${repositoryId}/tokens`);
+            const response = await fetch(
+                `/api/repositories/${repositoryId}/tokens`,
+            );
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to fetch repository tokens");
+                throw new Error(
+                    error.error || "Failed to fetch repository tokens",
+                );
             }
             return response.json();
         },
@@ -30,17 +34,22 @@ export function useCreateRepositoryToken(repositoryId: string) {
 
     return useMutation<RepositoryToken, Error, CreateRepositoryToken>({
         mutationFn: async (data) => {
-            const response = await fetch(`/api/repositories/${repositoryId}/tokens`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const response = await fetch(
+                `/api/repositories/${repositoryId}/tokens`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
                 },
-                body: JSON.stringify(data),
-            });
+            );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to create repository token");
+                throw new Error(
+                    error.error || "Failed to create repository token",
+                );
             }
 
             return response.json();
@@ -59,7 +68,10 @@ export function useCreateRepositoryToken(repositoryId: string) {
 }
 
 // Update repository token
-export function useUpdateRepositoryToken(repositoryId: string, tokenId: string) {
+export function useUpdateRepositoryToken(
+    repositoryId: string,
+    tokenId: string,
+) {
     const queryClient = useQueryClient();
 
     return useMutation<RepositoryToken, Error, UpdateRepositoryToken>({
@@ -72,12 +84,14 @@ export function useUpdateRepositoryToken(repositoryId: string, tokenId: string) 
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(data),
-                }
+                },
             );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to update repository token");
+                throw new Error(
+                    error.error || "Failed to update repository token",
+                );
             }
 
             return response.json();
@@ -101,12 +115,14 @@ export function useDeleteRepositoryToken(repositoryId: string) {
                 `/api/repositories/${repositoryId}/tokens/${tokenId}`,
                 {
                     method: "DELETE",
-                }
+                },
             );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to delete repository token");
+                throw new Error(
+                    error.error || "Failed to delete repository token",
+                );
             }
 
             return response.json();
@@ -128,7 +144,11 @@ export function useDeleteRepositoryToken(repositoryId: string) {
 export function useValidateRepositoryToken(repositoryId: string) {
     const queryClient = useQueryClient();
 
-    return useMutation<RepositoryToken, Error, { tokenId: string; token: string }>({
+    return useMutation<
+        RepositoryToken,
+        Error,
+        { tokenId: string; token: string }
+    >({
         mutationFn: async ({ tokenId, token }) => {
             const response = await fetch(
                 `/api/repositories/${repositoryId}/tokens/${tokenId}/validate`,
@@ -138,12 +158,14 @@ export function useValidateRepositoryToken(repositoryId: string) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ token }),
-                }
+                },
             );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to validate repository token");
+                throw new Error(
+                    error.error || "Failed to validate repository token",
+                );
             }
 
             return response.json();

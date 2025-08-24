@@ -36,34 +36,46 @@ export function RepositoryTokenManager({
 
     // Mutations - all hooks called at top level
     const createTokenMutation = useCreateRepositoryToken(repository?.id || "");
-    const updateTokenMutation = useUpdateRepositoryToken(repository?.id || "", editingTokenId);
+    const updateTokenMutation = useUpdateRepositoryToken(
+        repository?.id || "",
+        editingTokenId,
+    );
     const deleteTokenMutation = useDeleteRepositoryToken(repository?.id || "");
 
     // Handlers
-    const handleCreateToken = useCallback(async (data: CreateRepositoryToken) => {
-        if (!repository?.id) throw new Error("Repository ID is required");
-        await createTokenMutation.mutateAsync(data);
-    }, [repository?.id, createTokenMutation]);
+    const handleCreateToken = useCallback(
+        async (data: CreateRepositoryToken) => {
+            if (!repository?.id) throw new Error("Repository ID is required");
+            await createTokenMutation.mutateAsync(data);
+        },
+        [repository?.id, createTokenMutation],
+    );
 
-    const handleUpdateToken = useCallback(async (tokenId: string, data: UpdateRepositoryToken) => {
-        if (!repository?.id) throw new Error("Repository ID is required");
-        
-        // Set the token ID for the mutation hook
-        setEditingTokenId(tokenId);
-        
-        try {
-            // Use the update mutation
-            await updateTokenMutation.mutateAsync(data);
-        } finally {
-            // Reset the editing token ID
-            setEditingTokenId("");
-        }
-    }, [repository?.id, updateTokenMutation]);
+    const handleUpdateToken = useCallback(
+        async (tokenId: string, data: UpdateRepositoryToken) => {
+            if (!repository?.id) throw new Error("Repository ID is required");
 
-    const handleDeleteToken = useCallback(async (tokenId: string) => {
-        if (!repository?.id) throw new Error("Repository ID is required");
-        await deleteTokenMutation.mutateAsync(tokenId);
-    }, [repository?.id, deleteTokenMutation]);
+            // Set the token ID for the mutation hook
+            setEditingTokenId(tokenId);
+
+            try {
+                // Use the update mutation
+                await updateTokenMutation.mutateAsync(data);
+            } finally {
+                // Reset the editing token ID
+                setEditingTokenId("");
+            }
+        },
+        [repository?.id, updateTokenMutation],
+    );
+
+    const handleDeleteToken = useCallback(
+        async (tokenId: string) => {
+            if (!repository?.id) throw new Error("Repository ID is required");
+            await deleteTokenMutation.mutateAsync(tokenId);
+        },
+        [repository?.id, deleteTokenMutation],
+    );
 
     // Handle errors
     if (tokensError) {

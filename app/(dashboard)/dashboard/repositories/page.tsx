@@ -7,8 +7,8 @@ import { useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { CreateRepositoryModal } from "@/components/repositories/create-repository-modal";
 import { EditRepositoryModal } from "@/components/repositories/edit-repository-modal";
-import { RepositoryTokenManager } from "@/components/repositories/repository-token-manager";
 import { Filters } from "@/components/repositories/filters";
+import { RepositoryTokenManager } from "@/components/repositories/repository-token-manager";
 import { StatsContainer } from "@/components/repositories/stats";
 import { TableContainer } from "@/components/repositories/table";
 import { useRepositories } from "@/hooks/use-repositories";
@@ -22,18 +22,15 @@ export default function RepositoriesPage() {
         createModalOpened,
         { open: openCreateModal, close: closeCreateModal },
     ] = useDisclosure(false);
-    
-    const [
-        editModalOpened,
-        { open: openEditModal, close: closeEditModal },
-    ] = useDisclosure(false);
-    
-    const [
-        tokenModalOpened,
-        { open: openTokenModal, close: closeTokenModal },
-    ] = useDisclosure(false);
-    
-    const [selectedRepository, setSelectedRepository] = useState<Repository | null>(null);
+
+    const [editModalOpened, { open: openEditModal, close: closeEditModal }] =
+        useDisclosure(false);
+
+    const [tokenModalOpened, { open: openTokenModal, close: closeTokenModal }] =
+        useDisclosure(false);
+
+    const [selectedRepository, setSelectedRepository] =
+        useState<Repository | null>(null);
 
     const [filters, setFilters] = useState<RepositoriesQuery>({
         page: 1,
@@ -123,13 +120,13 @@ export default function RepositoriesPage() {
                 opened={createModalOpened}
                 onClose={closeCreateModal}
             />
-            
+
             <EditRepositoryModal
                 opened={editModalOpened}
                 onClose={closeEditModal}
                 repository={selectedRepository}
             />
-            
+
             <RepositoryTokenManager
                 opened={tokenModalOpened}
                 onClose={closeTokenModal}

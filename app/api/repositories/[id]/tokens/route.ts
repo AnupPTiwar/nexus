@@ -50,13 +50,7 @@ export async function GET(
         }
 
         // Check permissions to read tokens
-        if (
-            !canReadRepositoryTokens(
-                user.permissions,
-                repository,
-                user.id,
-            )
-        ) {
+        if (!canReadRepositoryTokens(user.permissions, repository, user.id)) {
             return NextResponse.json(
                 { error: "Insufficient permissions to read repository tokens" },
                 { status: 403 },
@@ -107,9 +101,11 @@ export async function GET(
         ]);
 
         // Convert BigInt values to strings for JSON serialization
-        const serializedTokens = tokens.map(token => ({
+        const serializedTokens = tokens.map((token) => ({
             ...token,
-            githubUserId: token.githubUserId ? token.githubUserId.toString() : null,
+            githubUserId: token.githubUserId
+                ? token.githubUserId.toString()
+                : null,
         }));
 
         return NextResponse.json({
@@ -188,13 +184,7 @@ export async function POST(
         }
 
         // Check permissions to create tokens
-        if (
-            !canCreateRepositoryToken(
-                user.permissions,
-                repository,
-                user.id,
-            )
-        ) {
+        if (!canCreateRepositoryToken(user.permissions, repository, user.id)) {
             return NextResponse.json(
                 {
                     error: "Insufficient permissions to create repository tokens",
@@ -205,11 +195,12 @@ export async function POST(
 
         // Validate token with GitHub API
         const octokit = new Octokit({ auth: token });
-        
+
         try {
             // 1. Get authenticated user info
-            const { data: githubUser } = await octokit.rest.users.getAuthenticated();
-            
+            const { data: githubUser } =
+                await octokit.rest.users.getAuthenticated();
+
             // 2. Check token scopes
             const response = await fetch("https://api.github.com/user", {
                 headers: {
@@ -217,25 +208,26 @@ export async function POST(
                     Accept: "application/vnd.github.v3+json",
                 },
             });
-            
-            const scopes = response.headers.get("x-oauth-scopes")?.split(", ") || [];
-            
+
+            const scopes =
+                response.headers.get("x-oauth-scopes")?.split(", ") || [];
+
             // 3. Check required permissions
             const requiredScopes = ["repo", "workflow"];
-            const hasRequiredScopes = requiredScopes.every(scope => 
-                scopes.some(s => s === scope || s.includes(scope))
+            const hasRequiredScopes = requiredScopes.every((scope) =>
+                scopes.some((s) => s === scope || s.includes(scope)),
             );
-            
+
             if (!hasRequiredScopes) {
                 return NextResponse.json(
-                    { 
+                    {
                         error: "Token missing required permissions",
-                        details: `Token must have 'repo' and 'workflow' scopes. Found: ${scopes.join(", ")}`
+                        details: `Token must have 'repo' and 'workflow' scopes. Found: ${scopes.join(", ")}`,
                     },
                     { status: 400 },
                 );
             }
-            
+
             // 4. Verify token has access to this specific repository
             try {
                 await octokit.rest.repos.get({
@@ -244,14 +236,14 @@ export async function POST(
                 });
             } catch {
                 return NextResponse.json(
-                    { 
+                    {
                         error: "Token does not have access to this repository",
-                        details: `Token cannot access ${repository.githubOwner}/${repository.name}`
+                        details: `Token cannot access ${repository.githubOwner}/${repository.name}`,
                     },
                     { status: 403 },
                 );
             }
-            
+
             // 5. Try to list workflows to verify workflow permissions
             try {
                 await octokit.rest.actions.listRepoWorkflows({
@@ -260,9 +252,10 @@ export async function POST(
                 });
             } catch {
                 return NextResponse.json(
-                    { 
+                    {
                         error: "Token does not have workflow permissions",
-                        details: "Token must have 'workflow' scope to trigger workflows"
+                        details:
+                            "Token must have 'workflow' scope to trigger workflows",
                     },
                     { status: 403 },
                 );
@@ -284,55 +277,57 @@ export async function POST(
                     avatarUrl: githubUser.avatar_url,
                     scopes: scopes,
                 },
-            select: {
-                id: true,
-                alias: true,
-                type: true,
-                isActive: true,
-                lastUsedAt: true,
-                githubUserId: true,
-                githubLogin: true,
-                githubEmail: true,
-                githubName: true,
-                avatarUrl: true,
-                repositoryId: true,
-                userId: true,
-                createdAt: true,
-                updatedAt: true,
-                deletedAt: true,
-                // Note: We don't return the actual token for security
-            },
+                select: {
+                    id: true,
+                    alias: true,
+                    type: true,
+                    isActive: true,
+                    lastUsedAt: true,
+                    githubUserId: true,
+                    githubLogin: true,
+                    githubEmail: true,
+                    githubName: true,
+                    avatarUrl: true,
+                    repositoryId: true,
+                    userId: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    deletedAt: true,
+                    // Note: We don't return the actual token for security
+                },
             });
 
             // Convert BigInt values to strings for JSON serialization
             const serializedToken = {
                 ...repositoryToken,
-                githubUserId: repositoryToken.githubUserId ? repositoryToken.githubUserId.toString() : null,
+                githubUserId: repositoryToken.githubUserId
+                    ? repositoryToken.githubUserId.toString()
+                    : null,
             };
 
             return NextResponse.json(serializedToken, { status: 201 });
         } catch (githubError) {
             console.error("GitHub API error:", githubError);
-            
+
             const error = githubError as { status?: number; message?: string };
-            
+
             if (error.status === 401) {
                 return NextResponse.json(
                     { error: "Invalid GitHub token" },
                     { status: 401 },
                 );
             }
-            
+
             if (error.status === 403) {
                 return NextResponse.json(
-                    { 
+                    {
                         error: "GitHub API rate limit exceeded or insufficient permissions",
-                        details: error.message || "Access denied"
+                        details: error.message || "Access denied",
                     },
                     { status: 403 },
                 );
             }
-            
+
             throw githubError;
         }
     } catch (error) {

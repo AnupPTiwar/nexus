@@ -1,7 +1,12 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { UpdateUserPermissions, User, UsersQuery, UsersResponse } from "@/lib/validations/user";
+import type {
+    UpdateUserPermissions,
+    User,
+    UsersQuery,
+    UsersResponse,
+} from "@/lib/validations/user";
 
 const USERS_QUERY_KEY = "users";
 
@@ -17,7 +22,9 @@ export function useUsers(params: UsersQuery) {
                 }
             });
 
-            const response = await fetch(`/api/users?${searchParams.toString()}`);
+            const response = await fetch(
+                `/api/users?${searchParams.toString()}`,
+            );
             if (!response.ok) {
                 throw new Error("Failed to fetch users");
             }

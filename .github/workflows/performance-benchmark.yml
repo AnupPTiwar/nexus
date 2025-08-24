@@ -1,0 +1,55 @@
+name: Performance Benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      benchmark_suite:
+        description: 'Benchmark suite to run'
+        required: true
+        default: 'api'
+        type: choice
+        options:
+          - api
+          - frontend
+          - database
+          - full-stack
+      duration_minutes:
+        description: 'Test duration in minutes'
+        required: false
+        default: '5'
+        type: number
+      concurrent_users:
+        description: 'Number of concurrent users'
+        required: false
+        default: '50'
+        type: number
+      target_url:
+        description: 'Target URL for testing'
+        required: false
+        default: 'https://localhost:3000'
+        type: string
+      save_results:
+        description: 'Save benchmark results for comparison'
+        required: false
+        default: true
+        type: boolean
+      comparison_baseline:
+        description: 'Baseline version for comparison'
+        required: false
+        type: string
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Run benchmark
+        run: |
+          echo "Benchmark suite: ${{ inputs.benchmark_suite }}"
+          echo "Duration: ${{ inputs.duration_minutes }} minutes"
+          echo "Concurrent users: ${{ inputs.concurrent_users }}"
+          echo "Target URL: ${{ inputs.target_url }}"
+          echo "Save results: ${{ inputs.save_results }}"
+          echo "Comparison baseline: ${{ inputs.comparison_baseline }}"

@@ -13,7 +13,9 @@ export const RepositoriesQuerySchema = z.object({
     visibility: VisibilityEnum.optional(),
     isActive: z.coerce.boolean().optional(),
     isSyncing: z.coerce.boolean().optional(),
-    sortBy: z.enum(["name", "githubOwner", "createdAt", "lastSyncAt", "visibility"]).default("createdAt"),
+    sortBy: z
+        .enum(["name", "githubOwner", "createdAt", "lastSyncAt", "visibility"])
+        .default("createdAt"),
     sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
 
@@ -40,6 +42,10 @@ export const UpdateRepositorySchema = z.object({
 // Repository sync schema
 export const SyncRepositorySchema = z.object({
     force: z.boolean().default(false),
+    syncWorkflows: z.boolean().default(true),
+    syncRuns: z.boolean().default(true),
+    syncBranches: z.boolean().default(true),
+    fullSync: z.boolean().default(false),
 });
 
 // Repository token schemas
@@ -71,15 +77,20 @@ export const RepositorySchema = z.object({
     createdAt: z.date(),
     updatedAt: z.date(),
     deletedAt: z.date().nullable(),
-    _count: z.object({
-        repositoryTokens: z.number(),
-        workflows: z.number(),
-    }).optional(),
-    user: z.object({
-        id: z.string(),
-        name: z.string().nullable(),
-        email: z.string().nullable(),
-    }).nullable().optional(),
+    _count: z
+        .object({
+            repositoryTokens: z.number(),
+            workflows: z.number(),
+        })
+        .optional(),
+    user: z
+        .object({
+            id: z.string(),
+            name: z.string().nullable(),
+            email: z.string().nullable(),
+        })
+        .nullable()
+        .optional(),
 });
 
 export const RepositoryTokenSchema = z.object({
@@ -144,5 +155,7 @@ export type UpdateRepositoryToken = z.infer<typeof UpdateRepositoryTokenSchema>;
 export type Repository = z.infer<typeof RepositorySchema>;
 export type RepositoryToken = z.infer<typeof RepositoryTokenSchema>;
 export type RepositoriesResponse = z.infer<typeof RepositoriesResponseSchema>;
-export type RepositoryTokensResponse = z.infer<typeof RepositoryTokensResponseSchema>;
+export type RepositoryTokensResponse = z.infer<
+    typeof RepositoryTokensResponseSchema
+>;
 export type RepositoryStats = z.infer<typeof RepositoryStatsSchema>;

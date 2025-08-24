@@ -1,0 +1,59 @@
+name: Sync Dependencies
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_manager:
+        description: 'Package manager to use'
+        required: true
+        default: 'npm'
+        type: choice
+        options:
+          - npm
+          - yarn
+          - pnpm
+      update_type:
+        description: 'Type of updates to apply'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - all
+      ignore_packages:
+        description: 'Packages to ignore (comma-separated)'
+        required: false
+        type: string
+      create_pr:
+        description: 'Create pull request with changes'
+        required: false
+        default: true
+        type: boolean
+      run_tests:
+        description: 'Run tests after updating'
+        required: false
+        default: true
+        type: boolean
+      security_audit:
+        description: 'Run security audit'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Sync dependencies
+        run: |
+          echo "Package manager: ${{ inputs.package_manager }}"
+          echo "Update type: ${{ inputs.update_type }}"
+          echo "Ignore packages: ${{ inputs.ignore_packages }}"
+          echo "Create PR: ${{ inputs.create_pr }}"
+          echo "Run tests: ${{ inputs.run_tests }}"
+          echo "Security audit: ${{ inputs.security_audit }}"

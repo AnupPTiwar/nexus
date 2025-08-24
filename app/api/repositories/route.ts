@@ -137,7 +137,7 @@ export async function GET(request: Request) {
         ]);
 
         // Convert BigInt to string for JSON serialization
-        const serializedRepositories = repositories.map(repo => ({
+        const serializedRepositories = repositories.map((repo) => ({
             ...repo,
             githubRepoId: repo.githubRepoId?.toString() || null,
         }));

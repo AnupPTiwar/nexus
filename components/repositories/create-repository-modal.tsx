@@ -7,21 +7,24 @@ import {
     Select,
     Stack,
     Text,
-    TextInput,
     Textarea,
+    TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconBrandGithub, IconPlus } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
-import type { CreateRepository } from "@/lib/validations/repository";
+import { IconBrandGithub, IconPlus } from "@tabler/icons-react";
 import { useCreateRepository } from "@/hooks/use-repositories";
+import type { CreateRepository } from "@/lib/validations/repository";
 
 interface CreateRepositoryModalProps {
     opened: boolean;
     onClose: () => void;
 }
 
-export function CreateRepositoryModal({ opened, onClose }: CreateRepositoryModalProps) {
+export function CreateRepositoryModal({
+    opened,
+    onClose,
+}: CreateRepositoryModalProps) {
     const createMutation = useCreateRepository();
 
     const form = useForm<CreateRepository>({
@@ -34,7 +37,8 @@ export function CreateRepositoryModal({ opened, onClose }: CreateRepositoryModal
         },
         validate: {
             name: (value) => (!value ? "Repository name is required" : null),
-            githubOwner: (value) => (!value ? "GitHub owner is required" : null),
+            githubOwner: (value) =>
+                !value ? "GitHub owner is required" : null,
             githubUrl: (value) => {
                 if (!value) return "GitHub URL is required";
                 try {
@@ -63,7 +67,10 @@ export function CreateRepositoryModal({ opened, onClose }: CreateRepositoryModal
         } catch (error) {
             notifications.show({
                 title: "Creation Failed",
-                message: error instanceof Error ? error.message : "Failed to create repository",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to create repository",
                 color: "red",
             });
         }
@@ -77,7 +84,7 @@ export function CreateRepositoryModal({ opened, onClose }: CreateRepositoryModal
     // Auto-fill name and owner from GitHub URL
     const handleGitHubUrlChange = (url: string) => {
         form.setFieldValue("githubUrl", url);
-        
+
         try {
             const urlObj = new URL(url);
             if (urlObj.hostname === "github.com") {
@@ -116,7 +123,9 @@ export function CreateRepositoryModal({ opened, onClose }: CreateRepositoryModal
                         placeholder="https://github.com/owner/repository"
                         required
                         {...form.getInputProps("githubUrl")}
-                        onChange={(event) => handleGitHubUrlChange(event.currentTarget.value)}
+                        onChange={(event) =>
+                            handleGitHubUrlChange(event.currentTarget.value)
+                        }
                     />
 
                     <Group grow>

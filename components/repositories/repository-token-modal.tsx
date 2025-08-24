@@ -53,7 +53,11 @@ interface RepositoryTokenModalProps {
     onCreateToken?: (data: CreateRepositoryToken) => Promise<void>;
     onUpdateToken?: (
         tokenId: string,
-        data: { alias?: string; type?: "PUBLIC" | "PRIVATE"; isActive?: boolean },
+        data: {
+            alias?: string;
+            type?: "PUBLIC" | "PRIVATE";
+            isActive?: boolean;
+        },
     ) => Promise<void>;
     onDeleteToken?: (tokenId: string) => Promise<void>;
 }
@@ -113,7 +117,11 @@ export function RepositoryTokenModal({
         },
     });
 
-    const editForm = useForm<{ alias?: string; type?: "PUBLIC" | "PRIVATE"; isActive?: boolean }>({
+    const editForm = useForm<{
+        alias?: string;
+        type?: "PUBLIC" | "PRIVATE";
+        isActive?: boolean;
+    }>({
         initialValues: {
             alias: "",
             type: "PRIVATE",
@@ -181,7 +189,11 @@ export function RepositoryTokenModal({
         }
     };
 
-    const handleEditSubmit = async (values: { alias?: string; type?: "PUBLIC" | "PRIVATE"; isActive?: boolean }) => {
+    const handleEditSubmit = async (values: {
+        alias?: string;
+        type?: "PUBLIC" | "PRIVATE";
+        isActive?: boolean;
+    }) => {
         if (!editingToken || !onUpdateToken) return;
         setIsUpdating(true);
 
@@ -251,7 +263,6 @@ export function RepositoryTokenModal({
         }));
     };
 
-
     const handleClose = () => {
         createForm.reset();
         editForm.reset();
@@ -280,18 +291,38 @@ export function RepositoryTokenModal({
         >
             <Stack gap="lg">
                 {/* Info Alert */}
-                <Alert icon={<IconShieldCheck size={16} />} color="blue" variant="light">
+                <Alert
+                    icon={<IconShieldCheck size={16} />}
+                    color="blue"
+                    variant="light"
+                >
                     <Stack gap="xs">
-                        <Text size="sm" fw={500}>GitHub Token Requirements:</Text>
+                        <Text size="sm" fw={500}>
+                            GitHub Token Requirements:
+                        </Text>
                         <Group gap="xs">
-                            <Text size="sm" span>• Token must have</Text>
-                            <Badge size="xs" variant="light">repo</Badge>
-                            <Text size="sm" span>and</Text>
-                            <Badge size="xs" variant="light">workflow</Badge>
-                            <Text size="sm" span>permissions</Text>
+                            <Text size="sm" span>
+                                • Token must have
+                            </Text>
+                            <Badge size="xs" variant="light">
+                                repo
+                            </Badge>
+                            <Text size="sm" span>
+                                and
+                            </Text>
+                            <Badge size="xs" variant="light">
+                                workflow
+                            </Badge>
+                            <Text size="sm" span>
+                                permissions
+                            </Text>
                         </Group>
-                        <Text size="sm">• Token will be validated against the repository</Text>
-                        <Text size="sm">• All tokens are encrypted and stored securely</Text>
+                        <Text size="sm">
+                            • Token will be validated against the repository
+                        </Text>
+                        <Text size="sm">
+                            • All tokens are encrypted and stored securely
+                        </Text>
                     </Stack>
                 </Alert>
 
@@ -321,7 +352,11 @@ export function RepositoryTokenModal({
                                         </Text>
 
                                         {isValidating && (
-                                            <Alert icon={<Loader size={16} />} color="blue" variant="light">
+                                            <Alert
+                                                icon={<Loader size={16} />}
+                                                color="blue"
+                                                variant="light"
+                                            >
                                                 Validating token with GitHub...
                                             </Alert>
                                         )}
@@ -329,9 +364,16 @@ export function RepositoryTokenModal({
                                         <TextInput
                                             label={
                                                 <Group gap="xs">
-                                                    <Text span>Token Alias</Text>
+                                                    <Text span>
+                                                        Token Alias
+                                                    </Text>
                                                     <Tooltip label="A friendly name to identify this token in the list">
-                                                        <IconInfoCircle size={14} style={{ opacity: 0.7 }} />
+                                                        <IconInfoCircle
+                                                            size={14}
+                                                            style={{
+                                                                opacity: 0.7,
+                                                            }}
+                                                        />
                                                     </Tooltip>
                                                 </Group>
                                             }
@@ -392,9 +434,15 @@ export function RepositoryTokenModal({
                                             <Button
                                                 type="submit"
                                                 loading={isCreating}
-                                                leftSection={!isCreating && <IconPlus size={16} />}
+                                                leftSection={
+                                                    !isCreating && (
+                                                        <IconPlus size={16} />
+                                                    )
+                                                }
                                             >
-                                                {isCreating ? "Validating & Adding..." : "Add Token"}
+                                                {isCreating
+                                                    ? "Validating & Adding..."
+                                                    : "Add Token"}
                                             </Button>
                                         </Group>
                                     </Stack>
@@ -452,7 +500,9 @@ export function RepositoryTokenModal({
                                         Cancel
                                     </Button>
                                     <Button type="submit" loading={isUpdating}>
-                                        {isUpdating ? "Updating..." : "Update Token"}
+                                        {isUpdating
+                                            ? "Updating..."
+                                            : "Update Token"}
                                     </Button>
                                 </Group>
                             </Stack>
@@ -522,10 +572,11 @@ export function RepositoryTokenModal({
                                                     <ActionIcon
                                                         size="sm"
                                                         variant="subtle"
-                                                        onClick={() => 
+                                                        onClick={() =>
                                                             notifications.show({
                                                                 title: "Token Hidden",
-                                                                message: "Token is encrypted and cannot be displayed for security",
+                                                                message:
+                                                                    "Token is encrypted and cannot be displayed for security",
                                                                 color: "orange",
                                                             })
                                                         }
@@ -621,8 +672,14 @@ export function RepositoryTokenModal({
                                                                         token,
                                                                     )
                                                                 }
-                                                                loading={isDeleting === token.id}
-                                                                disabled={isDeleting !== null}
+                                                                loading={
+                                                                    isDeleting ===
+                                                                    token.id
+                                                                }
+                                                                disabled={
+                                                                    isDeleting !==
+                                                                    null
+                                                                }
                                                             >
                                                                 <IconTrash
                                                                     size={14}

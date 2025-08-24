@@ -5,6 +5,7 @@ import GitHub from "next-auth/providers/github";
 import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
 import { UserStatus } from "@/prisma";
+import type { Permission } from "./permission";
 
 // Simple encryption for tokens (you should use a proper encryption library in production)
 function encryptToken(token: string): string {
@@ -59,7 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user = {
                     ...session.user,
                     id: dbUser.id,
-                    permissions: dbUser.permissions,
+                    permissions: dbUser.permissions as Permission[],
                     status: dbUser.status,
                 };
 

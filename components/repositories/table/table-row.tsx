@@ -58,7 +58,13 @@ export function RepositoryTableRow({
 
     const handleSync = async () => {
         try {
-            await syncMutation.mutateAsync({ force: false });
+            await syncMutation.mutateAsync({
+                force: false,
+                syncWorkflows: true,
+                syncRuns: true,
+                syncBranches: true,
+                fullSync: false,
+            });
             notifications.show({
                 title: "Sync Started",
                 message: `Repository "${repository.name}" sync has been initiated.`,

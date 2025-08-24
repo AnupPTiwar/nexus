@@ -11,19 +11,20 @@ interface StatsCardProps {
     color: string;
 }
 
-export function StatsCard({ title, value, diff, icon: Icon, color }: StatsCardProps) {
+export function StatsCard({
+    title,
+    value,
+    diff,
+    icon: Icon,
+    color,
+}: StatsCardProps) {
     return (
         <Card padding="lg" radius="md" withBorder>
             <Group justify="space-between" mb="xs">
                 <Text size="xs" c="dimmed" fw={600} tt="uppercase">
                     {title}
                 </Text>
-                <ThemeIcon
-                    size="sm"
-                    radius="md"
-                    variant="light"
-                    color={color}
-                >
+                <ThemeIcon size="sm" radius="md" variant="light" color={color}>
                     <Icon size={16} stroke={1.5} />
                 </ThemeIcon>
             </Group>
