@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { hasPermission } from "@/lib/permission";
 import { prisma } from "@/lib/prisma";
 import { UpdateRepositorySchema } from "@/lib/validations/repository";
 
 export async function GET(
     _request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
         if (!session) {
             return NextResponse.json(
@@ -18,7 +20,7 @@ export async function GET(
 
         const repository = await prisma.repository.findUnique({
             where: {
-                id: params.id,
+                id,
                 deletedAt: null,
             },
             include: {
@@ -45,7 +47,13 @@ export async function GET(
             );
         }
 
-        return NextResponse.json(repository);
+        // Convert BigInt to string for JSON serialization
+        const serializedRepository = {
+            ...repository,
+            githubRepoId: repository.githubRepoId?.toString() || null,
+        };
+
+        return NextResponse.json(serializedRepository);
     } catch (error) {
         console.error("Error fetching repository:", error);
         return NextResponse.json(
@@ -57,11 +65,12 @@ export async function GET(
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
-        if (!session) {
+        if (!session?.user?.email) {
             return NextResponse.json(
                 { error: "Unauthorized" },
                 { status: 401 },
@@ -82,11 +91,14 @@ export async function PUT(
             );
         }
 
-        // Check if repository exists
+        // Check if repository exists and get owner info
         const existingRepository = await prisma.repository.findUnique({
             where: {
-                id: params.id,
+                id,
                 deletedAt: null,
+            },
+            include: {
+                user: true,
             },
         });
 
@@ -97,9 +109,28 @@ export async function PUT(
             );
         }
 
+        // Permission checks:
+        // 1. User can update their own repository
+        // 2. User with REPOSITORY:MANAGE permission can update public repositories
+        const isOwner = existingRepository.user?.email === session.user.email;
+        const isPublic = existingRepository.visibility === "PUBLIC";
+        const hasManagePermission = hasPermission(
+            session.user.permissions,
+            "REPOSITORY:MANAGE",
+        );
+
+        if (!isOwner && !(isPublic && hasManagePermission)) {
+            return NextResponse.json(
+                {
+                    error: "You don't have permission to update this repository",
+                },
+                { status: 403 },
+            );
+        }
+
         // Update repository
         const repository = await prisma.repository.update({
-            where: { id: params.id },
+            where: { id },
             data: validationResult.data,
             include: {
                 _count: {
@@ -118,7 +149,13 @@ export async function PUT(
             },
         });
 
-        return NextResponse.json(repository);
+        // Convert BigInt to string for JSON serialization
+        const serializedRepository = {
+            ...repository,
+            githubRepoId: repository.githubRepoId?.toString() || null,
+        };
+
+        return NextResponse.json(serializedRepository);
     } catch (error) {
         console.error("Error updating repository:", error);
         return NextResponse.json(
@@ -130,9 +167,10 @@ export async function PUT(
 
 export async function DELETE(
     _request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
         if (!session) {
             return NextResponse.json(
@@ -144,7 +182,7 @@ export async function DELETE(
         // Check if repository exists
         const existingRepository = await prisma.repository.findUnique({
             where: {
-                id: params.id,
+                id,
                 deletedAt: null,
             },
         });
@@ -158,7 +196,7 @@ export async function DELETE(
 
         // Soft delete repository
         await prisma.repository.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 deletedAt: new Date(),
                 isActive: false,

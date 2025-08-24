@@ -29,6 +29,8 @@ export const CreateRepositorySchema = z.object({
 // Update repository schema
 export const UpdateRepositorySchema = z.object({
     name: z.string().min(1).optional(),
+    githubOwner: z.string().min(1).optional(),
+    githubUrl: z.string().url().optional(),
     description: z.string().optional(),
     visibility: VisibilityEnum.optional(),
     isActive: z.boolean().optional(),

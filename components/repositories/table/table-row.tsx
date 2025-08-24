@@ -3,7 +3,6 @@
 import {
     ActionIcon,
     Badge,
-    Button,
     Group,
     Menu,
     Stack,
@@ -11,6 +10,7 @@ import {
     Text,
     Tooltip,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import {
     IconBrandGithub,
     IconDots,
@@ -21,11 +21,15 @@ import {
     IconRefresh,
     IconTrash,
 } from "@tabler/icons-react";
-import { notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useSession } from "next-auth/react";
+import {
+    useDeleteRepository,
+    useSyncRepository,
+} from "@/hooks/use-repositories";
+import { hasPermission } from "@/lib/permission";
 import type { Repository } from "@/lib/validations/repository";
-import { useSyncRepository, useDeleteRepository } from "@/hooks/use-repositories";
 
 dayjs.extend(relativeTime);
 
@@ -35,13 +39,22 @@ interface RepositoryTableRowProps {
     onManageTokens: (repository: Repository) => void;
 }
 
-export function RepositoryTableRow({ 
-    repository, 
-    onEdit, 
-    onManageTokens 
+export function RepositoryTableRow({
+    repository,
+    onEdit,
+    onManageTokens,
 }: RepositoryTableRowProps) {
+    const { data: session } = useSession();
     const syncMutation = useSyncRepository(repository.id);
     const deleteMutation = useDeleteRepository();
+
+    // Check if user can edit this repository
+    const isOwner = repository.user?.email === session?.user?.email;
+    const isPublic = repository.visibility === "PUBLIC";
+    const hasManagePermission = session?.user?.permissions
+        ? hasPermission(session.user.permissions, "REPOSITORY:MANAGE")
+        : false;
+    const canEdit = isOwner || (isPublic && hasManagePermission);
 
     const handleSync = async () => {
         try {
@@ -54,7 +67,10 @@ export function RepositoryTableRow({
         } catch (error) {
             notifications.show({
                 title: "Sync Failed",
-                message: error instanceof Error ? error.message : "Failed to sync repository",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to sync repository",
                 color: "red",
             });
         }
@@ -75,7 +91,10 @@ export function RepositoryTableRow({
         } catch (error) {
             notifications.show({
                 title: "Delete Failed",
-                message: error instanceof Error ? error.message : "Failed to delete repository",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to delete repository",
                 color: "red",
             });
         }
@@ -83,12 +102,24 @@ export function RepositoryTableRow({
 
     const getStatusBadge = () => {
         if (repository.isSyncing) {
-            return <Badge color="blue" variant="light">Syncing</Badge>;
+            return (
+                <Badge color="blue" variant="light">
+                    Syncing
+                </Badge>
+            );
         }
         if (repository.isActive) {
-            return <Badge color="green" variant="light">Active</Badge>;
+            return (
+                <Badge color="green" variant="light">
+                    Active
+                </Badge>
+            );
         }
-        return <Badge color="red" variant="light">Inactive</Badge>;
+        return (
+            <Badge color="red" variant="light">
+                Inactive
+            </Badge>
+        );
     };
 
     const getVisibilityIcon = () => {
@@ -140,14 +171,10 @@ export function RepositoryTableRow({
                 </Group>
             </Table.Td>
 
-            <Table.Td>
-                {getStatusBadge()}
-            </Table.Td>
+            <Table.Td>{getStatusBadge()}</Table.Td>
 
             <Table.Td>
-                <Text size="sm">
-                    {repository._count?.workflows || 0}
-                </Text>
+                <Text size="sm">{repository._count?.workflows || 0}</Text>
             </Table.Td>
 
             <Table.Td>
@@ -158,10 +185,9 @@ export function RepositoryTableRow({
 
             <Table.Td>
                 <Text size="sm" c="dimmed">
-                    {repository.lastSyncAt 
+                    {repository.lastSyncAt
                         ? dayjs(repository.lastSyncAt).fromNow()
-                        : "Never"
-                    }
+                        : "Never"}
                 </Text>
             </Table.Td>
 
@@ -188,27 +214,31 @@ export function RepositoryTableRow({
                         </Menu.Target>
 
                         <Menu.Dropdown>
-                            <Menu.Item
-                                leftSection={<IconEdit size={16} />}
-                                onClick={() => onEdit(repository)}
-                            >
-                                Edit Repository
-                            </Menu.Item>
+                            {canEdit && (
+                                <Menu.Item
+                                    leftSection={<IconEdit size={16} />}
+                                    onClick={() => onEdit(repository)}
+                                >
+                                    Edit Repository
+                                </Menu.Item>
+                            )}
                             <Menu.Item
                                 leftSection={<IconKey size={16} />}
                                 onClick={() => onManageTokens(repository)}
                             >
                                 Manage Tokens
                             </Menu.Item>
-                            <Menu.Divider />
-                            <Menu.Item
-                                leftSection={<IconTrash size={16} />}
-                                color="red"
-                                onClick={handleDelete}
-                                disabled={deleteMutation.isPending}
-                            >
-                                Delete Repository
-                            </Menu.Item>
+                            {canEdit && <Menu.Divider />}
+                            {canEdit && (
+                                <Menu.Item
+                                    leftSection={<IconTrash size={16} />}
+                                    color="red"
+                                    onClick={handleDelete}
+                                    disabled={deleteMutation.isPending}
+                                >
+                                    Delete Repository
+                                </Menu.Item>
+                            )}
                         </Menu.Dropdown>
                     </Menu>
                 </Group>

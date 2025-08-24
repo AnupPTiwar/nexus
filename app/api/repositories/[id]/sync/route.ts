@@ -5,9 +5,10 @@ import { SyncRepositorySchema } from "@/lib/validations/repository";
 
 export async function POST(
     request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
         if (!session) {
             return NextResponse.json(
@@ -35,7 +36,7 @@ export async function POST(
         // Check if repository exists
         const repository = await prisma.repository.findUnique({
             where: { 
-                id: params.id,
+                id,
                 deletedAt: null,
             },
             include: {
@@ -74,7 +75,7 @@ export async function POST(
 
         // Mark repository as syncing
         await prisma.repository.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 isSyncing: true,
             },
@@ -91,7 +92,7 @@ export async function POST(
         setTimeout(async () => {
             try {
                 await prisma.repository.update({
-                    where: { id: params.id },
+                    where: { id },
                     data: {
                         isSyncing: false,
                         lastSyncAt: new Date(),
@@ -104,7 +105,7 @@ export async function POST(
 
         return NextResponse.json({
             message: "Repository sync started successfully",
-            repositoryId: params.id,
+            repositoryId: id,
             force,
         });
     } catch (error) {
@@ -113,7 +114,7 @@ export async function POST(
         // Ensure we reset syncing status on error
         try {
             await prisma.repository.update({
-                where: { id: params.id },
+                where: { id },
                 data: {
                     isSyncing: false,
                 },

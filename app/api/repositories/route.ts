@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
     CreateRepositorySchema,
-    type RepositoriesQuery,
     RepositoriesQuerySchema,
 } from "@/lib/validations/repository";
 import type { RepositoryWhereInput } from "@/prisma/generated/models";
@@ -47,20 +46,44 @@ export async function GET(request: Request) {
 
         const where: RepositoryWhereInput = {
             deletedAt: null, // Only show non-deleted repositories
+            // Only show repositories owned by user OR public repositories
+            OR: [
+                { user: { email: session.user?.email } }, // Repositories owned by the user
+                { visibility: "PUBLIC" }, // Public repositories
+            ],
         };
+
+        // Build AND conditions array
+        const andConditions: RepositoryWhereInput[] = [];
 
         // Apply search filter
         if (search) {
-            where.OR = [
-                { name: { contains: search, mode: "insensitive" } },
-                { githubOwner: { contains: search, mode: "insensitive" } },
-                { description: { contains: search, mode: "insensitive" } },
-            ];
+            andConditions.push({
+                OR: [
+                    { name: { contains: search, mode: "insensitive" } },
+                    { githubOwner: { contains: search, mode: "insensitive" } },
+                    { description: { contains: search, mode: "insensitive" } },
+                ],
+            });
         }
 
-        // Apply filters
+        // Apply visibility filter (only if user wants to filter further)
         if (visibility) {
-            where.visibility = visibility;
+            // If filtering by PRIVATE, only show user's private repos
+            if (visibility === "PRIVATE") {
+                andConditions.push({
+                    visibility: visibility,
+                    user: { email: session.user?.email }, // Ensure private repos are only user's own
+                });
+            } else {
+                // For PUBLIC filter, just add it to AND conditions
+                andConditions.push({ visibility: visibility });
+            }
+        }
+
+        // Apply AND conditions if any exist
+        if (andConditions.length > 0) {
+            where.AND = andConditions;
         }
 
         if (isActive !== undefined) {
@@ -83,6 +106,7 @@ export async function GET(request: Request) {
                     id: true,
                     name: true,
                     githubOwner: true,
+                    githubRepoId: true,
                     githubUrl: true,
                     description: true,
                     visibility: true,
@@ -112,8 +136,14 @@ export async function GET(request: Request) {
             prisma.repository.count({ where }),
         ]);
 
+        // Convert BigInt to string for JSON serialization
+        const serializedRepositories = repositories.map(repo => ({
+            ...repo,
+            githubRepoId: repo.githubRepoId?.toString() || null,
+        }));
+
         return NextResponse.json({
-            repositories,
+            repositories: serializedRepositories,
             pagination: {
                 page,
                 limit,
@@ -208,7 +238,13 @@ export async function POST(request: Request) {
             },
         });
 
-        return NextResponse.json(repository, { status: 201 });
+        // Convert BigInt to string for JSON serialization
+        const serializedRepository = {
+            ...repository,
+            githubRepoId: repository.githubRepoId?.toString() || null,
+        };
+
+        return NextResponse.json(serializedRepository, { status: 201 });
     } catch (error) {
         console.error("Error creating repository:", error);
         return NextResponse.json(

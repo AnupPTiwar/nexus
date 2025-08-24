@@ -5,9 +5,10 @@ import { UpdateUserPermissionsSchema } from "@/lib/validations/user";
 
 export async function PUT(
     request: Request,
-    { params }: { params: { userId: string } },
+    { params }: { params: Promise<{ userId: string }> },
 ) {
     try {
+        const { userId } = await params;
         const session = await auth();
         if (!session) {
             return NextResponse.json(
@@ -34,7 +35,7 @@ export async function PUT(
 
         // Check if user exists
         const userExists = await prisma.user.findUnique({
-            where: { id: params.userId },
+            where: { id: userId },
         });
 
         if (!userExists) {
@@ -46,7 +47,7 @@ export async function PUT(
 
         // Update user permissions
         const updatedUser = await prisma.user.update({
-            where: { id: params.userId },
+            where: { id: userId },
             data: { permissions },
             select: {
                 id: true,

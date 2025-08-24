@@ -6,6 +6,8 @@ import { IconBrandGithub, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { CreateRepositoryModal } from "@/components/repositories/create-repository-modal";
+import { EditRepositoryModal } from "@/components/repositories/edit-repository-modal";
+import { RepositoryTokenManager } from "@/components/repositories/repository-token-manager";
 import { Filters } from "@/components/repositories/filters";
 import { StatsContainer } from "@/components/repositories/stats";
 import { TableContainer } from "@/components/repositories/table";
@@ -20,6 +22,18 @@ export default function RepositoriesPage() {
         createModalOpened,
         { open: openCreateModal, close: closeCreateModal },
     ] = useDisclosure(false);
+    
+    const [
+        editModalOpened,
+        { open: openEditModal, close: closeEditModal },
+    ] = useDisclosure(false);
+    
+    const [
+        tokenModalOpened,
+        { open: openTokenModal, close: closeTokenModal },
+    ] = useDisclosure(false);
+    
+    const [selectedRepository, setSelectedRepository] = useState<Repository | null>(null);
 
     const [filters, setFilters] = useState<RepositoriesQuery>({
         page: 1,
@@ -52,11 +66,13 @@ export default function RepositoriesPage() {
     };
 
     const handleEdit = (repository: Repository) => {
-        console.log("Edit repository:", repository);
+        setSelectedRepository(repository);
+        openEditModal();
     };
 
     const handleManageTokens = (repository: Repository) => {
-        console.log("Manage tokens for repository:", repository);
+        setSelectedRepository(repository);
+        openTokenModal();
     };
 
     return (
@@ -106,6 +122,18 @@ export default function RepositoriesPage() {
             <CreateRepositoryModal
                 opened={createModalOpened}
                 onClose={closeCreateModal}
+            />
+            
+            <EditRepositoryModal
+                opened={editModalOpened}
+                onClose={closeEditModal}
+                repository={selectedRepository}
+            />
+            
+            <RepositoryTokenManager
+                opened={tokenModalOpened}
+                onClose={closeTokenModal}
+                repository={selectedRepository}
             />
         </>
     );
