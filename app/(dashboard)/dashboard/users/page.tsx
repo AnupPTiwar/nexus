@@ -1,110 +1,123 @@
 "use client";
 
-import { Pagination, Stack } from "@mantine/core";
-import { IconUsers } from "@tabler/icons-react";
-import { useCallback, useState } from "react";
+import { Button, Group, Pagination, Stack } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconPlus, IconUsers } from "@tabler/icons-react";
+import { useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import type { FilterValues } from "@/components/users/filters/filters";
-import { Filters } from "@/components/users/filters/filters";
 import { PermissionsModal } from "@/components/users/permissions-modal";
+import { Filters } from "@/components/users/filters";
 import { StatsContainer } from "@/components/users/stats";
 import { TableContainer } from "@/components/users/table";
 import { useUsers } from "@/hooks/use-users";
-import type { User, UserStatus, UsersQuery } from "@/lib/validations/user";
+import type {
+    UsersQuery,
+    User,
+} from "@/lib/validations/user";
 
 export default function UsersPage() {
+    const [
+        permissionsModalOpened,
+        { open: openPermissionsModal, close: closePermissionsModal },
+    ] = useDisclosure(false);
+    
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [permissionsModalOpened, setPermissionsModalOpened] = useState(false);
 
-    const [query, setQuery] = useState<UsersQuery>({
+    const [filters, setFilters] = useState<UsersQuery>({
         page: 1,
         limit: 10,
-        search: "",
-        status: undefined,
         sortBy: "createdAt",
         sortOrder: "desc",
     });
 
-    const { data, isLoading } = useUsers(query);
+    const { data, isLoading } = useUsers(filters);
 
-    const handleFilterChange = useCallback((filters: FilterValues) => {
-        setQuery((prev) => ({
+    const handleFiltersChange = (newFilters: Partial<UsersQuery>) => {
+        setFilters((prev) => ({
             ...prev,
-            page: 1, // Reset to first page when filtering
-            search: filters.search,
-            status: (filters.status || undefined) as UserStatus | undefined,
+            ...newFilters,
+            page: newFilters.page || 1,
         }));
-    }, []);
+    };
 
-    const handleSort = useCallback((field: string) => {
-        setQuery((prev) => ({
-            ...prev,
-            sortBy: field as UsersQuery["sortBy"],
-            sortOrder:
-                prev.sortBy === field && prev.sortOrder === "asc"
-                    ? "desc"
-                    : "asc",
-        }));
-    }, []);
+    const handleClearFilters = () => {
+        setFilters({
+            page: 1,
+            limit: 10,
+            sortBy: "createdAt",
+            sortOrder: "desc",
+        });
+    };
 
-    const handlePageChange = useCallback((page: number) => {
-        setQuery((prev) => ({ ...prev, page }));
-    }, []);
+    const handlePageChange = (page: number) => {
+        setFilters((prev) => ({ ...prev, page }));
+    };
 
-    const handleManagePermissions = useCallback((user: User) => {
+    const handleEdit = (user: User) => {
+        console.log("Edit user:", user);
+    };
+
+    const handleManagePermissions = (user: User) => {
         setSelectedUser(user);
-        setPermissionsModalOpened(true);
-    }, []);
+        openPermissionsModal();
+    };
 
-    const handleClosePermissionsModal = useCallback(() => {
-        setPermissionsModalOpened(false);
+    const handlePermissionsClose = () => {
         setSelectedUser(null);
-    }, []);
+        closePermissionsModal();
+    };
 
     return (
         <>
             <PageHeader
                 title="Users"
-                description="Manage team members and their access permissions"
+                description="Manage user access and permissions"
                 icon={IconUsers}
-                color="cyan"
+                color="blue"
             />
 
-            <Stack gap="lg">
-                <StatsContainer />
+            <StatsContainer />
 
+            <Group justify="space-between" mb="lg">
                 <Filters
-                    onFilterChange={handleFilterChange}
-                    isLoading={isLoading}
+                    filters={filters}
+                    onFiltersChange={handleFiltersChange}
+                    onClearFilters={handleClearFilters}
                 />
+                <Button
+                    leftSection={<IconPlus size={16} />}
+                    onClick={() => console.log("Add user")}
+                >
+                    Add User
+                </Button>
+            </Group>
 
+            <Stack gap="md">
                 <TableContainer
                     users={data?.users || []}
                     isLoading={isLoading}
-                    sortBy={query.sortBy}
-                    sortOrder={query.sortOrder}
-                    onSort={handleSort}
+                    onEdit={handleEdit}
                     onManagePermissions={handleManagePermissions}
                 />
 
                 {data?.pagination && data.pagination.totalPages > 1 && (
-                    <Pagination
-                        total={data.pagination.totalPages}
-                        value={data.pagination.page}
-                        onChange={handlePageChange}
-                        size="sm"
-                        withEdges
-                        style={{ alignSelf: "center" }}
-                        disabled={isLoading}
-                    />
+                    <Group justify="center">
+                        <Pagination
+                            total={data.pagination.totalPages}
+                            value={data.pagination.page}
+                            onChange={handlePageChange}
+                        />
+                    </Group>
                 )}
             </Stack>
 
-            <PermissionsModal
-                opened={permissionsModalOpened}
-                onClose={handleClosePermissionsModal}
-                user={selectedUser}
-            />
+            {selectedUser && (
+                <PermissionsModal
+                    opened={permissionsModalOpened}
+                    onClose={handlePermissionsClose}
+                    user={selectedUser}
+                />
+            )}
         </>
     );
 }

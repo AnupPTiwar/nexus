@@ -1,86 +1,97 @@
 "use client";
 
-import { Button, Group, Paper, Select, TextInput } from "@mantine/core";
-import { IconFilter, IconSearch, IconX } from "@tabler/icons-react";
-import { useState } from "react";
+import { Button, Group, Select, TextInput } from "@mantine/core";
+import { IconSearch, IconX } from "@tabler/icons-react";
+import type { UsersQuery } from "@/lib/validations/user";
+import type { UserStatus } from "@/prisma";
 
 interface FiltersProps {
-    onFilterChange: (filters: FilterValues) => void;
-    isLoading?: boolean;
+    filters: UsersQuery;
+    onFiltersChange: (filters: Partial<UsersQuery>) => void;
+    onClearFilters: () => void;
 }
 
-export interface FilterValues {
-    search: string;
-    status: string;
-}
-
-export function Filters({ onFilterChange, isLoading = false }: FiltersProps) {
-    const [filters, setFilters] = useState<FilterValues>({
-        search: "",
-        status: "",
-    });
-
-    const handleSearchChange = (value: string) => {
-        const newFilters = { ...filters, search: value };
-        setFilters(newFilters);
-        onFilterChange(newFilters);
-    };
-
-    const handleStatusChange = (value: string | null) => {
-        const newFilters = { ...filters, status: value || "" };
-        setFilters(newFilters);
-        onFilterChange(newFilters);
-    };
-
-    const handleClearFilters = () => {
-        const newFilters = { search: "", status: "" };
-        setFilters(newFilters);
-        onFilterChange(newFilters);
-    };
-
-    const hasActiveFilters = filters.search || filters.status;
+export function Filters({
+    filters,
+    onFiltersChange,
+    onClearFilters,
+}: FiltersProps) {
+    const hasActiveFilters = Boolean(filters.search || filters.status);
 
     return (
-        <Paper p="md" radius="md" withBorder mb="lg">
-            <Group justify="space-between">
-                <Group gap="md" style={{ flex: 1 }}>
-                    <TextInput
-                        placeholder="Search by name or email..."
-                        leftSection={<IconSearch size={16} />}
-                        value={filters.search}
-                        onChange={(e) => handleSearchChange(e.currentTarget.value)}
-                        disabled={isLoading}
-                        style={{ flex: 1, maxWidth: 300 }}
-                    />
-                    
-                    <Select
-                        placeholder="Filter by status"
-                        data={[
-                            { value: "ACTIVE", label: "Active" },
-                            { value: "INACTIVE", label: "Inactive" },
-                            { value: "LOCKED", label: "Locked" },
-                            { value: "PENDING_VERIFICATION", label: "Pending Verification" },
-                        ]}
-                        value={filters.status}
-                        onChange={handleStatusChange}
-                        clearable
-                        disabled={isLoading}
-                        leftSection={<IconFilter size={16} />}
-                        style={{ width: 200 }}
-                    />
-                </Group>
+        <Group gap="md" mb="lg">
+            <TextInput
+                placeholder="Search users..."
+                leftSection={<IconSearch size={16} />}
+                value={filters.search || ""}
+                onChange={(event) =>
+                    onFiltersChange({
+                        search: event.currentTarget.value || undefined,
+                    })
+                }
+                style={{ flex: 1, minWidth: 200 }}
+            />
 
-                {hasActiveFilters && (
-                    <Button
-                        variant="subtle"
-                        leftSection={<IconX size={16} />}
-                        onClick={handleClearFilters}
-                        disabled={isLoading}
-                    >
-                        Clear filters
-                    </Button>
-                )}
-            </Group>
-        </Paper>
+            <Select
+                placeholder="Status"
+                data={[
+                    { value: "ACTIVE", label: "Active" },
+                    { value: "INACTIVE", label: "Inactive" },
+                    { value: "LOCKED", label: "Locked" },
+                    {
+                        value: "PENDING_VERIFICATION",
+                        label: "Pending Verification",
+                    },
+                ]}
+                value={filters.status || null}
+                onChange={(value) =>
+                    onFiltersChange({
+                        status: (value as UserStatus) || undefined,
+                    })
+                }
+                clearable
+                w={180}
+            />
+
+            <Select
+                placeholder="Sort by"
+                data={[
+                    { value: "createdAt", label: "Created Date" },
+                    { value: "name", label: "Name" },
+                    { value: "email", label: "Email" },
+                    { value: "lastLoginAt", label: "Last Login" },
+                    { value: "status", label: "Status" },
+                ]}
+                value={filters.sortBy}
+                onChange={(value) =>
+                    onFiltersChange({ sortBy: value as typeof filters.sortBy })
+                }
+                w={140}
+            />
+
+            <Select
+                placeholder="Order"
+                data={[
+                    { value: "desc", label: "Descending" },
+                    { value: "asc", label: "Ascending" },
+                ]}
+                value={filters.sortOrder}
+                onChange={(value) =>
+                    onFiltersChange({ sortOrder: value as "asc" | "desc" })
+                }
+                w={120}
+            />
+
+            {hasActiveFilters && (
+                <Button
+                    variant="light"
+                    color="gray"
+                    leftSection={<IconX size={16} />}
+                    onClick={onClearFilters}
+                >
+                    Clear
+                </Button>
+            )}
+        </Group>
     );
 }

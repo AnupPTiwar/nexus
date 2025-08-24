@@ -16,7 +16,7 @@ import {
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconShieldCheck, IconUserEdit } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUpdateUserPermissions } from "@/hooks/use-users";
 import type {
     ResourceAction,
@@ -62,10 +62,17 @@ export function PermissionsModal({
     user,
 }: PermissionsModalProps) {
     const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(
-        new Set(user?.permissions || []),
+        new Set(),
     );
 
     const updatePermissions = useUpdateUserPermissions(user?.id || "");
+
+    // Update selectedPermissions when user prop changes
+    useEffect(() => {
+        if (user?.permissions) {
+            setSelectedPermissions(new Set(user.permissions));
+        }
+    }, [user]);
 
     const handleTogglePermission = (permission: string) => {
         const newPermissions = new Set(selectedPermissions);
