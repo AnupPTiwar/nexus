@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -7,14 +7,14 @@ interface RouteParams {
 }
 
 // POST /api/notifications/[id]/read - Mark a notification as read
-export async function POST(
-    request: NextRequest,
-    { params }: RouteParams
-) {
+export async function POST(request: NextRequest, { params }: RouteParams) {
     try {
         const session = await auth();
         if (!session?.user?.id) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            return NextResponse.json(
+                { error: "Unauthorized" },
+                { status: 401 },
+            );
         }
 
         const { id } = params;
@@ -28,15 +28,12 @@ export async function POST(
         if (!notification) {
             return NextResponse.json(
                 { error: "Notification not found" },
-                { status: 404 }
+                { status: 404 },
             );
         }
 
         if (notification.userId !== session.user.id) {
-            return NextResponse.json(
-                { error: "Forbidden" },
-                { status: 403 }
-            );
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
         }
 
         // Only update if not already read
@@ -55,7 +52,7 @@ export async function POST(
         console.error("Failed to mark notification as read:", error);
         return NextResponse.json(
             { error: "Failed to mark notification as read" },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

@@ -1,13 +1,7 @@
-import Redis from "ioredis";
+import IORedis from "ioredis";
 
-// Redis configuration for workers
-const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
-
-export const redis = new Redis(redisUrl, {
-    lazyConnect: true,
-    keepAlive: 30000,
-    commandTimeout: 5000,
-    db: 0,
+// Redis connection
+const redis = new IORedis({
     maxRetriesPerRequest: null,
 });
 

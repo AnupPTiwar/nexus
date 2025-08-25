@@ -8,12 +8,28 @@ import redis from "../redis";
 // Helper function to publish progress updates
 async function publishProgress(
     syncJobId: string,
+    userId: string,
     progressData: Record<string, unknown>,
 ) {
     try {
+        // Publish to sync progress channel
         await redis.publish(
             `sync:progress:${syncJobId}`,
             JSON.stringify(progressData),
+        );
+        
+        // Also publish to user's notification channel for real-time updates
+        const notificationData = {
+            type: "sync_progress",
+            syncJobId,
+            ...progressData,
+            timestamp: new Date().toISOString(),
+        };
+        
+        console.log(`📡 Publishing to notifications:${userId}:`, notificationData);
+        await redis.publish(
+            `notifications:${userId}`,
+            JSON.stringify(notificationData),
         );
     } catch (error) {
         console.error("Failed to publish progress:", error);
@@ -24,6 +40,18 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
     const { repositoryId, syncJobId, userId, options, repository } = job.data;
 
     try {
+        // Immediately publish sync started event
+        await publishProgress(syncJobId, userId, {
+            stage: "started",
+            message: "Repository sync started",
+            status: "PROCESSING",
+            repository: {
+                name: repository.name,
+                owner: repository.owner,
+            },
+            jobId: syncJobId,
+        });
+
         // Update job to processing status
         await prisma.syncJob.update({
             where: { id: syncJobId },
@@ -33,11 +61,18 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
             },
         });
 
+        // Add a small delay to see the initialization
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
         // Publish initial progress
-        await publishProgress(syncJobId, {
+        await publishProgress(syncJobId, userId, {
             stage: "initializing",
             message: "Setting up GitHub client...",
             status: "PROCESSING",
+            repository: {
+                name: repository.name,
+                owner: repository.owner,
+            },
         });
 
         // Update job progress
@@ -59,10 +94,14 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
 
         // Sync workflows
         if (options.syncWorkflows) {
-            await publishProgress(syncJobId, {
+            await publishProgress(syncJobId, userId, {
                 stage: "workflows",
                 message: "Fetching workflows from GitHub...",
                 progress,
+                repository: {
+                    name: repository.name,
+                    owner: repository.owner,
+                },
             });
 
             await job.updateProgress({
@@ -118,10 +157,14 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
 
                         // Update progress periodically
                         if (progress.workflows.completed % 5 === 0) {
-                            await publishProgress(syncJobId, {
+                            await publishProgress(syncJobId, userId, {
                                 stage: "workflows",
                                 message: `Processed ${progress.workflows.completed}/${progress.workflows.total} workflows`,
                                 progress,
+                                repository: {
+                                    name: repository.name,
+                                    owner: repository.owner,
+                                },
                             });
 
                             await job.updateProgress({
@@ -389,13 +432,17 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
         });
 
         // Publish completion progress
-        await publishProgress(syncJobId, {
+        await publishProgress(syncJobId, userId, {
             stage: "completed",
             message: `Sync completed successfully. Processed ${totalProcessed} items, ${totalFailed} failed.`,
             status: "COMPLETED",
             progress,
             totalProcessed,
             totalFailed,
+            repository: {
+                name: repository.name,
+                owner: repository.owner,
+            },
         });
 
         // Create success notification
@@ -421,11 +468,15 @@ export async function processSyncJob(job: Job<RepositorySyncJobData>) {
         console.error("Sync job failed:", error);
 
         // Publish failure progress
-        await publishProgress(syncJobId, {
+        await publishProgress(syncJobId, userId, {
             stage: "failed",
             message: `Sync failed: ${error instanceof Error ? error.message : "Unknown error"}`,
             status: "FAILED",
             error: error instanceof Error ? error.message : "Unknown error",
+            repository: {
+                name: repository.name,
+                owner: repository.owner,
+            },
         });
 
         // Update sync job as failed

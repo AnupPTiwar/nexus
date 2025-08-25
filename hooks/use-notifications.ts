@@ -1,10 +1,10 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { 
-    Notification, 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type {
+    Notification,
     NotificationFilters,
-    NotificationStats 
+    NotificationStats,
 } from "@/types/notification";
 
 interface NotificationsQuery extends NotificationFilters {
@@ -24,14 +24,22 @@ export function useNotifications(query: NotificationsQuery = {}) {
         queryKey: ["notifications", query],
         queryFn: async () => {
             const searchParams = new URLSearchParams();
-            
+
             // Add query parameters
             Object.entries(query).forEach(([key, value]) => {
                 if (value !== undefined) {
                     if (Array.isArray(value)) {
-                        value.forEach(v => searchParams.append(key, String(v)));
-                    } else if (key === "dateRange" && typeof value === "object") {
-                        searchParams.append("dateFrom", value.from.toISOString());
+                        value.forEach((v) => {
+                            searchParams.append(key, String(v));
+                        });
+                    } else if (
+                        key === "dateRange" &&
+                        typeof value === "object"
+                    ) {
+                        searchParams.append(
+                            "dateFrom",
+                            value.from.toISOString(),
+                        );
                         searchParams.append("dateTo", value.to.toISOString());
                     } else {
                         searchParams.append(key, String(value));
@@ -53,7 +61,8 @@ export function useNotificationStats() {
         queryKey: ["notifications", "stats"],
         queryFn: async () => {
             const response = await fetch("/api/notifications/stats");
-            if (!response.ok) throw new Error("Failed to fetch notification stats");
+            if (!response.ok)
+                throw new Error("Failed to fetch notification stats");
             return response.json();
         },
         staleTime: 30 * 1000, // 30 seconds
@@ -66,13 +75,18 @@ export function useMarkNotificationRead() {
 
     return useMutation<void, Error, string>({
         mutationFn: async (notificationId) => {
-            const response = await fetch(`/api/notifications/${notificationId}/read`, {
-                method: "POST",
-            });
+            const response = await fetch(
+                `/api/notifications/${notificationId}/read`,
+                {
+                    method: "POST",
+                },
+            );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to mark notification as read");
+                throw new Error(
+                    error.error || "Failed to mark notification as read",
+                );
             }
         },
         onSuccess: () => {
@@ -93,7 +107,9 @@ export function useMarkAllNotificationsRead() {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to mark all notifications as read");
+                throw new Error(
+                    error.error || "Failed to mark all notifications as read",
+                );
             }
         },
         onSuccess: () => {
@@ -108,13 +124,18 @@ export function useDismissNotification() {
 
     return useMutation<void, Error, string>({
         mutationFn: async (notificationId) => {
-            const response = await fetch(`/api/notifications/${notificationId}`, {
-                method: "DELETE",
-            });
+            const response = await fetch(
+                `/api/notifications/${notificationId}`,
+                {
+                    method: "DELETE",
+                },
+            );
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to dismiss notification");
+                throw new Error(
+                    error.error || "Failed to dismiss notification",
+                );
             }
         },
         onSuccess: () => {
@@ -135,7 +156,9 @@ export function useDismissAllNotifications() {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to dismiss all notifications");
+                throw new Error(
+                    error.error || "Failed to dismiss all notifications",
+                );
             }
         },
         onSuccess: () => {
@@ -156,10 +179,12 @@ export function useNotificationStream() {
             eventSource.onmessage = (event) => {
                 try {
                     const notificationEvent = JSON.parse(event.data);
-                    
+
                     // Invalidate queries to refetch notifications
-                    queryClient.invalidateQueries({ queryKey: ["notifications"] });
-                    
+                    queryClient.invalidateQueries({
+                        queryKey: ["notifications"],
+                    });
+
                     // Could also show toast notifications here
                     console.log("New notification:", notificationEvent);
                 } catch (error) {

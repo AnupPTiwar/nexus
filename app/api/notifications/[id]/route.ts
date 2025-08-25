@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -7,14 +7,14 @@ interface RouteParams {
 }
 
 // DELETE /api/notifications/[id] - Dismiss a specific notification
-export async function DELETE(
-    request: NextRequest,
-    { params }: RouteParams
-) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
     try {
         const session = await auth();
         if (!session?.user?.id) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            return NextResponse.json(
+                { error: "Unauthorized" },
+                { status: 401 },
+            );
         }
 
         const { id } = params;
@@ -28,15 +28,12 @@ export async function DELETE(
         if (!notification) {
             return NextResponse.json(
                 { error: "Notification not found" },
-                { status: 404 }
+                { status: 404 },
             );
         }
 
         if (notification.userId !== session.user.id) {
-            return NextResponse.json(
-                { error: "Forbidden" },
-                { status: 403 }
-            );
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
         }
 
         // Delete the notification
@@ -49,7 +46,7 @@ export async function DELETE(
         console.error("Failed to dismiss notification:", error);
         return NextResponse.json(
             { error: "Failed to dismiss notification" },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

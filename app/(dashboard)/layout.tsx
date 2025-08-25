@@ -34,6 +34,7 @@ import {
 } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { NotificationSidebar } from "@/components/dashboard/notification-sidebar";
 
 const navigation = [
     {
@@ -80,7 +81,7 @@ export default function DashboardLayout({
 }) {
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
     const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-    const [asideOpened, { toggle: toggleAside }] = useDisclosure();
+    const [asideOpened, { toggle: toggleAside }] = useDisclosure(true); // Show notifications panel by default
     const pathname = usePathname();
     const router = useRouter();
     const { data: session } = useSession();
@@ -293,59 +294,7 @@ export default function DashboardLayout({
             <AppShell.Main>{children}</AppShell.Main>
 
             <AppShell.Aside p="md">
-                <Stack h="100%">
-                    <Group justify="space-between">
-                        <Text fw={600}>Notifications</Text>
-                        <ActionIcon
-                            size="sm"
-                            variant="subtle"
-                            onClick={toggleAside}
-                        >
-                            ×
-                        </ActionIcon>
-                    </Group>
-                    <Divider />
-                    <ScrollArea style={{ flex: 1 }}>
-                        <Stack gap="sm">
-                            <Card padding="sm" radius="md" withBorder>
-                                <Stack gap="xs">
-                                    <Group justify="space-between">
-                                        <Badge size="sm" color="blue">
-                                            Workflow
-                                        </Badge>
-                                        <Text size="xs" c="dimmed">
-                                            2 min ago
-                                        </Text>
-                                    </Group>
-                                    <Text size="sm" fw={500}>
-                                        Build completed successfully
-                                    </Text>
-                                    <Text size="xs" c="dimmed">
-                                        Repository: nexus-core
-                                    </Text>
-                                </Stack>
-                            </Card>
-                            <Card padding="sm" radius="md" withBorder>
-                                <Stack gap="xs">
-                                    <Group justify="space-between">
-                                        <Badge size="sm" color="green">
-                                            System
-                                        </Badge>
-                                        <Text size="xs" c="dimmed">
-                                            1 hour ago
-                                        </Text>
-                                    </Group>
-                                    <Text size="sm" fw={500}>
-                                        New repository synchronized
-                                    </Text>
-                                    <Text size="xs" c="dimmed">
-                                        5 workflows imported
-                                    </Text>
-                                </Stack>
-                            </Card>
-                        </Stack>
-                    </ScrollArea>
-                </Stack>
+                <NotificationSidebar onClose={toggleAside} />
             </AppShell.Aside>
         </AppShell>
     );
